@@ -1,7 +1,7 @@
 tmp
 .classpath
 .project
-.idea
+/.idea/
 .iml
 .checkstyle
 build
