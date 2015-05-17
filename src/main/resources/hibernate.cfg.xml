@@ -13,5 +13,6 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <mapping resource="Person.hbm.xml"/>
         <mapping resource="Department.hbm.xml"/>
+        <mapping resource="People.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

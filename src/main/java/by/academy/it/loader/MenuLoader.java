@@ -1,15 +1,22 @@
 package by.academy.it.loader;
 
 import by.academy.it.database.DepartmentDao;
+import by.academy.it.database.EmployeeDao;
+import by.academy.it.database.PeopleDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
+import by.academy.it.domain.peopleentity.Employee;
+import by.academy.it.domain.peopleentity.People;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 import static by.academy.it.loader.DepartmentMenu.*;
+import static by.academy.it.loader.EmployeeMenu.createEmployee;
+import static by.academy.it.loader.PeopleMenu.createPeople;
+import static by.academy.it.loader.PeopleMenu.findPeople;
 import static by.academy.it.loader.PersonMenu.*;
 
 /**
@@ -21,10 +28,15 @@ public class MenuLoader {
     public static Boolean needMenu = true;
     private static PersonDao personDao = null;
     private static DepartmentDao departmentDao = null;
+    private static PeopleDao peopleDao = null;
+    private static EmployeeDao employeeDao = null;
+
 
     public void menu() throws DaoException {
         Person person = null;
         Department department = null;
+        People people = null;
+        Employee employee = null;
         Integer id;
         while (needMenu) {
             printMenu();
@@ -118,6 +130,17 @@ public class MenuLoader {
                 case 20:
                     flushDepartmentSession();
                     break;
+                case 21:
+                    people = createPeople(people);
+                    getPeopleDao().saveOrUpdate(people);
+                    break;
+                case 22:
+                    people = findPeople();
+                    break;
+                case 23:
+                    employee = createEmployee(employee);
+                    getEmployeeDao().saveOrUpdate(employee);
+                    break;
                 default:
                     needMenu = true;
                     break;
@@ -125,6 +148,7 @@ public class MenuLoader {
             needMenu = true;
         }
     }
+
 
     private static void printMenu() {
         System.out.println("\n+-----------------------------------------------+");
@@ -136,7 +160,7 @@ public class MenuLoader {
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         System.out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        System.out.println("|18. Upd Depart with name| 19. Flush Person sess| 20. Flush Depart session |  21.                       | 22.                   | 23.                  |");
+        System.out.println("|18. Upd Depart with name| 19. Flush Person sess| 20. Flush Depart session |  21. Save or update people |    22. Get People     |23.Save or update Empl|");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
     }
 
@@ -161,6 +185,20 @@ public class MenuLoader {
             departmentDao = new DepartmentDao();
         }
         return departmentDao;
+    }
+
+    public static PeopleDao getPeopleDao() {
+        if (peopleDao == null) {
+            peopleDao = new PeopleDao();
+        }
+        return peopleDao;
+    }
+
+    public static EmployeeDao getEmployeeDao() {
+        if (employeeDao == null) {
+            employeeDao = new EmployeeDao();
+        }
+        return employeeDao;
     }
 
 

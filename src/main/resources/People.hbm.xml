@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        <hibernate-mapping package="by.academy.it.domain.peopleentity" default-cascade="">
+            <class name="People" table="T_PEOPLE" discriminator-value="P">
+                <id name="id" type="int" column="F_ID">
+                    <generator class="increment"/>
+                </id>
+                <discriminator column="F_PERSON_TYPE" type="string"/>
+                <property name="name" column="F_NAME" type="string"/>
+                <property name="surname" column="F_SURNAME" type="string"/>
+                <subclass name="Employee" discriminator-value="E">
+                    <property name="company"/>
+                    <property name="salary"/>
+                </subclass>
+                <subclass name="Student" discriminator-value="S">
+                    <property name="faculty"/>
+                    <property name="mark"/>
+                </subclass>
+            </class>
+
+</hibernate-mapping>

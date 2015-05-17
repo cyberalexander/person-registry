@@ -12,6 +12,17 @@
       <column name="F_DEP_NAME" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="F_ID"/>
     </table>
+    <table name="T_PEOPLE" schema="" catalog="studyjava" type="TABLE">
+      <column name="F_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="F_NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="F_SURNAME" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="F_COMPANY" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="F_SALARY" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="F_FACULTY" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="F_MARK" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="F_PERSON_TYPE" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="F_ID"/>
+    </table>
     <table name="T_PERSON" schema="" catalog="studyjava" type="TABLE">
       <column name="F_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="F_AGE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
@@ -35,7 +46,6 @@
       <column name="F_HOME_CITY" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="F_HOME_STREET" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="F_ID"/>
-      <index name="F_HOME_STREET_UNIQUE" unique="true" columns="F_HOME_STREET"/>
     </table>
   </data-source>
 </component>
