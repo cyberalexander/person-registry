@@ -29,6 +29,7 @@ public class Student extends People implements Serializable{
         this.mark = mark;
     }
 
+
     @Override
     public int hashCode() {
         int result = faculty != null ? faculty.hashCode() : 0;

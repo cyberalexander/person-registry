@@ -1,9 +1,6 @@
 package by.academy.it.loader;
 
-import by.academy.it.domain.Address;
 import by.academy.it.domain.peopleentity.Employee;
-import by.academy.it.domain.peopleentity.People;
-import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;

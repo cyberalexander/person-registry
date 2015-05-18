@@ -3,6 +3,7 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
+import by.academy.it.domain.peopleentity.Employee;
 import by.academy.it.domain.peopleentity.People;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
@@ -26,12 +27,23 @@ public class PeopleMenu extends MenuLoader {
      */
     protected static People createPeople(People people) {
         System.out.println("Please enter people description:");
+        String parameter;
+        //Employee employee = new Employee();
         if (people == null){
             people = new People();
         }
+
         Scanner scanner = new Scanner(System.in);
+
+        /*System.out.print("Write company - ");
+        parameter = scanner.nextLine();
+        employee.setCompany(parameter);
+        System.out.print("Write company - ");
+        Double param = scanner.nextDouble();
+        employee.setSalary(param);*/
+
         System.out.print(Constants.ConstList.WRITE_NAME);
-        String parameter = scanner.nextLine();
+        parameter = scanner.nextLine();
         people.setName(parameter);
         System.out.print(Constants.ConstList.WRITE_SURNAME);
         parameter = scanner.nextLine();

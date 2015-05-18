@@ -7,8 +7,10 @@ import java.io.Serializable;
  */
 public class Address implements Serializable {
 
+    private Integer personId;
     private String city;
     private String street;
+    private Person person;
 
     public Address() {
     }
@@ -34,10 +36,28 @@ public class Address implements Serializable {
         this.street = street;
     }
 
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     @Override
     public int hashCode() {
         int result = city != null ? city.hashCode() : 0;
         result = 31 * result + (street != null ? street.hashCode() : 0);
+        result = 31 * result + (personId != null ? personId.hashCode() : 0);
+        result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }
 
@@ -49,11 +69,18 @@ public class Address implements Serializable {
         Address address = (Address) obj;
         if (city != null ? !city.equals(address.city) : address.city != null) return false;
         if (street != null ? !street.equals(address.street) : address.street != null) return false;
+        if (personId != null ? !personId.equals(address.personId) : address.personId != null) return false;
+        if (person != null ? !person.equals(address.person) : address.person != null) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Address{" +
+                "personId=" + personId +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", person=" + person +
+                '}';
     }
 }

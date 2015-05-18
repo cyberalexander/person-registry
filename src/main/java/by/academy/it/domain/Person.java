@@ -9,42 +9,43 @@ public class Person implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private Integer personId;
     private Integer age;
     private String name;
     private String surname;
     private Integer department_id;
-    private Address homeAddress;
-    private Address workAddress;
+    private Address address;
 
-    public Person(Integer id, String name, String surname, Integer age, Integer department_id, Address homeAddress, Address workAddress) {
-        this.age = age;
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.department_id = department_id;
-        this.homeAddress = homeAddress;
-        this.workAddress = workAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public Person(String name, String surname, Integer age, Integer department_id, Address homeAddress, Address workAddress) {
+    public Person(Integer personId, String name, String surname, Integer age, Integer department_id, Address address) {
+        this.age = age;
+        this.personId = personId;
+        this.name = name;
+        this.surname = surname;
+        this.department_id = department_id;
+        this.address = address;
+    }
+
+    public Person(String name, String surname, Integer age, Integer department_id, Address address) {
         this.age = age;
         this.name = name;
         this.surname = surname;
         this.department_id = department_id;
-        this.homeAddress = homeAddress;
-        this.workAddress = workAddress;
+        this.address = address;
     }
 
     public Person() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getPersonId() {
+        return personId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPersonId(Integer id) {
+        this.personId = id;
     }
 
     public Integer getAge() {
@@ -79,20 +80,8 @@ public class Person implements Serializable{
         this.department_id = department_id;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public Address getWorkAddress() {
-        return workAddress;
-    }
-
-    public void setWorkAddress(Address workAddress) {
-        this.workAddress = workAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -103,30 +92,28 @@ public class Person implements Serializable{
         Person person = (Person) obj;
 
         if (age != null ? !age.equals(person.age) : person.age != null) return false;
-        if (id != null ? !id.equals(person.id) : person.id != null) return false;
+        if (personId != null ? !personId.equals(person.personId) : person.personId != null) return false;
         if (name != null ? !name.equals(person.name) : person.name != null) return false;
         if (surname != null ? !surname.equals(person.surname) : person.surname != null) return false;
         if (department_id != null ? !department_id.equals(person.department_id) : person.department_id != null) return false;
-        if (homeAddress != null ? !homeAddress.equals(person.homeAddress) : person.homeAddress != null) return false;
-        if (workAddress != null ? !workAddress.equals(person.workAddress) : person.workAddress != null) return false;
+        if (address != null ? !address.equals(person.address) : person.address != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = personId != null ? personId.hashCode() : 0;
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (department_id != null ? department_id.hashCode() : 0);
-        result = 31 * result + (homeAddress != null ? homeAddress.hashCode() : 0);
-        result = 31 * result + (homeAddress != null ? homeAddress.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Person : id: " + id + " Name: " + name + " Surname: " + surname + " Age: " +age + " Department: " +department_id;
+        return "Person : id: " + personId + " Name: " + name + " Surname: " + surname + " Age: " +age + " Department: " +department_id;
     }
 }

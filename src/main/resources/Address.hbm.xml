@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.academy.it.domain">
+    <class name="Address" table="T_ADDRESS" lazy="false">
+        <id name="personId" column="F_PERSON_ID">
+            <generator class="foreign">
+                <param name="property">person</param>
+            </generator>
+        </id>
+        <one-to-one name="person" class="Person" constrained="true"/>
+        <property name="city" column="F_CITY"/>
+        <property name="street" column="F_STREET"/>
+    </class>
+</hibernate-mapping>

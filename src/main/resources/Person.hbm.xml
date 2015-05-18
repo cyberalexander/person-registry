@@ -3,20 +3,23 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
         <hibernate-mapping package="by.academy.it.domain" auto-import="false" catalog="studyjava">
             <class name="Person" table="T_PERSON" lazy="false">
-                <id name="id" type="int" column="F_ID">
+                <id name="personId" type="int" column="F_PERSON_ID">
                     <generator class="increment"/>
                 </id>
+                <one-to-one name="address" class="Address" constrained="true"/>
                 <property name="name" column="F_NAME" type="string"/>
                 <property name="surname" column="F_SURNAME" type="string"/>
                 <property name="age" column="F_AGE" type="int"/>
                 <property name="department_id" column="F_DEPARTMENT_ID" type="int"/>
-                <component name="homeAddress" class="by.academy.it.domain.Address">
+
+                <!-- Components, if person have address in the same table -->
+                <!--<component name="homeAddress" class="by.academy.it.domain.Address">
                     <property name="city" column="F_HOME_CITY"/>
                     <property name="street" column="F_HOME_STREET"/>
                 </component>
                 <component name="workAddress" class="by.academy.it.domain.Address">
                     <property name="city" column="F_CITY"/>
                     <property name="street" column="F_STREET"/>
-                </component>
+                </component>-->
             </class>
 </hibernate-mapping>

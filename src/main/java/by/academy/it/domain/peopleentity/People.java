@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Created by alexanderleonovich on 17.05.15.
+ * Cущность человек. Имеются поля Имя и фамилия. Человек может быть либо работником (employee) либо
+ * студентом (student) либо еще кем-то на усмотрение разработчика
  */
 public class People implements Serializable{
 

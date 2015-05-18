@@ -1,10 +1,8 @@
 package by.academy.it.loader;
 
-import by.academy.it.database.DepartmentDao;
-import by.academy.it.database.EmployeeDao;
-import by.academy.it.database.PeopleDao;
-import by.academy.it.database.PersonDao;
+import by.academy.it.database.*;
 import by.academy.it.database.exception.DaoException;
+import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.domain.peopleentity.Employee;
@@ -30,6 +28,7 @@ public class MenuLoader {
     private static DepartmentDao departmentDao = null;
     private static PeopleDao peopleDao = null;
     private static EmployeeDao employeeDao = null;
+    private static AddressDao addressDao = null;
 
 
     public void menu() throws DaoException {
@@ -61,12 +60,17 @@ public class MenuLoader {
                     person = null;
                     person = createPerson(person);
                     getPersonDao().save(person);
+                    Address address = person.getAddress();
+                    //address.setPersonId(person.getPersonId());
+                    address.setPerson(person);
+                    System.out.println(address.toString() + " kjvwejkvelvnwekvwenvkwevnwekvweknv");
+                    getAddressDao().save(address);
                     break;
                 case 5:
                     person = null;
                     person = createPerson(person);
                     id = getIdForSave();
-                    person.setId(id);
+                    person.setPersonId(id);
                     getPersonDao().save(person, String.valueOf(id));
                     break;
                 case 6:
@@ -132,7 +136,10 @@ public class MenuLoader {
                     break;
                 case 21:
                     people = createPeople(people);
-                    getPeopleDao().saveOrUpdate(people);
+                    employee = createEmployee(employee);
+                    getPeopleDao().save(people, employee);
+                    /*employee.setId(people.getId());
+                    getEmployeeDao().save(employee, String.valueOf(people.getId()));*/
                     break;
                 case 22:
                     people = findPeople();
@@ -199,6 +206,13 @@ public class MenuLoader {
             employeeDao = new EmployeeDao();
         }
         return employeeDao;
+    }
+
+    public static AddressDao getAddressDao() {
+        if (addressDao == null) {
+            addressDao = new AddressDao();
+        }
+        return addressDao;
     }
 
 

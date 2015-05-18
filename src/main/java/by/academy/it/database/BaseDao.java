@@ -1,6 +1,8 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
+import by.academy.it.domain.Address;
+import by.academy.it.domain.Person;
 import by.academy.it.loader.ApplicationLoader;
 import by.academy.it.util.Constants;
 import by.academy.it.util.HibernateUtil;
@@ -42,12 +44,28 @@ public abstract class BaseDao<T> implements IDao<T> {
             throw new DaoException(e);
         }
     }
+    public void save(T t, T t1) throws DaoException {
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            session.save(t);
+            session.save(t1);
+            log.info("SAVE(t):" + t);
+            log.info("SAVE(t1):" + t1);
+            transaction.commit();
+            log.info("Save (commit):" + t);
+        } catch (HibernateException e) {
+            log.error("Error save ENTITY in Dao" + e);
+            transaction.rollback();
+            throw new DaoException(e);
+        }
+    }
 
     public void save(T t, String id) throws DaoException {
         try {
             Session session = util.getSession();
             transaction = session.beginTransaction();
-            session.save(String.valueOf(id), t);
+            session.save(id, t);
             log.info("SAVE(t):" + t);
             transaction.commit();
             log.info("Save (commit):" + t);
@@ -65,6 +83,22 @@ public abstract class BaseDao<T> implements IDao<T> {
             session = util.getSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(t);
+            log.info("saveOrUpdate(t):" + t);
+            transaction.commit();
+            log.info("Save or update (commit):" + t);
+        } catch (HibernateException e) {
+            log.error("Error save or update ENTITY in Dao" + e);
+            transaction.rollback();
+            throw new DaoException(e);
+        }
+    }
+
+    public void saveOrUpdate(T t, T t1) throws DaoException {
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(t);
+            session.saveOrUpdate(t1);
             log.info("saveOrUpdate(t):" + t);
             transaction.commit();
             log.info("Save or update (commit):" + t);
@@ -208,4 +242,20 @@ public abstract class BaseDao<T> implements IDao<T> {
         this.transaction = transaction;
     }
 
+    public void save(Person person, Address address) throws DaoException {
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            session.save(person);
+            session.save(address);
+            log.info("SAVE(t):" + person);
+            log.info("SAVE(t1):" + address);
+            transaction.commit();
+            log.info("Save (commit):" + person);
+        } catch (HibernateException e) {
+            log.error("Error save ENTITY in Dao" + e);
+            transaction.rollback();
+            throw new DaoException(e);
+        }
+    }
 }

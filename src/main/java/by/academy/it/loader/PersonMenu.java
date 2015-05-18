@@ -33,21 +33,29 @@ public class PersonMenu extends MenuLoader {
             person = new Person();
         }
         Scanner scanner = new Scanner(System.in);
+
         System.out.println(Constants.ConstList.WRITE_CITY);
         address.setCity(scanner.nextLine());
+
         System.out.print(Constants.ConstList.WRITE_STREET);
         address.setStreet(scanner.nextLine());
-        person.setHomeAddress(address);
+
+        person.setAddress(address);
+
         System.out.print(Constants.ConstList.WRITE_NAME);
         String parameter = scanner.nextLine();
         person.setName(parameter);
+
         System.out.print(Constants.ConstList.WRITE_SURNAME);
         parameter = scanner.nextLine();
         person.setSurname(parameter);
+
         System.out.print(Constants.ConstList.WRITE_AGE);
         person.setAge(scanner.nextInt());
+
         System.out.println(Constants.ConstList.WRITE_DEPARTMENT_ID);
         person.setDepartment_id(scanner.nextInt());
+
         return person;
     }
 
