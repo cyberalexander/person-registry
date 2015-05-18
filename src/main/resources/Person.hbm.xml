@@ -6,7 +6,7 @@
                 <id name="personId" type="int" column="F_PERSON_ID">
                     <generator class="increment"/>
                 </id>
-                <one-to-one name="address" class="Address" constrained="true"/>
+                <one-to-one name="address" class="Address"/>
                 <property name="name" column="F_NAME" type="string"/>
                 <property name="surname" column="F_SURNAME" type="string"/>
                 <property name="age" column="F_AGE" type="int"/>

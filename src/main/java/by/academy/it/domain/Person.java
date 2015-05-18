@@ -114,6 +114,12 @@ public class Person implements Serializable{
 
     @Override
     public String toString() {
-        return "Person : id: " + personId + " Name: " + name + " Surname: " + surname + " Age: " +age + " Department: " +department_id;
+        return "Person{" +
+                "personId=" + personId +
+                ", age=" + age +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", department_id=" + department_id +
+                '}';
     }
 }

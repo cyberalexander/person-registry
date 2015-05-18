@@ -3,10 +3,7 @@ package by.academy.it.database;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
 import by.academy.it.util.HibernateUtil;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import static org.junit.Assert.*;
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
+@Ignore
 public class BaseDaoPersonTest {
 
     private static PersonDao personDao;

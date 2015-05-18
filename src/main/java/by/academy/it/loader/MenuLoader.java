@@ -1,24 +1,23 @@
 package by.academy.it.loader;
 
-import by.academy.it.database.*;
+import by.academy.it.database.AddressDao;
+import by.academy.it.database.DepartmentDao;
+import by.academy.it.database.PersonDao;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
-import by.academy.it.domain.peopleentity.Employee;
-import by.academy.it.domain.peopleentity.People;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
+import static by.academy.it.loader.AddressMenu.findAddress;
 import static by.academy.it.loader.DepartmentMenu.*;
-import static by.academy.it.loader.EmployeeMenu.createEmployee;
-import static by.academy.it.loader.PeopleMenu.createPeople;
-import static by.academy.it.loader.PeopleMenu.findPeople;
 import static by.academy.it.loader.PersonMenu.*;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
+ * Class for load menu in console and for execute operations with entities
  */
 public class MenuLoader {
 
@@ -26,16 +25,13 @@ public class MenuLoader {
     public static Boolean needMenu = true;
     private static PersonDao personDao = null;
     private static DepartmentDao departmentDao = null;
-    private static PeopleDao peopleDao = null;
-    private static EmployeeDao employeeDao = null;
     private static AddressDao addressDao = null;
 
 
     public void menu() throws DaoException {
         Person person = null;
+        Address address = null;
         Department department = null;
-        People people = null;
-        Employee employee = null;
         Integer id;
         while (needMenu) {
             printMenu();
@@ -46,36 +42,41 @@ public class MenuLoader {
                     System.exit(0);
                     break;
                 case 1:
-                    // Perform "original number" case.
+                    // Delete Person
                     person = findPerson();
                     getPersonDao().delete(person);
                     break;
                 case 2:
+                    //Get Person
                     person = findPerson();
                     break;
                 case 3:
+                    // Load Person
                     person = loadPerson();
                     break;
                 case 4:
+                    // Save Person with Address
                     person = null;
                     person = createPerson(person);
-                    getPersonDao().save(person);
-                    Address address = person.getAddress();
-                    //address.setPersonId(person.getPersonId());
+                    address = null;
+                    address = createAddress(address);
+                    person.setAddress(address);
                     address.setPerson(person);
-                    System.out.println(address.toString() + " kjvwejkvelvnwekvwenvkwevnwekvweknv");
-                    getAddressDao().save(address);
+                    getPersonDao().save(person);
+                    log.info("Saved Address-object " + address.toString());
+                    //getAddressDao().save(address);
                     break;
                 case 5:
-                    person = null;
-                    person = createPerson(person);
-                    id = getIdForSave();
-                    person.setPersonId(id);
-                    getPersonDao().save(person, String.valueOf(id));
+                    // Delete address
+                    address = findAddress();
+                    getAddressDao().delete(address);
                     break;
                 case 6:
                     person = createPerson(person);
-                    getPersonDao().saveOrUpdate(person);
+                    address = createAddress(address);
+                    person.setAddress(address);
+                    address.setPerson(person);
+                    getAddressDao().saveOrUpdate(address);
                     break;
                 case 7:
                     getAllPersons();
@@ -135,18 +136,12 @@ public class MenuLoader {
                     flushDepartmentSession();
                     break;
                 case 21:
-                    people = createPeople(people);
-                    employee = createEmployee(employee);
-                    getPeopleDao().save(people, employee);
-                    /*employee.setId(people.getId());
-                    getEmployeeDao().save(employee, String.valueOf(people.getId()));*/
+
                     break;
                 case 22:
-                    people = findPeople();
                     break;
                 case 23:
-                    employee = createEmployee(employee);
-                    getEmployeeDao().saveOrUpdate(employee);
+
                     break;
                 default:
                     needMenu = true;
@@ -161,7 +156,7 @@ public class MenuLoader {
         System.out.println("\n+-----------------------------------------------+");
         System.out.println("|     Hello, user! You are in menu. Do action:  |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        System.out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |    4. Save Pers       | 5. Save Pers with id |");
+        System.out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |    4. Save Pers       | 5. Delete Address |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         System.out.println("| 6. Save or Update Pers | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
@@ -192,20 +187,6 @@ public class MenuLoader {
             departmentDao = new DepartmentDao();
         }
         return departmentDao;
-    }
-
-    public static PeopleDao getPeopleDao() {
-        if (peopleDao == null) {
-            peopleDao = new PeopleDao();
-        }
-        return peopleDao;
-    }
-
-    public static EmployeeDao getEmployeeDao() {
-        if (employeeDao == null) {
-            employeeDao = new EmployeeDao();
-        }
-        return employeeDao;
     }
 
     public static AddressDao getAddressDao() {

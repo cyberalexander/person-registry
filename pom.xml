@@ -16,7 +16,7 @@
         <mysql.connector.version>5.1.35</mysql.connector.version>
         <log4j.version>1.2.17</log4j.version>
         <junit.version>4.4</junit.version>
-        <jdk.version>1.8.0_45</jdk.version>
+        <jdk.version>1.8</jdk.version>
     </properties>
 
     <!-- Build settings -->
@@ -63,10 +63,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
-                <!--<configuration>
+                <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
-                </configuration>-->
+                </configuration>
             </plugin>
 
         </plugins>

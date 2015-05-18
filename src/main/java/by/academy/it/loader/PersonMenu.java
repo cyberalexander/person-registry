@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class PersonMenu extends MenuLoader {
 
-    private static Logger log = Logger.getLogger(MenuLoader.class);
+    private static Logger log = Logger.getLogger(PersonMenu.class);
 
     public PersonMenu() {
     }
@@ -27,20 +27,11 @@ public class PersonMenu extends MenuLoader {
      */
     protected static Person createPerson(Person person) {
         System.out.println("Please enter person description:");
-        Address address = new Address();
 
         if (person == null){
             person = new Person();
         }
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println(Constants.ConstList.WRITE_CITY);
-        address.setCity(scanner.nextLine());
-
-        System.out.print(Constants.ConstList.WRITE_STREET);
-        address.setStreet(scanner.nextLine());
-
-        person.setAddress(address);
 
         System.out.print(Constants.ConstList.WRITE_NAME);
         String parameter = scanner.nextLine();
@@ -55,8 +46,24 @@ public class PersonMenu extends MenuLoader {
 
         System.out.println(Constants.ConstList.WRITE_DEPARTMENT_ID);
         person.setDepartment_id(scanner.nextInt());
-
         return person;
+    }
+
+    public static Address createAddress(Address address) {
+        System.out.println("Please enter address description:");
+
+        if (address == null){
+            address = new Address();
+        }
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(Constants.ConstList.WRITE_CITY);
+        address.setCity(scanner.nextLine());
+
+        System.out.print(Constants.ConstList.WRITE_STREET);
+        address.setStreet(scanner.nextLine());
+
+        return address;
     }
 
     /**
@@ -72,6 +79,8 @@ public class PersonMenu extends MenuLoader {
         Integer id = scanner.nextInt();
         try {
             person = getPersonDao().get(id);
+            Address address = getAddressDao().get(person.getPersonId());
+            person.setAddress(address);
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {
