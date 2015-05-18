@@ -119,7 +119,9 @@ public class Person implements Serializable{
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", department_id=" + department_id +
-                '}';
+                ", department_id=" + department_id + " " +
+                ", city='" + address.getCity() + '\'' +
+                ", street='" + address.getStreet() + '\'' +
+        '}';
     }
 }

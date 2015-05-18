@@ -3,6 +3,7 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
+import by.academy.it.factory.DaoFactrory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -13,8 +14,8 @@ import java.util.Scanner;
  * Created by alexanderleonovich on 15.05.15.
  */
 public class DepartmentMenu extends MenuLoader {
-
     private static Logger log = Logger.getLogger(DepartmentMenu.class);
+
 
 
     protected static Department createDepartment(Department department) {
@@ -38,7 +39,7 @@ public class DepartmentMenu extends MenuLoader {
         Department department = null;
         Integer id = scanner.nextInt();
         try {
-            department = getDepartmentDao().get(id);
+            department = DaoFactrory.getInstance().getDepartmentDao().get(id);
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {
@@ -56,7 +57,7 @@ public class DepartmentMenu extends MenuLoader {
         Department department = null;
         Integer id = scanner.nextInt();
         try {
-            department = getDepartmentDao().load(id);
+            department = DaoFactrory.getInstance().getDepartmentDao().load(id);
         } catch (DaoException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (NullPointerException e) {
@@ -69,7 +70,7 @@ public class DepartmentMenu extends MenuLoader {
 
     protected static void getDepartments() {
         try {
-            List<Department> list = getDepartmentDao().getAll();
+            List<Department> list = DaoFactrory.getInstance().getDepartmentDao().getAll();
             for (Department element : list) {
                 System.out.println(element.toString());
             }
@@ -89,7 +90,7 @@ public class DepartmentMenu extends MenuLoader {
         scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         try {
-            getDepartmentDao().flush(id, name);
+            DaoFactrory.getInstance().getDepartmentDao().flush(id, name);
         } catch (DaoException e) {
             log.error("Unable run flush example");
         }

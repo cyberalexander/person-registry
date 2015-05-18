@@ -3,6 +3,7 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
+import by.academy.it.factory.DaoFactrory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -26,7 +27,7 @@ public class AddressMenu extends MenuLoader {
         Address address = null;
         Integer id = scanner.nextInt();
         try {
-            address = getAddressDao().get(id);
+            address = DaoFactrory.getInstance().getAddressDao().get(id);
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {
@@ -39,7 +40,7 @@ public class AddressMenu extends MenuLoader {
     protected static Address findAddress(Integer id) {
         Address address = null;
         try {
-            address = getAddressDao().get(id);
+            address = DaoFactrory.getInstance().getAddressDao().get(id);
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {

@@ -1,12 +1,10 @@
 package by.academy.it.loader;
 
-import by.academy.it.database.AddressDao;
-import by.academy.it.database.DepartmentDao;
-import by.academy.it.database.PersonDao;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
+import by.academy.it.factory.DaoFactrory;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
@@ -22,11 +20,12 @@ import static by.academy.it.loader.PersonMenu.*;
 public class MenuLoader {
 
     private static Logger log = Logger.getLogger(MenuLoader.class);
-    public static Boolean needMenu = true;
-    private static PersonDao personDao = null;
-    private static DepartmentDao departmentDao = null;
-    private static AddressDao addressDao = null;
+    private static Boolean needMenu = true;
+    public DaoFactrory factory;
 
+    public MenuLoader() {
+        this.factory = DaoFactrory.getInstance();
+    }
 
     public void menu() throws DaoException {
         Person person = null;
@@ -44,11 +43,13 @@ public class MenuLoader {
                 case 1:
                     // Delete Person
                     person = findPerson();
-                    getPersonDao().delete(person);
+                    factory.getPersonDao().delete(person);
                     break;
                 case 2:
                     //Get Person
                     person = findPerson();
+                    //address = person.getAddress();
+                    //System.out.println("\n" + address);
                     break;
                 case 3:
                     // Load Person
@@ -62,35 +63,39 @@ public class MenuLoader {
                     address = createAddress(address);
                     person.setAddress(address);
                     address.setPerson(person);
-                    getPersonDao().save(person);
+                    //getPersonDao().save(person);
                     log.info("Saved Address-object " + address.toString());
-                    //getAddressDao().save(address);
+                    factory.getAddressDao().save(address);
                     break;
                 case 5:
                     // Delete address
                     address = findAddress();
-                    getAddressDao().delete(address);
+                    factory.getAddressDao().delete(address);
                     break;
                 case 6:
+                    // SAVE OR UPDATE ADDRESS //TODO update только адрес!:) why?
                     person = createPerson(person);
                     address = createAddress(address);
                     person.setAddress(address);
                     address.setPerson(person);
-                    getAddressDao().saveOrUpdate(address);
+                    factory.getAddressDao().saveOrUpdate(address);
                     break;
                 case 7:
                     getAllPersons();
                     break;
                 case 8:
                     person = createPerson(person);
-                    getPersonDao().update(person);
+                    address = createAddress(address);
+                    person.setAddress(address);
+                    address.setPerson(person);
+                    factory.getPersonDao().update(person);
                     break;
                 case 9:
-
+                    findAddress();
                     break;
                 case 10:
                     department = loadDepartment();
-                    getDepartmentDao().delete(department);
+                    factory.getDepartmentDao().delete(department);
                     break;
                 case 11:
                     department = findDepartment();
@@ -102,32 +107,32 @@ public class MenuLoader {
                     department = null;
                     department = createDepartment(department);
                     department.setId(getIdForSave());
-                    getDepartmentDao().save(department);
+                    factory.getDepartmentDao().save(department);
                     break;
                 case 14:
                     department = null;
                     department = createDepartment(department);
                     id = getIdForSave();
                     department.setId(id);
-                    getDepartmentDao().save(department, String.valueOf(id));
+                    factory.getDepartmentDao().save(department, String.valueOf(id));
                     break;
                 case 15:
                     department = createDepartment(department);
-                    getDepartmentDao().saveOrUpdate(department);
+                    factory.getDepartmentDao().saveOrUpdate(department);
                     break;
                 case 16:
                     getDepartments();
                     break;
                 case 17:
                     department = createDepartment(department);
-                    getDepartmentDao().update(department);
+                    factory.getDepartmentDao().update(department);
                     break;
                 case 18:
                     department = null;
                     department = createDepartment(department);
                     id = getIdForSave();
                     department.setId(id);
-                    getDepartmentDao().update(department, String.valueOf(id));
+                    factory.getDepartmentDao().update(department, String.valueOf(id));
                     break;
                 case 19:
                     flushPersonSession();
@@ -156,9 +161,9 @@ public class MenuLoader {
         System.out.println("\n+-----------------------------------------------+");
         System.out.println("|     Hello, user! You are in menu. Do action:  |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        System.out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |    4. Save Pers       | 5. Delete Address |");
+        System.out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        System.out.println("| 6. Save or Update Pers | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
+        System.out.println("| 6. Save or Update Addr | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         System.out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
@@ -173,28 +178,5 @@ public class MenuLoader {
         int id = scanner.nextInt();
         return id;
     }
-
-
-    public static PersonDao getPersonDao() {
-        if (personDao == null) {
-            personDao = new PersonDao();
-        }
-        return personDao;
-    }
-
-    public static DepartmentDao getDepartmentDao() {
-        if (departmentDao == null) {
-            departmentDao = new DepartmentDao();
-        }
-        return departmentDao;
-    }
-
-    public static AddressDao getAddressDao() {
-        if (addressDao == null) {
-            addressDao = new AddressDao();
-        }
-        return addressDao;
-    }
-
 
 }

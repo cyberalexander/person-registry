@@ -3,6 +3,7 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
+import by.academy.it.factory.DaoFactrory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -78,9 +79,9 @@ public class PersonMenu extends MenuLoader {
         Person person = null;
         Integer id = scanner.nextInt();
         try {
-            person = getPersonDao().get(id);
-            Address address = getAddressDao().get(person.getPersonId());
-            person.setAddress(address);
+            person = DaoFactrory.getInstance().getPersonDao().get(id);
+            /*Address address = getAddressDao().get(person.getPersonId());
+            person.setAddress(address);*/
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {
@@ -98,7 +99,7 @@ public class PersonMenu extends MenuLoader {
         Person person = null;
         Integer id = scanner.nextInt();
         try {
-            person = getPersonDao().load(id);
+            person = DaoFactrory.getInstance().getPersonDao().load(id);
         } catch (DaoException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (NullPointerException e) {
@@ -118,7 +119,7 @@ public class PersonMenu extends MenuLoader {
         scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         try {
-            getPersonDao().flush(id, name);
+            DaoFactrory.getInstance().getPersonDao().flush(id, name);
         } catch (DaoException e) {
             log.error(Constants.ConstList.UNABLE_FLUSH_EXAMPLE);
         }
@@ -126,7 +127,7 @@ public class PersonMenu extends MenuLoader {
 
     protected static void getAllPersons() {
         try {
-            List<Person> list = getPersonDao().getAll();
+            List<Person> list = DaoFactrory.getInstance().getPersonDao().getAll();
             for (Person element : list) {
                 System.out.println(element.toString());
             }
