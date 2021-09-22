@@ -11,12 +11,3 @@ build:
 ```bash
 $ mvn -U clean install
 ```
-
-run component tests:
-```bash
-$ mvn failsafe:integration-test failsafe:verify
-```
-run service:
-```bash
-$ mvn -pl billing-integration-service-application spring-boot:run -Dspring.profiles.active=development
-```
