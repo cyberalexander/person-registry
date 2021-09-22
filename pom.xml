@@ -13,8 +13,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate.version>4.3.9.Final</hibernate.version>
-        <mysql.connector.version>5.1.35</mysql.connector.version>
+        <mysql.connector.version>8.0.17</mysql.connector.version>
         <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <junit.version>4.4</junit.version>
         <jdk.version>1.8</jdk.version>
     </properties>
@@ -93,7 +94,6 @@
 
     <!-- Dependencies for project -->
     <dependencies>
-
         <!--! log4j dependency-->
         <dependency>
             <groupId>log4j</groupId>
@@ -110,10 +110,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.6</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- Hibernate-CORE dependency -->

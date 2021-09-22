@@ -1,15 +1,13 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
-import by.academy.it.domain.Address;
-import by.academy.it.domain.Person;
-import by.academy.it.loader.ApplicationLoader;
 import by.academy.it.util.Constants;
 import by.academy.it.util.HibernateUtil;
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -19,7 +17,7 @@ import java.util.List;
  * Created by alexanderleonovich on 13.05.15.
  */
 public abstract class BaseDao<T> implements IDao<T> {
-    private static Logger log = Logger.getLogger(BaseDao.class);
+    private static final Logger log = LoggerFactory.getLogger(BaseDao.class);
     private Transaction transaction = null;
     private Session session;
 
@@ -35,11 +33,11 @@ public abstract class BaseDao<T> implements IDao<T> {
             session = util.getSession();
             transaction = session.beginTransaction();
             session.save(t);
-            log.info("SAVE(t):" + t);
+            log.info("After save: {}", t);
             transaction.commit();
-            log.info("Save (commit):" + t);
+            log.info("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save ENTITY in Dao" + e);
+            log.error("Error save ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -50,11 +48,11 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             session.save(id, t);
-            log.info("SAVE(t):" + t);
+            log.info("After save: {}", t);
             transaction.commit();
-            log.info("Save (commit):" + t);
+            log.info("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save ENTITY in Dao" + e);
+            log.error("Error save ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -67,18 +65,18 @@ public abstract class BaseDao<T> implements IDao<T> {
             session = util.getSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(t);
-            log.info("saveOrUpdate(t):" + t);
+            log.info("After saveOrUpdate: {}", t);
             transaction.commit();
-            log.info("Save or update (commit):" + t);
+            log.info("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save or update ENTITY in Dao" + e);
+            log.error("Error save or update ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
     }
 
     public T get(Serializable id) throws DaoException {
-        log.info("Get class by id:" + id);
+        log.info("Get class by id: {}", id);
         T t = null;
         try {
             session = util.getSession();
@@ -86,10 +84,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             t = (T) session.get(getPersistentClass(), id);
             transaction.commit();
             //session.evict(t);       //TODO протестировать без evict
-            log.info("get clazz:" + t);
+            log.info("get clazz: {}", t);
         } catch (HibernateException e) {
             transaction.rollback();
-            log.error("Error get " + getPersistentClass() + " in Dao" + e);
+            log.error("Error get {} in Dao", getPersistentClass(), e);
             throw new DaoException(e);
         } finally {
             if ((session != null) && (session.isOpen())) {
@@ -100,19 +98,19 @@ public abstract class BaseDao<T> implements IDao<T> {
     }
 
     public T load(Serializable id) throws DaoException {
-        log.info("Load class by id:" + id);
+        log.info("Load class by id: {}", id);
         T t = null;
         try {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             t = (T) session.load(getPersistentClass(), id);
-            log.info("load() clazz:" + t);
+            log.info("load() clazz: {}", t);
             session.isDirty();
-            log.info("SESSION IS DIRTY: " + session.isDirty());
+            log.info("SESSION IS DIRTY: {}", session.isDirty());
             transaction.commit();
             session.evict(t);
         } catch (HibernateException e) {
-            log.error("Error load() " + getPersistentClass() + " in Dao" + e);
+            log.error("Error get {} in Dao", getPersistentClass(), e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -125,10 +123,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             transaction = session.beginTransaction();
             session.delete(t);
             transaction.commit();
-            log.info("Delete:" + t);
+            log.info("Delete: {}", t);
             session.clear();
         } catch (HibernateException e) {
-            log.error("Error save or update PERSON in Dao" + e);
+            log.error("Error delete {} in Dao", getPersistentClass(), e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -136,16 +134,16 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public List<T> getAll() throws DaoException {
         List<T> list = null;
-        log.info("Get list of obkects");
+        log.info("Get list of objects");
         try {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             list = parseResultForGetAll(session);
             transaction.commit();
-            log.info("get list size:" + list.size());
+            log.info("get list size: {}", list.size());
         } catch (HibernateException e) {
             transaction.rollback();
-            log.error("Error get " + getPersistentClass() + " in Dao" + e);
+            log.error("Error get {} in Dao", getPersistentClass(), e);
             throw new DaoException(e);
         } finally {
             if ((session != null) && (session.isOpen())) {
@@ -161,11 +159,11 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             session.update(t);
-            log.info("UPDATE(t):" + t);
+            log.info("UPDATE(t): {}", t);
             transaction.commit();
-            log.info("UPDATE (commit):" + t);
+            log.info("UPDATE (commit): {}", t);
         } catch (HibernateException e) {
-            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY + e);
+            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY, e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -177,11 +175,11 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             session.update(String.valueOf(id), t);
-            log.info("UPDATE(t):" + t);
+            log.info("UPDATE(t): {}", t);
             transaction.commit();
-            log.info("UPDATE (commit):" + t);
+            log.info("UPDATE (commit): {}", t);
         } catch (HibernateException e) {
-            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY + e);
+            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY, e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -191,13 +189,12 @@ public abstract class BaseDao<T> implements IDao<T> {
     /**
      * my util methods
      */
-
     protected abstract List<T> parseResultForGetAll(Session session);
 
     /**
      * Util methods
      */
-
+    @SuppressWarnings("unchecked")
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
