@@ -1,7 +1,6 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
-import by.academy.it.util.Constants;
 import by.academy.it.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -33,11 +32,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             session = util.getSession();
             transaction = session.beginTransaction();
             session.save(t);
-            log.info("After save: {}", t);
+            log.debug("After save: {}", t);
             transaction.commit();
-            log.info("After commit: {}", t);
+            log.debug("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -48,11 +46,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             session.save(id, t);
-            log.info("After save: {}", t);
+            log.debug("After save: {}", t);
             transaction.commit();
-            log.info("After commit: {}", t);
+            log.debug("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -65,11 +62,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             session = util.getSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(t);
-            log.info("After saveOrUpdate: {}", t);
+            log.debug("After saveOrUpdate: {}", t);
             transaction.commit();
-            log.info("After commit: {}", t);
+            log.debug("After commit: {}", t);
         } catch (HibernateException e) {
-            log.error("Error save or update ENTITY in Dao", e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -87,7 +83,6 @@ public abstract class BaseDao<T> implements IDao<T> {
             log.info("get clazz: {}", t);
         } catch (HibernateException e) {
             transaction.rollback();
-            log.error("Error get {} in Dao", getPersistentClass(), e);
             throw new DaoException(e);
         } finally {
             if ((session != null) && (session.isOpen())) {
@@ -104,13 +99,12 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             t = (T) session.load(getPersistentClass(), id);
-            log.info("load() clazz: {}", t);
+            log.debug("load() clazz: {}", t);
             session.isDirty();
-            log.info("SESSION IS DIRTY: {}", session.isDirty());
+            log.debug("SESSION IS DIRTY: {}", session.isDirty());
             transaction.commit();
             session.evict(t);
         } catch (HibernateException e) {
-            log.error("Error get {} in Dao", getPersistentClass(), e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -126,7 +120,6 @@ public abstract class BaseDao<T> implements IDao<T> {
             log.info("Delete: {}", t);
             session.clear();
         } catch (HibernateException e) {
-            log.error("Error delete {} in Dao", getPersistentClass(), e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -143,7 +136,6 @@ public abstract class BaseDao<T> implements IDao<T> {
             log.info("get list size: {}", list.size());
         } catch (HibernateException e) {
             transaction.rollback();
-            log.error("Error get {} in Dao", getPersistentClass(), e);
             throw new DaoException(e);
         } finally {
             if ((session != null) && (session.isOpen())) {
@@ -163,7 +155,6 @@ public abstract class BaseDao<T> implements IDao<T> {
             transaction.commit();
             log.info("UPDATE (commit): {}", t);
         } catch (HibernateException e) {
-            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY, e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -175,11 +166,10 @@ public abstract class BaseDao<T> implements IDao<T> {
             Session session = util.getSession();
             transaction = session.beginTransaction();
             session.update(String.valueOf(id), t);
-            log.info("UPDATE(t): {}", t);
+            log.debug("UPDATE(t): {}", t);
             transaction.commit();
-            log.info("UPDATE (commit): {}", t);
+            log.debug("UPDATE (commit): {}", t);
         } catch (HibernateException e) {
-            log.error(Constants.ConstList.ERROR_UPDATE_ENTITY, e);
             transaction.rollback();
             throw new DaoException(e);
         }
@@ -198,13 +188,4 @@ public abstract class BaseDao<T> implements IDao<T> {
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
 }

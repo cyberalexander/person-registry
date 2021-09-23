@@ -24,7 +24,7 @@ public class HibernateUtil {
             sessionFactory = new Configuration().configure().setNamingStrategy(new CustomNamingStrategy()).
                     buildSessionFactory();
         } catch (Throwable ex) {
-            log.error("Initial SessionFactory creation failed." + ex);
+            log.error("Initial SessionFactory creation failed.", ex);
             System.exit(0);
         }
     }

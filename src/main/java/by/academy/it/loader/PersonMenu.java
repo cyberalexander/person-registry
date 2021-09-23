@@ -46,7 +46,7 @@ public class PersonMenu extends MenuLoader {
         person.setAge(scanner.nextInt());
 
         System.out.println(Constants.ConstList.WRITE_DEPARTMENT_ID);
-        person.setDepartment_id(scanner.nextInt());
+        person.setDepartmentId(scanner.nextInt());
         return person;
     }
 

@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
-@Ignore
 public class BaseDaoPersonTest {
 
     private static PersonDao personDao;

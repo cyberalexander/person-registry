@@ -10,7 +10,7 @@
                 <property name="name" column="F_NAME" type="string"/>
                 <property name="surname" column="F_SURNAME" type="string"/>
                 <property name="age" column="F_AGE" type="int"/>
-                <property name="department_id" column="F_DEPARTMENT_ID" type="int"/>
+                <property name="departmentId" column="F_DEPARTMENT_ID" type="int"/>
 
                 <!-- Components, if person have address in the same table -->
                 <!--<component name="homeAddress" class="by.academy.it.domain.Address">

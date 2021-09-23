@@ -6,6 +6,6 @@
         <id name="id" type="int" column="F_ID">
             <generator class="assigned"/>
         </id>
-        <property name="dep_name" column="F_DEP_NAME" type="string"/>
+        <property name="departmentName" column="F_DEP_NAME" type="string"/>
     </class>
 </hibernate-mapping>

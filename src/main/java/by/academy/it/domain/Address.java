@@ -21,7 +21,7 @@ public class Address implements Serializable {
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public void setCity(String city) {
@@ -29,7 +29,7 @@ public class Address implements Serializable {
     }
 
     public String getStreet() {
-        return street;
+        return this.street;
     }
 
     public void setStreet(String street) {
@@ -37,7 +37,7 @@ public class Address implements Serializable {
     }
 
     public Integer getPersonId() {
-        return personId;
+        return this.personId;
     }
 
     public void setPersonId(Integer personId) {
@@ -45,7 +45,7 @@ public class Address implements Serializable {
     }
 
     public Person getPerson() {
-        return person;
+        return this.person;
     }
 
     public void setPerson(Person person) {

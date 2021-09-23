@@ -3,7 +3,6 @@ package by.academy.it.loader;
 import by.academy.it.util.HibernateUtil;
 import org.apache.log4j.Logger;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
@@ -19,9 +18,6 @@ public class ApplicationLoader {
         Locale.setDefault(Locale.US);
         util = HibernateUtil.getHibernateUtil();
         System.out.println("Hello! You are in Start Menu");
-        SimpleDateFormat sdfout = new SimpleDateFormat("yyyy.MM.dd");
-        String date = "2012.12.20";
-        java.sql.Date sqlDate = new java.sql.Date(sdfout.parse(date).getTime());
         menuLoader.menu();
     }
 }

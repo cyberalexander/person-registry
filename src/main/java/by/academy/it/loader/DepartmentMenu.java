@@ -2,7 +2,6 @@ package by.academy.it.loader;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
-import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactrory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
@@ -27,7 +26,7 @@ public class DepartmentMenu extends MenuLoader {
         }
         Scanner scanner = new Scanner(System.in);
         String parameter = scanner.nextLine();
-        department.setDep_name(parameter);
+        department.setDepartmentName(parameter);
         return department;
     }
 

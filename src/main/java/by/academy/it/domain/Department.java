@@ -9,11 +9,7 @@ import java.io.Serializable;
 public class Department implements Serializable{
 
     private Integer id;
-    private String dep_name;
-
-    public Department() {
-
-    }
+    private String departmentName;
 
     public Integer getId() {
         return id;
@@ -23,18 +19,18 @@ public class Department implements Serializable{
         this.id = id;
     }
 
-    public String getDep_name() {
-        return dep_name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDep_name(String dep_name) {
-        this.dep_name = dep_name;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (dep_name != null ? dep_name.hashCode() : 0);
+        result = 31 * result + (departmentName != null ? departmentName.hashCode() : 0);
         return result;
     }
 
@@ -45,12 +41,12 @@ public class Department implements Serializable{
 
         Department department = (Department) obj;
         if (id != null ? !id.equals(department.id) : department.id != null) return false;
-        if (dep_name != null ? !dep_name.equals(department.dep_name) : department.dep_name != null) return false;
+        if (departmentName != null ? !departmentName.equals(department.departmentName) : department.departmentName != null) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Department => [id=" + id + ", department_name=" + dep_name + "]";
+        return "Department => [id=" + id + ", department_name=" + departmentName + "]";
     }
 }

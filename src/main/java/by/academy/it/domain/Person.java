@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class Person implements Serializable{
+public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -13,19 +13,15 @@ public class Person implements Serializable{
     private Integer age;
     private String name;
     private String surname;
-    private Integer department_id;
+    private Integer departmentId;
     private Address address;
-
-    public Address getAddress() {
-        return address;
-    }
 
     public Person(Integer personId, String name, String surname, Integer age, Integer department_id, Address address) {
         this.age = age;
         this.personId = personId;
         this.name = name;
         this.surname = surname;
-        this.department_id = department_id;
+        this.departmentId = department_id;
         this.address = address;
     }
 
@@ -33,7 +29,7 @@ public class Person implements Serializable{
         this.age = age;
         this.name = name;
         this.surname = surname;
-        this.department_id = department_id;
+        this.departmentId = department_id;
         this.address = address;
     }
 
@@ -72,12 +68,16 @@ public class Person implements Serializable{
         this.surname = surname;
     }
 
-    public Integer getDepartment_id() {
-        return department_id;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment_id(Integer department_id) {
-        this.department_id = department_id;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     public void setAddress(Address address) {
@@ -95,7 +95,7 @@ public class Person implements Serializable{
         if (personId != null ? !personId.equals(person.personId) : person.personId != null) return false;
         if (name != null ? !name.equals(person.name) : person.name != null) return false;
         if (surname != null ? !surname.equals(person.surname) : person.surname != null) return false;
-        if (department_id != null ? !department_id.equals(person.department_id) : person.department_id != null) return false;
+        if (departmentId != null ? !departmentId.equals(person.departmentId) : person.departmentId != null) return false;
         if (address != null ? !address.equals(person.address) : person.address != null) return false;
 
         return true;
@@ -107,7 +107,7 @@ public class Person implements Serializable{
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (department_id != null ? department_id.hashCode() : 0);
+        result = 31 * result + (departmentId != null ? departmentId.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
@@ -119,7 +119,7 @@ public class Person implements Serializable{
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", department_id=" + department_id + " " +
+                ", department_id=" + departmentId + " " +
                 ", city='" + address.getCity() + '\'' +
                 ", street='" + address.getStreet() + '\'' +
         '}';
