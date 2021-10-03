@@ -15,8 +15,6 @@ import java.util.Scanner;
 public class DepartmentMenu extends MenuLoader {
     private static Logger log = Logger.getLogger(DepartmentMenu.class);
 
-
-
     protected static Department createDepartment(Department department) {
         System.out.println("Please enter department description:");
         System.out.print(Constants.ConstList.WRITE_NAME);

@@ -1,31 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>by.academy.it</groupId>
     <artifactId>hibernate-academy-example</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>hibernate-academy-example</name>
-    <url>http://maven.apache.org</url>
+    <name>${project.artifactId}</name>
+    <description>T-Academy | Hibernate technology demo</description>
+    <url>https://github.com/cyberalexander/Hibernate-Academy-Example</url>
+    <developers>
+        <developer>
+            <name>Aliaksandr Leanovich</name>
+            <email>taurum13@gmail.com</email>
+            <organization>by.leonovich.hibernatecrm</organization>
+            <organizationUrl>https://github.com/cyberalexander/hibernate-crm</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
+        <!-- ========= Project properties ========= -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+
+        <!-- ========= Dependencies versions ========= -->
         <hibernate.version>4.3.9.Final</hibernate.version>
         <mysql.connector.version>8.0.17</mysql.connector.version>
         <log4j.version>2.14.0</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
         <junit.version>4.4</junit.version>
-        <jdk.version>1.8</jdk.version>
     </properties>
 
     <!-- Build settings -->
     <build>
         <finalName>hibernate-academy-example</finalName>
         <plugins>
-
-            <!-- Maven dependency plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -42,8 +52,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- MAVEN JAR PLUGIN -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -58,23 +66,17 @@
                     </archive>
                 </configuration>
             </plugin>
-
-            <!-- MAVEN COMPILER PLUGIN -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
-    <!-- Repositories settings (What is this?) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <!-- And what is DependencyManager or PluginManager !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <repositories>
         <repository>
             <id>JBoss</id>
@@ -91,8 +93,6 @@
             <url>http://maven-us.nuxeo.org/nexus/content/groups/public</url>
         </repository>
     </repositories>
-
-    <!-- Dependencies for project -->
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
@@ -110,35 +110,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
-        <!-- Hibernate-CORE dependency -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-
-        <!-- Hibernate-ENTITY-MANAGER dependency -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-
-        <!-- MYSQL-connector dependency -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
         </dependency>
-
-        <!-- JUNIT dependency -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
