@@ -2,7 +2,7 @@ package by.academy.it.loader;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
-import by.academy.it.factory.DaoFactrory;
+import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -36,7 +36,7 @@ public class DepartmentMenu extends MenuLoader {
         Department department = null;
         Integer id = scanner.nextInt();
         try {
-            department = DaoFactrory.getInstance().getDepartmentDao().get(id);
+            department = DaoFactory.getInstance().getDepartmentDao().get(id);
         } catch (DaoException e) {
             log.error(e, e);
         } catch (NullPointerException e) {
@@ -54,7 +54,7 @@ public class DepartmentMenu extends MenuLoader {
         Department department = null;
         Integer id = scanner.nextInt();
         try {
-            department = DaoFactrory.getInstance().getDepartmentDao().load(id);
+            department = DaoFactory.getInstance().getDepartmentDao().load(id);
         } catch (DaoException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (NullPointerException e) {
@@ -67,7 +67,7 @@ public class DepartmentMenu extends MenuLoader {
 
     protected static void getDepartments() {
         try {
-            List<Department> list = DaoFactrory.getInstance().getDepartmentDao().getAll();
+            List<Department> list = DaoFactory.getInstance().getDepartmentDao().getAll();
             for (Department element : list) {
                 System.out.println(element.toString());
             }
@@ -87,7 +87,7 @@ public class DepartmentMenu extends MenuLoader {
         scanner = new Scanner(System.in);
         String name = scanner.nextLine();
         try {
-            DaoFactrory.getInstance().getDepartmentDao().flush(id, name);
+            DaoFactory.getInstance().getDepartmentDao().flush(id, name);
         } catch (DaoException e) {
             log.error("Unable run flush example");
         }

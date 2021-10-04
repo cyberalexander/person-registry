@@ -1,6 +1,7 @@
 package by.academy.it.domain;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
@@ -120,8 +121,7 @@ public class Person implements Serializable {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", department_id=" + departmentId + " " +
-                ", city='" + address.getCity() + '\'' +
-                ", street='" + address.getStreet() + '\'' +
+                ", address='" + Optional.ofNullable(address).orElse(null) + '\'' +
         '}';
     }
 }

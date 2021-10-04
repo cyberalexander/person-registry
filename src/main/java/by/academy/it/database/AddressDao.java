@@ -2,6 +2,7 @@ package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
+import by.academy.it.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -9,13 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static by.academy.it.loader.ApplicationLoader.util;
-
 /**
  * Created by alexanderleonovich on 18.05.15.
  */
 public class AddressDao extends BaseDao<Address>{
     private static final Logger log = LoggerFactory.getLogger(AddressDao.class);
+
+    public AddressDao(HibernateUtil util) {
+        super(util);
+    }
 
     public void flush(Integer id, String newName) throws DaoException {
         try {

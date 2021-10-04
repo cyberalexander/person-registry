@@ -20,11 +20,10 @@ public abstract class BaseDao<T> implements IDao<T> {
     private Transaction transaction = null;
     private Session session;
 
-    private HibernateUtil util;
+    protected HibernateUtil util;
 
-
-    public BaseDao() {
-        util = HibernateUtil.getHibernateUtil();
+    protected BaseDao(HibernateUtil util) {
+        this.util = util;
     }
 
     public void save(T t) throws DaoException {

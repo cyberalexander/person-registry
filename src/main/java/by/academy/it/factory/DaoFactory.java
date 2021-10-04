@@ -3,46 +3,48 @@ package by.academy.it.factory;
 import by.academy.it.database.AddressDao;
 import by.academy.it.database.DepartmentDao;
 import by.academy.it.database.PersonDao;
+import by.academy.it.util.HibernateUtil;
 
 /**
  * Created by alexanderleonovich on 18.05.15.
  * Factory for building dao-objects for do operations with entities
  */
-public class DaoFactrory {
+public final class DaoFactory {
+    private static DaoFactory instance;
+    private HibernateUtil util;
 
-    private static DaoFactrory instance;
+    private PersonDao personDao;
+    private DepartmentDao departmentDao;
+    private AddressDao addressDao;
 
-    private static PersonDao personDao = null;
-    private static DepartmentDao departmentDao = null;
-    private static AddressDao addressDao = null;
-
-    private DaoFactrory() {
+    private DaoFactory() {
+        util = HibernateUtil.getHibernateUtil();
     }
 
-    public static synchronized DaoFactrory getInstance() {
+    public static synchronized DaoFactory getInstance() {
         if (instance == null) {
-            instance = new DaoFactrory();
+            instance = new DaoFactory();
         }
         return instance;
     }
 
     public  PersonDao getPersonDao() {
         if (personDao == null) {
-            personDao = new PersonDao();
+            personDao = new PersonDao(util);
         }
         return personDao;
     }
 
     public  DepartmentDao getDepartmentDao() {
         if (departmentDao == null) {
-            departmentDao = new DepartmentDao();
+            departmentDao = new DepartmentDao(util);
         }
         return departmentDao;
     }
 
     public  AddressDao getAddressDao() {
         if (addressDao == null) {
-            addressDao = new AddressDao();
+            addressDao = new AddressDao(util);
         }
         return addressDao;
     }

@@ -25,16 +25,16 @@
         <java.version>1.8</java.version>
 
         <!-- ========= Dependencies versions ========= -->
-        <hibernate.version>4.3.9.Final</hibernate.version>
+        <hibernate.version>5.4.23.Final</hibernate.version>
         <mysql.connector.version>8.0.17</mysql.connector.version>
-        <log4j.version>2.14.0</log4j.version>
-        <slf4j.version>1.7.30</slf4j.version>
+        <log4j.version>2.14.1</log4j.version>
+        <slf4j.version>2.0.0-alpha1</slf4j.version>
         <junit.version>4.4</junit.version>
     </properties>
 
     <!-- Build settings -->
     <build>
-        <finalName>hibernate-academy-example</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -94,21 +94,11 @@
         </repository>
     </repositories>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-            </exclusions>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

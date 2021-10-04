@@ -3,36 +3,52 @@ package by.academy.it.database;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
 import by.academy.it.util.HibernateUtil;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
 public class BaseDaoPersonTest {
-
-    private static PersonDao personDao;
+    private static final Logger log = LoggerFactory.getLogger(BaseDaoPersonTest.class);
+    private PersonDao personDao;
     private Person person;
     public static HibernateUtil util;
 
-
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         util = HibernateUtil.getHibernateUtil();
-        personDao = new PersonDao();
-        person = new Person("Test", "Testov", 11, 1, new Address("TestWorkCity", "TestWorkStreet"));
-        util.getSession();
+        personDao = new PersonDao(util);
+        util.getSession(); //TODO remove?
 
+        Address address = new Address("test_city", "test_street", new Random().nextInt());
+        person = new Person(
+            "test_name",
+            "test_surname",
+            new Random().nextInt(100 - 1) + 1,
+            new Random().nextInt(),
+            address
+        );
+        address.setPerson(person);
+        log.debug("Test Person entity created : {}", person);
     }
 
     @After
     public void tearDown() throws Exception {
         personDao = null;
         person = null;
-
     }
 
     @Test

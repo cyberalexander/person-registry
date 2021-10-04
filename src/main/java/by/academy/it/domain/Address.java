@@ -10,14 +10,16 @@ public class Address implements Serializable {
     private Integer personId;
     private String city;
     private String street;
+    private Integer building;
     private Person person;
 
     public Address() {
     }
 
-    public Address(String city, String street) {
+    public Address(String city, String street, Integer building) {
         this.city = city;
         this.street = street;
+        this.building = building;
     }
 
     public String getCity() {
@@ -52,6 +54,14 @@ public class Address implements Serializable {
         this.person = person;
     }
 
+    public Integer getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Integer building) {
+        this.building = building;
+    }
+
     @Override
     public int hashCode() {
         int result = city != null ? city.hashCode() : 0;
@@ -80,7 +90,7 @@ public class Address implements Serializable {
                 "personId=" + personId +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
-                ", person=" + person +
+                ", building=" + building +
                 '}';
     }
 }

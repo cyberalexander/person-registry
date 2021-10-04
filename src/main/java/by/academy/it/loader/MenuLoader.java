@@ -4,8 +4,9 @@ import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
-import by.academy.it.factory.DaoFactrory;
-import org.apache.log4j.Logger;
+import by.academy.it.factory.DaoFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -18,13 +19,12 @@ import static by.academy.it.loader.PersonMenu.*;
  * Class for load menu in console and for execute operations with entities
  */
 public class MenuLoader {
-
-    private static Logger log = Logger.getLogger(MenuLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(MenuLoader.class);
     private static Boolean needMenu = true;
-    public DaoFactrory factory;
+    public final DaoFactory factory;
 
     public MenuLoader() {
-        this.factory = DaoFactrory.getInstance();
+        this.factory = DaoFactory.getInstance();
     }
 
     public void menu() throws DaoException {

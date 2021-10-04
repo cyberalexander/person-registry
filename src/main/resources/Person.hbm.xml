@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-        <hibernate-mapping package="by.academy.it.domain" auto-import="false" catalog="studyjava">
-            <class name="Person" table="T_PERSON" lazy="false">
-                <id name="personId" type="int" column="F_PERSON_ID">
-                    <generator class="increment"/>
-                </id>
-                <one-to-one name="address" class="Address"/>
-                <property name="name" column="F_NAME" type="string"/>
-                <property name="surname" column="F_SURNAME" type="string"/>
-                <property name="age" column="F_AGE" type="int"/>
-                <property name="departmentId" column="F_DEPARTMENT_ID" type="int"/>
+<hibernate-mapping package="by.academy.it.domain" catalog="studyjava">
+    <class name="Person" table="T_PERSON" lazy="false">
+        <id name="personId" type="int" column="F_PERSON_ID">
+            <generator class="increment"/>
+        </id>
+        <one-to-one name="address" cascade="all" class="Address"/>
+        <property name="name" column="F_NAME" type="string"/>
+        <property name="surname" column="F_SURNAME" type="string"/>
+        <property name="age" column="F_AGE" type="int"/>
+        <property name="departmentId" column="F_DEPARTMENT_ID" type="int"/>
 
-                <!-- Components, if person have address in the same table -->
-                <!--<component name="homeAddress" class="by.academy.it.domain.Address">
-                    <property name="city" column="F_HOME_CITY"/>
-                    <property name="street" column="F_HOME_STREET"/>
-                </component>
-                <component name="workAddress" class="by.academy.it.domain.Address">
-                    <property name="city" column="F_CITY"/>
-                    <property name="street" column="F_STREET"/>
-                </component>-->
-            </class>
+        <!-- Components, if person have address in the same table -->
+        <!--<component name="homeAddress" class="by.academy.it.domain.Address">
+            <property name="city" column="F_HOME_CITY"/>
+            <property name="street" column="F_HOME_STREET"/>
+        </component>
+        <component name="workAddress" class="by.academy.it.domain.Address">
+            <property name="city" column="F_CITY"/>
+            <property name="street" column="F_STREET"/>
+        </component>-->
+    </class>
 </hibernate-mapping>

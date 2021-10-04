@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="by.academy.it.domain" auto-import="false" catalog="studyjava">
+<hibernate-mapping package="by.academy.it.domain" catalog="studyjava">
     <class name="Department" table="T_DEPARTMENT">
         <id name="id" type="int" column="F_ID">
             <generator class="assigned"/>
