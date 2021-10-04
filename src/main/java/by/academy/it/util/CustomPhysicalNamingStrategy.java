@@ -7,6 +7,7 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import java.util.Objects;
 
 /**
+ * Example taken from:
  * @link https://www.baeldung.com/hibernate-naming-strategy
  * Created by alexanderleonovich on 13.05.15.
  */
@@ -41,18 +42,19 @@ public class CustomPhysicalNamingStrategy extends PhysicalNamingStrategyStandard
         if (Objects.isNull(name)) {
             return name;
         }
-        return Identifier.toIdentifier(prefix.concat(toSnakeCase(name).getText()));
+        return Identifier.toIdentifier(prefix.concat(convertValue(name.getText())));
     }
 
     private Identifier toSnakeCase(final Identifier name) {
         if (Objects.isNull(name)) {
             return name;
         }
+        return Identifier.toIdentifier(convertValue(name.getText()));
+    }
+
+    private String convertValue(String name) {
         final String regex = "([a-z])([A-Z])";
         final String replacement = "$1_$2";
-        final String newName = name.getText()
-            .replaceAll(regex, replacement)
-            .toLowerCase();
-        return Identifier.toIdentifier(newName);
+        return name.replaceAll(regex, replacement).toLowerCase();
     }
 }
