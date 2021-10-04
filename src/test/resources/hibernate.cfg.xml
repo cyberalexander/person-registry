@@ -4,13 +4,16 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/studyjava</property>
-        <property name="hibernate.connection.username">****</property>
-        <property name="hibernate.connection.password">****</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sandbox_schema</property>
+        <property name="hibernate.connection.username">*****</property>
+        <property name="hibernate.connection.password">*****</property>
+
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.connection.pool_size">100</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!--TODO implement connection to test db an schema-->
 
         <mapping resource="Person.hbm.xml"/>
         <mapping resource="Department.hbm.xml"/>

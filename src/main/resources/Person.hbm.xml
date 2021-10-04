@@ -2,15 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="by.academy.it.domain" catalog="studyjava">
-    <class name="Person" table="T_PERSON" lazy="false">
-        <id name="personId" type="int" column="F_PERSON_ID">
+    <class name="Person" lazy="false">
+        <id name="personId" type="int">
             <generator class="increment"/>
         </id>
         <one-to-one name="address" cascade="all" class="Address"/>
-        <property name="name" column="F_NAME" type="string"/>
-        <property name="surname" column="F_SURNAME" type="string"/>
-        <property name="age" column="F_AGE" type="int"/>
-        <property name="departmentId" column="F_DEPARTMENT_ID" type="int"/>
+        <property name="name" type="string"/>
+        <property name="surname" type="string"/>
+        <property name="age" type="int"/>
+        <property name="departmentId" type="int"/>
 
         <!-- Components, if person have address in the same table -->
         <!--<component name="homeAddress" class="by.academy.it.domain.Address">

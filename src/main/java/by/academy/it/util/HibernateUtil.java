@@ -3,6 +3,7 @@ package by.academy.it.util;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,15 @@ public class HibernateUtil {
 
     private HibernateUtil() {
         try {
-            factory = new Configuration().configure()
-                //.setPhysicalNamingStrategy(new CustomNamingStrategy())
-                .buildSessionFactory();
+            Configuration configuration = new Configuration().configure();
+
+            // Стратегия неявного именования
+            configuration.setImplicitNamingStrategy(new ImplicitNamingStrategyJpaCompliantImpl());
+
+            // Стратегия физического именования
+            configuration.setPhysicalNamingStrategy(new CustomPhysicalNamingStrategy());
+
+            factory = configuration.buildSessionFactory();
             log.trace("SessionFactory initialized : {}", factory);
         } catch (Throwable ex) {
             throw new HibernateException("Hibernate Session Factory creation failed.", ex);
