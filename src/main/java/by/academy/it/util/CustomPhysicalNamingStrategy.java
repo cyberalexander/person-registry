@@ -7,6 +7,14 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import java.util.Objects;
 
 /**
+ * Hibernate 5 provides two different naming strategies for use with Hibernate entities:
+ * 1) an Implicit Naming Strategy
+ * 2) and a Physical Naming Strategy.
+ * <p>
+ * The Implicit Naming Strategy governs how Hibernate derives a logical name from our Java class and property names.
+ * We can select from four built-in strategies, or we can create our own.
+ * <p>
+ * Hibernate uses the Physical Naming Strategy to map our logical names to a SQL table and its columns.
  * Example taken from:
  * @link https://www.baeldung.com/hibernate-naming-strategy
  * Created by alexanderleonovich on 13.05.15.
