@@ -159,7 +159,7 @@ public class MenuLoader {
 
     private static void printMenu() {
         System.out.println("\n+-----------------------------------------------+");
-        System.out.println("|     Hello, user! You are in menu. Do action:  |");
+        System.out.println("|     Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:  |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         System.out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address |");
         System.out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");

@@ -28,21 +28,21 @@ public final class DaoFactory {
         return instance;
     }
 
-    public  PersonDao getPersonDao() {
+    public PersonDao getPersonDao() {
         if (personDao == null) {
             personDao = new PersonDao(util);
         }
         return personDao;
     }
 
-    public  DepartmentDao getDepartmentDao() {
+    public DepartmentDao getDepartmentDao() {
         if (departmentDao == null) {
             departmentDao = new DepartmentDao(util);
         }
         return departmentDao;
     }
 
-    public  AddressDao getAddressDao() {
+    public AddressDao getAddressDao() {
         if (addressDao == null) {
             addressDao = new AddressDao(util);
         }
