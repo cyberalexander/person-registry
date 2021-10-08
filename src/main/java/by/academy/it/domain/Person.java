@@ -1,7 +1,9 @@
 package by.academy.it.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
@@ -17,20 +19,20 @@ public class Person implements Serializable {
     private Integer departmentId;
     private Address address;
 
-    public Person(Integer personId, String name, String surname, Integer age, Integer department_id, Address address) {
+    public Person(Integer personId, String name, String surname, Integer age, Integer departmentId, Address address) {
         this.age = age;
         this.personId = personId;
         this.name = name;
         this.surname = surname;
-        this.departmentId = department_id;
+        this.departmentId = departmentId;
         this.address = address;
     }
 
-    public Person(String name, String surname, Integer age, Integer department_id, Address address) {
+    public Person(String name, String surname, Integer age, Integer departmentId, Address address) {
         this.age = age;
         this.name = name;
         this.surname = surname;
-        this.departmentId = department_id;
+        this.departmentId = departmentId;
         this.address = address;
     }
 
@@ -123,5 +125,26 @@ public class Person implements Serializable {
                 ", department_id=" + departmentId + " " +
                 ", address='" + Optional.ofNullable(address).orElse(null) + '\'' +
         '}';
+    }
+
+    public static Person init() {
+        LocalDateTime now = LocalDateTime.now();
+        Address address = new Address("test_city_" + now, "test_street_" + now, new Random().nextInt());
+        Person person = new Person(
+            "test_name_" + now,
+            "test_surname_" + now,
+            new Random().nextInt(100 - 1) + 1,
+            new Random().nextInt(),
+            address);
+        address.setPerson(person);
+        return person;
+    }
+
+    public Person modify() {
+        LocalDateTime now = LocalDateTime.now();
+        this.setName("modified_name_" + now);
+        this.setAge(new Random().nextInt(100 - 1) + 1);
+        this.getAddress().setStreet("modified_street_" + now);
+        return this;
     }
 }
