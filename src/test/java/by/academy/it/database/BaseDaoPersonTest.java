@@ -2,6 +2,7 @@ package by.academy.it.database;
 
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
+import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.HibernateUtil;
 import org.junit.After;
 import org.junit.Assert;
@@ -23,15 +24,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class BaseDaoPersonTest {
     private static final Logger log = LoggerFactory.getLogger(BaseDaoPersonTest.class);
-    private PersonDao personDao;
+    private final PersonDao personDao = DaoFactory.getInstance().getPersonDao();;
     private Person person;
-    public static HibernateUtil util;
 
     @Before
     public void setUp() {
-        util = HibernateUtil.getHibernateUtil();
-        personDao = new PersonDao(util);
-        util.getSession(); //TODO remove?
+        //util.getSession(); //TODO remove?
 
         Address address = new Address("test_city", "test_street", new Random().nextInt());
         person = new Person(
@@ -47,7 +45,6 @@ public class BaseDaoPersonTest {
 
     @After
     public void tearDown() throws Exception {
-        personDao = null;
         person = null;
     }
 

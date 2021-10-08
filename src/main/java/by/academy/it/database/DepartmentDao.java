@@ -22,8 +22,8 @@ public class DepartmentDao extends BaseDao<Department>{
 
     public void flush(Integer id, String newName) throws DaoException {
         try {
-            Session session = util.getSession();
-            Department depart = (Department) session.get(Department.class, id);
+            Session session = session();
+            Department depart = session.get(Department.class, id);
             log.debug("Before flush : {}", depart);
             depart.setDepartmentName(newName);
             session.flush();

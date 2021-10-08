@@ -18,7 +18,6 @@ import java.util.List;
 public abstract class BaseDao<T> implements IDao<T> {
     private static final Logger log = LoggerFactory.getLogger(BaseDao.class);
     private Transaction transaction = null;
-    private Session session;
 
     protected HibernateUtil util;
 
@@ -28,7 +27,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void save(T t) throws DaoException {
         try {
-            session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.save(t);
             log.debug("After save: {}", t);
@@ -42,7 +41,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void save(T t, String id) throws DaoException {
         try {
-            Session session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.save(id, t);
             log.debug("After save: {}", t);
@@ -58,7 +57,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void saveOrUpdate(T t) throws DaoException {
         try {
-            session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.saveOrUpdate(t);
             log.debug("After saveOrUpdate: {}", t);
@@ -73,8 +72,9 @@ public abstract class BaseDao<T> implements IDao<T> {
     public T get(Serializable id) throws DaoException {
         log.info("Get class by id: {}", id);
         T t = null;
+        Session session = null;
         try {
-            session = util.getSession();
+            session = session();
             transaction = session.beginTransaction();
             t = (T) session.get(getPersistentClass(), id);
             transaction.commit();
@@ -95,7 +95,7 @@ public abstract class BaseDao<T> implements IDao<T> {
         log.info("Load class by id: {}", id);
         T t = null;
         try {
-            Session session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             t = (T) session.load(getPersistentClass(), id);
             log.debug("load() clazz: {}", t);
@@ -112,7 +112,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void delete(T t) throws DaoException {
         try {
-            Session session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.delete(t);
             transaction.commit();
@@ -127,8 +127,9 @@ public abstract class BaseDao<T> implements IDao<T> {
     public List<T> getAll() throws DaoException {
         List<T> list = null;
         log.info("Get list of objects");
+        Session session = null;
         try {
-            Session session = util.getSession();
+            session = session();
             transaction = session.beginTransaction();
             list = parseResultForGetAll(session);
             transaction.commit();
@@ -147,7 +148,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void update(T t) throws DaoException {
         try {
-            Session session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.update(t);
             log.info("UPDATE(t): {}", t);
@@ -162,7 +163,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     public void update(T t, String id) throws DaoException {
         try {
-            Session session = util.getSession();
+            Session session = session();
             transaction = session.beginTransaction();
             session.update(String.valueOf(id), t);
             log.debug("UPDATE(t): {}", t);
@@ -186,5 +187,9 @@ public abstract class BaseDao<T> implements IDao<T> {
     @SuppressWarnings("unchecked")
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    protected Session session() {
+        return util.getSession();
     }
 }

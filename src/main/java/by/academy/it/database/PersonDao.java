@@ -23,7 +23,7 @@ public class PersonDao extends BaseDao<Person> {
 
     public void flush(Integer id, String newName) throws DaoException {
         try {
-            Session session = util.getSession();
+            Session session = session();
             Person p = session.get(Person.class, id);
             log.debug("Before flush : {}", p);
             p.setName(newName);

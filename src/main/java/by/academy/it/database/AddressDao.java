@@ -22,8 +22,8 @@ public class AddressDao extends BaseDao<Address>{
 
     public void flush(Integer id, String newName) throws DaoException {
         try {
-            Session session = util.getSession();
-            Address p = (Address) session.get(Address.class, id);
+            Session session = session();
+            Address p = session.get(Address.class, id);
             log.debug("before flush : {}", p);
             p.setCity(newName);
             session.flush();

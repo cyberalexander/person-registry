@@ -16,7 +16,10 @@ public class HibernateUtil {
     private static HibernateUtil util = null;
     private final SessionFactory factory;
 
-    private final ThreadLocal<Session> session = new ThreadLocal<>();
+    /**
+     * Each thread in the application will have it's own instance of Hibernate session.
+     */
+    private final ThreadLocal<Session> sessionThreadLocal = new ThreadLocal<>();
 
     private HibernateUtil() {
         try {
@@ -30,16 +33,16 @@ public class HibernateUtil {
 
             factory = configuration.buildSessionFactory();
             log.trace("SessionFactory initialized : {}", factory);
-        } catch (Throwable ex) {
-            throw new HibernateException("Hibernate Session Factory creation failed.", ex);
+        } catch (Exception e) {
+            throw new HibernateException("Hibernate Session Factory creation failed.", e);
         }
     }
 
     public Session getSession() {
-        Session session = this.session.get();
+        Session session = this.sessionThreadLocal.get();
         if (session == null) {
             session = factory.openSession();
-            this.session.set(session);
+            this.sessionThreadLocal.set(session);
         }
         return session;
     }
