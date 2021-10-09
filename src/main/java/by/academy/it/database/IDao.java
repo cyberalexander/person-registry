@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface IDao<T> {
 
-    void save(T t) throws DaoException;
+    Serializable save(T t) throws DaoException;
 
-    void save(T t, String id) throws DaoException;
+    Serializable save(T t, String id) throws DaoException;
 
     void saveOrUpdate(T t) throws DaoException;
 
@@ -25,4 +25,12 @@ public interface IDao<T> {
     List<T> getAll() throws DaoException;
 
     void update(T t) throws DaoException;
+
+    void update(T t, String id) throws DaoException;
+
+    /**
+     * Set flag to share single hibernate session between multiple database requests.
+     * @return Same instance of the DAO who invoked this method.
+     */
+     <E extends IDao<T>> E withSharedSession();
 }

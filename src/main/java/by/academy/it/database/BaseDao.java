@@ -8,172 +8,110 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.EntityTransaction;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
 public abstract class BaseDao<T> implements IDao<T> {
     private static final Logger log = LoggerFactory.getLogger(BaseDao.class);
-    private Transaction transaction = null;
-
+    protected boolean shareSession = false;
     protected HibernateUtil util;
 
     protected BaseDao(HibernateUtil util) {
         this.util = util;
     }
 
-    public void save(T t) throws DaoException {
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
-            session.save(t);
-            log.debug("After save: {}", t);
-            transaction.commit();
-            log.debug("After commit: {}", t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
+    @Override
+    public Serializable save(T t) throws DaoException {
+        return doInContext(session -> session.save(t));
     }
 
-    public void save(T t, String id) throws DaoException {
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
-            session.save(id, t);
-            log.debug("After save: {}", t);
-            transaction.commit();
-            log.debug("After commit: {}", t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
-
+    @Override
+    public Serializable save(T t, String id) throws DaoException {
+        return doInContext(session -> session.save(id, t));
     }
 
-
+    @Override
     public void saveOrUpdate(T t) throws DaoException {
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
+        doInContext(session -> {
             session.saveOrUpdate(t);
-            log.debug("After saveOrUpdate: {}", t);
-            transaction.commit();
-            log.debug("After commit: {}", t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
+            return null;
+        });
     }
 
+    @Override
     public T get(Serializable id) throws DaoException {
-        log.info("Get class by id: {}", id);
-        T t = null;
-        Session session = null;
-        try {
-            session = session();
-            transaction = session.beginTransaction();
-            t = (T) session.get(getPersistentClass(), id);
-            transaction.commit();
-            //session.evict(t);       //TODO протестировать без evict
-            log.info("get clazz: {}", t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        } finally {
-            if ((session != null) && (session.isOpen())) {
-                session.clear();
-            }
-        }
-        return t;
+        return (T) doInContext(session -> session.get(getPersistentClass(), id));
     }
 
+    @Override
     public T load(Serializable id) throws DaoException {
-        log.info("Load class by id: {}", id);
-        T t = null;
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
-            t = (T) session.load(getPersistentClass(), id);
-            log.debug("load() clazz: {}", t);
-            session.isDirty();
-            log.debug("SESSION IS DIRTY: {}", session.isDirty());
-            transaction.commit();
-            session.evict(t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
-        return t;
+        return (T) doInContext(session -> session.load(getPersistentClass(), id));
     }
 
+    @Override
     public void delete(T t) throws DaoException {
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
+        doInContext(session -> {
             session.delete(t);
-            transaction.commit();
-            log.info("Delete: {}", t);
-            session.clear();
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
+            return null;
+        });
     }
 
+    @Override
     public List<T> getAll() throws DaoException {
-        List<T> list = null;
-        log.info("Get list of objects");
-        Session session = null;
-        try {
-            session = session();
-            transaction = session.beginTransaction();
-            list = parseResultForGetAll(session);
-            transaction.commit();
-            log.info("get list size: {}", list.size());
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        } finally {
-            if ((session != null) && (session.isOpen())) {
-                session.clear();
-            }
-        }
-        return list;
+        return doInContext(session -> parseResultForGetAll(session));
     }
 
-
+    @Override
     public void update(T t) throws DaoException {
-        try {
-            Session session = session();
-            transaction = session.beginTransaction();
+        doInContext(session -> {
             session.update(t);
-            log.info("UPDATE(t): {}", t);
-            transaction.commit();
-            log.info("UPDATE (commit): {}", t);
-        } catch (HibernateException e) {
-            transaction.rollback();
-            throw new DaoException(e);
-        }
-
+            return null;
+        });
     }
 
+    @Override
     public void update(T t, String id) throws DaoException {
+        doInContext(session -> {
+            session.update(id, t);
+            return null;
+        });
+    }
+
+    /**
+     * Common method, which wraps the business logic of working with {@link Transaction} & {@link Session}
+     * in every related operation.
+     * @param function The function which is consuming {@link Session} instance and executing any operation over it.
+     * @param <R> The result of function execution.
+     * @return The result of JPA operation over particular entity.
+     * @throws DaoException custom project exception, thrown in case of any {@link HibernateException}
+     */
+    protected  <R> R doInContext(Function<Session, R> function) throws DaoException {
+        log.debug("Function : {}", function);
+        Session session = null;
+        Transaction transaction = null;
         try {
-            Session session = session();
+            session = util.getSession();
             transaction = session.beginTransaction();
-            session.update(String.valueOf(id), t);
-            log.debug("UPDATE(t): {}", t);
+            R response = function.apply(session);
             transaction.commit();
-            log.debug("UPDATE (commit): {}", t);
+            log.debug("Response : {}", response);
+            return response;
         } catch (HibernateException e) {
-            transaction.rollback();
+            Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
+            if (!shareSession) {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
             throw new DaoException(e);
         }
-
     }
 
     /**
@@ -187,9 +125,5 @@ public abstract class BaseDao<T> implements IDao<T> {
     @SuppressWarnings("unchecked")
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-
-    protected Session session() {
-        return util.getSession();
     }
 }

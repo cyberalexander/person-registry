@@ -1,6 +1,7 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
+import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by alexanderleonovich on 15.05.15.
  */
-public class DepartmentDao extends BaseDao<Department>{
+public class DepartmentDao extends BaseDao<Department> {
     private static final Logger log = LoggerFactory.getLogger(DepartmentDao.class);
 
     public DepartmentDao(HibernateUtil util) {
@@ -22,7 +23,7 @@ public class DepartmentDao extends BaseDao<Department>{
 
     public void flush(Integer id, String newName) throws DaoException {
         try {
-            Session session = session();
+            Session session = util.getSession();
             Department depart = session.get(Department.class, id);
             log.debug("Before flush : {}", depart);
             depart.setDepartmentName(newName);
@@ -39,5 +40,12 @@ public class DepartmentDao extends BaseDao<Department>{
         List<Department> departments = session.createSQLQuery("SELECT * FROM T_DEPARTMENT").addEntity(Department.class).list();
         log.debug("Queried : {}", departments);
         return departments;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <E extends IDao<Department>> E withSharedSession() {
+        this.shareSession = true;
+        return (E) this;
     }
 }

@@ -1,6 +1,7 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
+import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
 import by.academy.it.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -23,7 +24,7 @@ public class PersonDao extends BaseDao<Person> {
 
     public void flush(Integer id, String newName) throws DaoException {
         try {
-            Session session = session();
+            Session session = util.getSession();
             Person p = session.get(Person.class, id);
             log.debug("Before flush : {}", p);
             p.setName(newName);
@@ -42,5 +43,10 @@ public class PersonDao extends BaseDao<Person> {
         return persons;
     }
 
-
+    @Override
+    @SuppressWarnings("unchecked")
+    public <E extends IDao<Person>> E withSharedSession() {
+        this.shareSession = true;
+        return (E) this;
+    }
 }
