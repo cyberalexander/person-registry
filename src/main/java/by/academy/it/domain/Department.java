@@ -1,16 +1,18 @@
 package by.academy.it.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Created by alexanderleonovich on 15.05.15.
  * Time 20:23
  */
-public class Department implements Serializable{
+public class Department implements Serializable, Automated {
 
     private Integer id;
     private String departmentName;
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -48,5 +50,21 @@ public class Department implements Serializable{
     @Override
     public String toString() {
         return "Department => [id=" + id + ", department_name=" + departmentName + "]";
+    }
+
+    @Override
+    public Department modify() {
+        this.setDepartmentName("department_" + LocalDateTime.now());
+        return this;
+    }
+
+    @Override
+    public Department populate() {
+        this.setDepartmentName("department_" + LocalDateTime.now());
+        return this;
+    }
+
+    public static Department init() {
+        return new Department().populate();
     }
 }

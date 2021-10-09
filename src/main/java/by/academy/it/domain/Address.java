@@ -1,26 +1,19 @@
 package by.academy.it.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
-public class Address implements Serializable {
+public class Address implements Serializable, Automated {
 
     private Integer personId;
     private String city;
     private String street;
     private Integer building;
     private Person person;
-
-    public Address() {
-    }
-
-    public Address(String city, String street, Integer building) {
-        this.city = city;
-        this.street = street;
-        this.building = building;
-    }
 
     public String getCity() {
         return this.city;
@@ -92,5 +85,32 @@ public class Address implements Serializable {
                 ", street='" + street + '\'' +
                 ", building=" + building +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return this.getPersonId();
+    }
+
+    @Override
+    public Address modify() {
+        LocalDateTime now = LocalDateTime.now();
+        this.setCity("city_" + now);
+        this.setStreet("street_" + now);
+        this.setBuilding(new Random().nextInt());
+        return this;
+    }
+
+    @Override
+    public Address populate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.setCity("city_" + now);
+        this.setStreet("street_" + now);
+        this.setBuilding(new Random().nextInt());
+        return this;
+    }
+
+    public static Address init() {
+        return new Address().populate();
     }
 }

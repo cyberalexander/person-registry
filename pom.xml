@@ -29,7 +29,8 @@
         <mysql.connector.version>8.0.17</mysql.connector.version>
         <log4j.version>2.14.1</log4j.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
-        <junit.version>4.4</junit.version>
+        <junit.version>5.3.2</junit.version>
+        <lombok.version>1.18.20</lombok.version>
     </properties>
 
     <!-- Build settings -->
@@ -121,9 +122,18 @@
             <version>${mysql.connector.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <!-- https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

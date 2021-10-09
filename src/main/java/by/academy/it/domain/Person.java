@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class Person implements Serializable {
+public class Person implements Serializable, Automated {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,26 +18,6 @@ public class Person implements Serializable {
     private String surname;
     private Integer departmentId;
     private Address address;
-
-    public Person(Integer personId, String name, String surname, Integer age, Integer departmentId, Address address) {
-        this.age = age;
-        this.personId = personId;
-        this.name = name;
-        this.surname = surname;
-        this.departmentId = departmentId;
-        this.address = address;
-    }
-
-    public Person(String name, String surname, Integer age, Integer departmentId, Address address) {
-        this.age = age;
-        this.name = name;
-        this.surname = surname;
-        this.departmentId = departmentId;
-        this.address = address;
-    }
-
-    public Person() {
-    }
 
     public Integer getPersonId() {
         return personId;
@@ -127,24 +107,34 @@ public class Person implements Serializable {
         '}';
     }
 
-    public static Person init() {
-        LocalDateTime now = LocalDateTime.now();
-        Address address = new Address("test_city_" + now, "test_street_" + now, new Random().nextInt());
-        Person person = new Person(
-            "test_name_" + now,
-            "test_surname_" + now,
-            new Random().nextInt(100 - 1) + 1,
-            new Random().nextInt(),
-            address);
-        address.setPerson(person);
-        return person;
+    @Override
+    public Integer getId() {
+        return this.getPersonId();
     }
 
+    @Override
     public Person modify() {
         LocalDateTime now = LocalDateTime.now();
         this.setName("modified_name_" + now);
+        this.setSurname("modified_surname_" + now);
         this.setAge(new Random().nextInt(100 - 1) + 1);
         this.getAddress().setStreet("modified_street_" + now);
         return this;
+    }
+
+    @Override
+    public Person populate() {
+        LocalDateTime now = LocalDateTime.now();
+        Address addr = Address.init();
+        this.setName("name_" + now);
+        this.setSurname("surname_" + now);
+        this.setAge(new Random().nextInt(100 - 1) + 1);
+        this.setAddress(addr);
+        addr.setPerson(this);
+        return this;
+    }
+
+    public static Person init() {
+        return new Person().populate();
     }
 }
