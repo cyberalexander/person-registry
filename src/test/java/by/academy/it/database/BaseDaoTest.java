@@ -25,6 +25,20 @@ public interface BaseDaoTest<T extends Automated> {
         Assertions.assertNotNull(entity.getId(), "After save() id is null.");
     }
 
+    @Test
+    @SneakyThrows
+    default void testUpdate() {
+        T entity = newInstance().populate();
+        dao().save(entity);
+        dao().update(entity.modify());
+        T queried = dao().get(entity.getId());
+        Assertions.assertEquals(
+            entity,
+            queried,
+            String.format("Modified %s should be equal to queried %s after update() operation executed.", entity, queried)
+        );
+    }
+
     IDao<T> dao();
 
     @SuppressWarnings("unchecked")

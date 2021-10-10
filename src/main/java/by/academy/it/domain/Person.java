@@ -2,8 +2,8 @@ package by.academy.it.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -70,29 +70,16 @@ public class Person implements Serializable, Automated {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Person)) return false;
-
-        Person person = (Person) obj;
-
-        if (age != null ? !age.equals(person.age) : person.age != null) return false;
-        if (personId != null ? !personId.equals(person.personId) : person.personId != null) return false;
-        if (name != null ? !name.equals(person.name) : person.name != null) return false;
-        if (surname != null ? !surname.equals(person.surname) : person.surname != null) return false;
-        if (address != null ? !address.equals(person.address) : person.address != null) return false;
-
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return getPersonId().equals(person.getPersonId()) && getAge().equals(person.getAge()) && getName().equals(person.getName()) && getSurname().equals(person.getSurname());
     }
 
     @Override
     public int hashCode() {
-        int result = personId != null ? personId.hashCode() : 0;
-        result = 31 * result + (age != null ? age.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
+        return Objects.hash(getPersonId(), getAge(), getName(), getSurname());
     }
 
     @Override

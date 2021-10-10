@@ -105,12 +105,13 @@ public abstract class BaseDao<T> implements IDao<T> {
             return response;
         } catch (HibernateException e) {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
+            throw new DaoException(e);
+        } finally {
             if (!shareSession) {
                 if (session != null && session.isOpen()) {
                     session.close();
                 }
             }
-            throw new DaoException(e);
         }
     }
 

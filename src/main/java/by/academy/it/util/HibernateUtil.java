@@ -40,7 +40,7 @@ public class HibernateUtil {
 
     public Session getSession() {
         Session session = this.sessionThreadLocal.get();
-        if (session == null) {
+        if (session == null || !session.isOpen()) {
             session = factory.openSession();
             this.sessionThreadLocal.set(session);
         }
