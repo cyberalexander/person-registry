@@ -2,11 +2,13 @@ package by.academy.it.loader;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
+import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,8 +47,11 @@ public class PersonMenu extends MenuLoader {
         System.out.print(Constants.ConstList.WRITE_AGE);
         person.setAge(scanner.nextInt());
 
-        System.out.println(Constants.ConstList.WRITE_DEPARTMENT_ID);
-        person.setDepartmentId(scanner.nextInt());
+        System.out.println(Constants.ConstList.WRITE_DEPARTMENT_NAME);
+        Department dep = Department.init();
+        dep.setDepartmentName(scanner.nextLine());
+        dep.setPersons(Collections.singleton(person));
+        person.setDepartment(dep);
         return person;
     }
 

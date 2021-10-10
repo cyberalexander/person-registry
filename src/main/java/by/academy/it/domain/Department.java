@@ -2,6 +2,7 @@ package by.academy.it.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * Created by alexanderleonovich on 15.05.15.
@@ -11,6 +12,7 @@ public class Department implements Serializable, Automated {
 
     private Integer id;
     private String departmentName;
+    private Set<Person> persons; /* one-to-many relation */
 
     @Override
     public Integer getId() {
@@ -27,6 +29,14 @@ public class Department implements Serializable, Automated {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Set<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
 
     @Override

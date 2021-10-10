@@ -2,22 +2,24 @@ package by.academy.it.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
 public class Person implements Serializable, Automated {
-
     private static final long serialVersionUID = 1L;
 
     private Integer personId;
     private Integer age;
     private String name;
     private String surname;
-    private Integer departmentId;
-    private Address address;
+    private Department department; /* many-to-one relation */
+    private Address address; /* one-to-one relation */
 
     public Integer getPersonId() {
         return personId;
@@ -51,12 +53,12 @@ public class Person implements Serializable, Automated {
         this.surname = surname;
     }
 
-    public Integer getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Address getAddress() {
@@ -78,7 +80,6 @@ public class Person implements Serializable, Automated {
         if (personId != null ? !personId.equals(person.personId) : person.personId != null) return false;
         if (name != null ? !name.equals(person.name) : person.name != null) return false;
         if (surname != null ? !surname.equals(person.surname) : person.surname != null) return false;
-        if (departmentId != null ? !departmentId.equals(person.departmentId) : person.departmentId != null) return false;
         if (address != null ? !address.equals(person.address) : person.address != null) return false;
 
         return true;
@@ -90,7 +91,6 @@ public class Person implements Serializable, Automated {
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (departmentId != null ? departmentId.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
@@ -102,7 +102,7 @@ public class Person implements Serializable, Automated {
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", department_id=" + departmentId + " " +
+                ", department=" + this.department.getId() + " " +
                 ", address='" + Optional.ofNullable(address).orElse(null) + '\'' +
         '}';
     }
@@ -125,12 +125,19 @@ public class Person implements Serializable, Automated {
     @Override
     public Person populate() {
         LocalDateTime now = LocalDateTime.now();
-        Address addr = Address.init();
         this.setName("name_" + now);
         this.setSurname("surname_" + now);
         this.setAge(new Random().nextInt(100 - 1) + 1);
+
+        Address addr = Address.init();
         this.setAddress(addr);
         addr.setPerson(this);
+
+        Department dep = Department.init();
+        this.setDepartment(dep);
+        Set<Person> persons = new HashSet<>();
+        persons.add(this);
+        dep.setPersons(persons);
         return this;
     }
 

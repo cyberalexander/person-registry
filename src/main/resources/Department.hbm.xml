@@ -3,9 +3,19 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="by.academy.it.domain" catalog="sandbox_schema">
     <class name="Department">
-        <id name="id" type="int">
-            <generator class="assigned"/>
+        <id name="id" type="integer">
+            <generator class="increment"/>
         </id>
+        <!-- primary key configuration for case when value should be manually assigned -->
+        <!--<id name="id" type="int">
+            <generator class="assigned"/>
+        </id>-->
         <property name="departmentName" type="string"/>
+        <set name="persons" cascade="all-delete-orphan" lazy="true">
+            <key>
+                <column name="department_id" not-null="true"/>
+            </key>
+            <one-to-many class="Person"/>
+        </set>
     </class>
 </hibernate-mapping>

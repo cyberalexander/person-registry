@@ -60,7 +60,6 @@ public class Address implements Serializable, Automated {
         int result = city != null ? city.hashCode() : 0;
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (personId != null ? personId.hashCode() : 0);
-        result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }
 
@@ -73,7 +72,6 @@ public class Address implements Serializable, Automated {
         if (city != null ? !city.equals(address.city) : address.city != null) return false;
         if (street != null ? !street.equals(address.street) : address.street != null) return false;
         if (personId != null ? !personId.equals(address.personId) : address.personId != null) return false;
-        if (person != null ? !person.equals(address.person) : address.person != null) return false;
         return true;
     }
 

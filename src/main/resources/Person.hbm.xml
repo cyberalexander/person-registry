@@ -10,7 +10,9 @@
         <property name="name" type="string"/>
         <property name="surname" type="string"/>
         <property name="age" type="int"/>
-        <property name="departmentId" type="int"/>
+        <many-to-one name="department" cascade="save-update" lazy="false">
+            <column name="department_id" not-null="true"/>
+        </many-to-one>
 
         <!-- Components, if person have address in the same table -->
         <!--<component name="homeAddress" class="by.academy.it.domain.Address">

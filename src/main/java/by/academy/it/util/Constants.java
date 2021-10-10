@@ -10,7 +10,7 @@ public class Constants {
         public static final String WRITE_NAME = "Name - ";
         public static final String WRITE_SURNAME = "Surname - ";
         public static final String WRITE_AGE = "Age - ";
-        public static final String WRITE_DEPARTMENT_ID = "Department_id - ";
+        public static final String WRITE_DEPARTMENT_NAME = "Department name - ";
         public static final String WRITE_CITY = "city - ";
         public static final String WRITE_STREET = "street - ";
         public static final String WRITE_ID = "Id - ";
