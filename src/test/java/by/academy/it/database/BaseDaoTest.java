@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 /**
  * Created : 09/10/2021 10:51
@@ -36,6 +37,13 @@ public interface BaseDaoTest<T extends Automated> {
             entity,
             String.format("Queried %s is not equal to %s", expected, entity)
         );
+    }
+
+    @Test
+    @SneakyThrows
+    default void testGetAll() {
+        List<T> list = dao().getAll();
+        Assertions.assertFalse(list.isEmpty());
     }
 
     @Test

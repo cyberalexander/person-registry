@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
@@ -28,12 +26,6 @@ class PersonDaoTest implements BaseDaoTest<Person> {
             queried,
             String.format("%s should not be present in database after delete() operation executed.", queried)
         );
-    }
-
-    @Test
-    void testGetAll() throws Exception {
-        List<Person> list = personDao.getAll();
-        Assertions.assertFalse(list.isEmpty());
     }
 
     @Override
