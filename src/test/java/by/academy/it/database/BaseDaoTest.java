@@ -27,6 +27,32 @@ public interface BaseDaoTest<T extends Automated> {
 
     @Test
     @SneakyThrows
+    default void testGet() {
+        T entity = newInstance().populate();
+        dao().save(entity);
+        T expected = dao().get(entity.getId());
+        Assertions.assertEquals(
+            expected,
+            entity,
+            String.format("Queried %s is not equal to %s", expected, entity)
+        );
+    }
+
+    @Test
+    @SneakyThrows
+    default void testLoad() {
+        T entity = newInstance().populate();
+        dao().save(entity);
+        T expected = dao().load(entity.getId());
+        Assertions.assertEquals(
+            expected,
+            entity,
+            String.format("Loaded %s is not equal to %s", expected, entity)
+        );
+    }
+
+    @Test
+    @SneakyThrows
     default void testUpdate() {
         T entity = newInstance().populate();
         dao().save(entity);
@@ -36,6 +62,20 @@ public interface BaseDaoTest<T extends Automated> {
             entity,
             queried,
             String.format("Modified %s should be equal to queried %s after update() operation executed.", entity, queried)
+        );
+    }
+
+    @Test
+    @SneakyThrows
+    default void testSaveOrUpdate() {
+        T entity = newInstance().populate();
+        dao().save(entity); // 1. Insert new entity to the database
+        dao().saveOrUpdate(entity.modify()); // 2. Modify that entity and flush modified details to the database
+        T queried = dao().get(entity.getId()); // 3. Query actual entity details from the database
+        Assertions.assertEquals(
+            entity,
+            queried,
+            String.format("Modified %s should be equal to queried %s after saveOrUpdate() operation executed.", entity, queried)
         );
     }
 
