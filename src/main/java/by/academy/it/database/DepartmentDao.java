@@ -1,7 +1,6 @@
 package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
-import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.util.HibernateUtil;
 import org.hibernate.HibernateException;

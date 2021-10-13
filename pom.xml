@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.academy.it</groupId>
     <artifactId>hibernate-academy-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${project.version}</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>T-Academy | Hibernate technology demo</description>
@@ -12,13 +12,14 @@
         <developer>
             <name>Aliaksandr Leanovich</name>
             <email>taurum13@gmail.com</email>
-            <organization>by.leonovich.hibernatecrm</organization>
-            <organizationUrl>https://github.com/cyberalexander/hibernate-crm</organizationUrl>
+            <organization>by.academy.it</organization>
+            <organizationUrl>https://github.com/cyberalexander/Hibernate-Academy-Example</organizationUrl>
         </developer>
     </developers>
 
     <properties>
         <!-- ========= Project properties ========= -->
+        <project.version>1.0-SNAPSHOT</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
