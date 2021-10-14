@@ -87,6 +87,21 @@ public interface BaseDaoTest<T extends Automated> {
         );
     }
 
+    @Test
+    @SneakyThrows
+    default void testDelete() {
+        T entity = newInstance().populate();
+        dao().save(entity);
+        Assertions.assertNotNull(entity.getId(), "After save() id is null.");
+        dao().delete(entity);
+        Integer id = entity.getId();
+        T queried = dao().get(id);
+        Assertions.assertNull(
+            queried,
+            String.format("%s should not be present in database after delete() operation executed.", queried)
+        );
+    }
+
     IDao<T> dao();
 
     @SuppressWarnings("unchecked")
