@@ -13,8 +13,6 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
 
-        <!--TODO implement connection to test db an schema-->
-
         <mapping resource="Person.hbm.xml"/>
         <mapping resource="Department.hbm.xml"/>
         <mapping resource="Address.hbm.xml"/>
