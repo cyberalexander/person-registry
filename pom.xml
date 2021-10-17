@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.academy.it</groupId>
     <artifactId>hibernate-academy-example</artifactId>
-    <version>${project.version}</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>T-Academy | Hibernate technology demo</description>
@@ -19,7 +19,6 @@
 
     <properties>
         <!-- ========= Project properties ========= -->
-        <project.version>1.0-SNAPSHOT</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
