@@ -46,11 +46,13 @@ public abstract class BaseDao<T> implements IDao<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get(Serializable id) throws DaoException {
         return (T) doInContext(session -> session.get(getPersistentClass(), id));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T load(Serializable id) throws DaoException {
         return (T) doInContext(session -> session.load(getPersistentClass(), id));
     }
@@ -65,7 +67,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
     @Override
     public List<T> getAll() throws DaoException {
-        return doInContext(session -> parseResultForGetAll(session));
+        return doInContext(this::parseResultForGetAll);
     }
 
     @Override
@@ -107,24 +109,19 @@ public abstract class BaseDao<T> implements IDao<T> {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
             throw new DaoException(e);
         } finally {
-            if (!shareSession) {
-                if (session != null && session.isOpen()) {
-                    session.close();
-                }
+            if (!shareSession && session != null && session.isOpen()) {
+                session.close();
             }
         }
     }
 
-    /**
-     * my util methods
-     */
     protected abstract List<T> parseResultForGetAll(Session session);
 
     /**
      * Util methods
      */
     @SuppressWarnings("unchecked")
-    private Class getPersistentClass() {
+    private Class<?> getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }

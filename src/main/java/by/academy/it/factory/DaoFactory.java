@@ -11,7 +11,7 @@ import by.academy.it.util.HibernateUtil;
  */
 public final class DaoFactory {
     private static DaoFactory instance;
-    private HibernateUtil util;
+    private final HibernateUtil util;
 
     private PersonDao personDao;
     private DepartmentDao departmentDao;
