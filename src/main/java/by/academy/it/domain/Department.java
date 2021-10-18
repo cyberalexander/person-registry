@@ -59,7 +59,7 @@ public class Department implements Serializable, Automated {
 
     @Override
     public String toString() {
-        return "Department => [id=" + id + ", department_name=" + departmentName + "]";
+        return "Department:[id=" + id + ", department_name=" + departmentName + "]";
     }
 
     @Override

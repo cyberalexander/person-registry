@@ -32,4 +32,11 @@ public class AddressDao extends BaseDao<Address> {
         this.shareSession = true;
         return (E) this;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <E extends IDao<Address>> E releaseSession() {
+        super.util.getSession().close();
+        return (E) this;
+    }
 }

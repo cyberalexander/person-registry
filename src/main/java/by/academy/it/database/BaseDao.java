@@ -18,7 +18,7 @@ import java.util.function.Function;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public abstract class BaseDao<T> implements IDao<T> {
+public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     private static final Logger log = LoggerFactory.getLogger(BaseDao.class);
     protected boolean shareSession = false;
     protected HibernateUtil util;

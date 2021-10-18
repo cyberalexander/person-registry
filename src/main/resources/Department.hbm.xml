@@ -6,12 +6,14 @@
         <id name="id" type="integer">
             <generator class="increment"/>
         </id>
+
         <!-- primary key configuration for case when value should be manually assigned -->
         <!--<id name="id" type="int">
             <generator class="assigned"/>
         </id>-->
+
         <property name="departmentName" type="string"/>
-        <set name="persons" cascade="all, all-delete-orphan" lazy="true">
+        <set name="persons" cascade="all, all-delete-orphan" inverse="true" lazy="true">
             <key>
                 <column name="department_id" not-null="true"/>
             </key>

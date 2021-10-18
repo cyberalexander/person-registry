@@ -29,7 +29,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     }
 
     @Override
-    public IDao<Person> dao() {
+    public BaseDao<Person> dao() {
         return this.personDao;
     }
 }

@@ -47,4 +47,11 @@ public class DepartmentDao extends BaseDao<Department> {
         this.shareSession = true;
         return (E) this;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <E extends IDao<Department>> E releaseSession() {
+        super.util.getSession().close();
+        return (E) this;
+    }
 }
