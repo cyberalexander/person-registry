@@ -7,14 +7,14 @@ public class Constants {
 
     public static class ConstList{
 
-        public static final String WRITE_NAME = "Name - ";
-        public static final String WRITE_SURNAME = "Surname - ";
-        public static final String WRITE_AGE = "Age - ";
-        public static final String WRITE_DEPARTMENT_NAME = "Department name - ";
-        public static final String WRITE_CITY = "city - ";
-        public static final String WRITE_STREET = "street - ";
-        public static final String WRITE_ID = "Id - ";
-        public static final String WRITE_NEW_NAME = "New Name - ";
+        public static final String WRITE_NAME = "Name : ";
+        public static final String WRITE_SURNAME = "Surname : ";
+        public static final String WRITE_AGE = "Age : ";
+        public static final String WRITE_DEPARTMENT_NAME = "Department name : ";
+        public static final String WRITE_CITY = "city : ";
+        public static final String WRITE_STREET = "street : ";
+        public static final String WRITE_ID = "ID : ";
+        public static final String WRITE_NEW_NAME = "Name : ";
 
 
 
