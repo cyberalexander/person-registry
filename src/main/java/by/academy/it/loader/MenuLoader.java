@@ -11,8 +11,18 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 import static by.academy.it.loader.AddressMenu.findAddress;
-import static by.academy.it.loader.DepartmentMenu.*;
-import static by.academy.it.loader.PersonMenu.*;
+import static by.academy.it.loader.DepartmentMenu.createDepartment;
+import static by.academy.it.loader.DepartmentMenu.findDepartment;
+import static by.academy.it.loader.DepartmentMenu.flushDepartmentSession;
+import static by.academy.it.loader.DepartmentMenu.getDepartments;
+import static by.academy.it.loader.DepartmentMenu.loadDepartment;
+import static by.academy.it.loader.PersonMenu.createAddress;
+import static by.academy.it.loader.PersonMenu.createPerson;
+import static by.academy.it.loader.PersonMenu.deletePerson;
+import static by.academy.it.loader.PersonMenu.findPerson;
+import static by.academy.it.loader.PersonMenu.flushPersonSession;
+import static by.academy.it.loader.PersonMenu.getAllPersons;
+import static by.academy.it.loader.PersonMenu.loadPerson;
 import static java.lang.System.out;
 
 /**
@@ -41,16 +51,11 @@ public class MenuLoader {
                     case 0:
                         System.exit(0);
                         break;
-                    case 1:
-                        // Delete Person
-                        person = findPerson();
-                        factory.getPersonDao().delete(person);
+                    case 1: // Delete Person
+                        deletePerson(scanner);
                         break;
-                    case 2:
-                        //Get Person
-                        person = findPerson();
-                        //address = person.getAddress();
-                        //System.out.println("\n" + address);
+                    case 2: //Get Person
+                        findPerson(scanner);
                         break;
                     case 3:
                         // Load Person
