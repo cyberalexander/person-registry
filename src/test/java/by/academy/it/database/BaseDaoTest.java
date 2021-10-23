@@ -49,6 +49,7 @@ public interface BaseDaoTest<T extends Automated> {
     @Test
     @SneakyThrows
     default void testLoad() {
+        dao().withSharedSession();
         T entity = newInstance().populate();
         dao().save(entity);
         T expected = dao().load(entity.getId());
@@ -57,6 +58,7 @@ public interface BaseDaoTest<T extends Automated> {
             entity,
             String.format("Loaded %s is not equal to %s", expected, entity)
         );
+        dao().releaseSession();
     }
 
     @Test
@@ -102,7 +104,7 @@ public interface BaseDaoTest<T extends Automated> {
         );
     }
 
-    IDao<T> dao();
+    BaseDao<T> dao();
 
     @SuppressWarnings("unchecked")
     default Class<T> getEntityClass() {
