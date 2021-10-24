@@ -3,10 +3,10 @@ package by.academy.it.database;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.util.HibernateUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by alexanderleonovich on 15.05.15.
  */
 public class DepartmentDao extends BaseDao<Department> {
-    private static final Logger log = LoggerFactory.getLogger(DepartmentDao.class);
+    private static final Logger log = LogManager.getLogger(DepartmentDao.class);
 
     public DepartmentDao(HibernateUtil util) {
         super(util);

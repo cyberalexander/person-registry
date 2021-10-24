@@ -4,7 +4,8 @@ import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * Created by alexanderleonovich on 15.05.15.
  */
 public class DepartmentMenu extends MenuLoader {
-    private static Logger log = Logger.getLogger(DepartmentMenu.class);
+    private static Logger log = LogManager.getLogger(DepartmentMenu.class);
 
     protected static Department createDepartment(Department department) {
         System.out.println("Please enter department description:");
