@@ -3,8 +3,8 @@ package by.academy.it.loader;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * Created by alexanderleonovich on 13.05.15.
  */
 public class ApplicationLoader {
-    private static final Logger log = LoggerFactory.getLogger(ApplicationLoader.class);
+    private static final Logger log = LogManager.getLogger(ApplicationLoader.class);
     private static final MenuLoader menuLoader = new MenuLoader();
 
     public static void main(String[] args) throws Exception {

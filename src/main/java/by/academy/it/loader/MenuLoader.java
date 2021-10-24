@@ -5,8 +5,8 @@ import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
@@ -30,7 +30,7 @@ import static java.lang.System.out;
  * Class for load menu in console and for execute operations with entities
  */
 public class MenuLoader {
-    private static final Logger log = LoggerFactory.getLogger(MenuLoader.class);
+    private static final Logger log = LogManager.getLogger(MenuLoader.class);
     private static Boolean showMenu = true;
     protected final DaoFactory factory;
 

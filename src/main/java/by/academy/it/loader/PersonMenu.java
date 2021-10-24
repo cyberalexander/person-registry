@@ -6,7 +6,8 @@ import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ import static java.lang.System.out;
  * Operation menu for Person-entity
  */
 public class PersonMenu {
-    private static Logger log = Logger.getLogger(PersonMenu.class); //TODO change logging configuration
+    private static Logger log = LogManager.getLogger(PersonMenu.class);
 
     /**
      * Creating Person service

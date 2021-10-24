@@ -4,7 +4,8 @@ import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
  * Created by alexanderleonovich on 18.05.15.
  */
 public class AddressMenu extends MenuLoader {
-    private static Logger log = Logger.getLogger(AddressMenu.class);
+    private static Logger log = LogManager.getLogger(AddressMenu.class);
 
     /**
      * Method for getting Person object from database or from sesion-cash

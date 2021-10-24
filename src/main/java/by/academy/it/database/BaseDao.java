@@ -2,11 +2,11 @@ package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityTransaction;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ import java.util.function.Function;
  * Created by alexanderleonovich on 13.05.15.
  */
 public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
-    private static final Logger log = LoggerFactory.getLogger(BaseDao.class);
+    private static final Logger log = LogManager.getLogger(BaseDao.class);
     protected boolean shareSession = false;
     protected HibernateUtil util;
 

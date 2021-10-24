@@ -2,9 +2,9 @@ package by.academy.it.database;
 
 import by.academy.it.domain.Address;
 import by.academy.it.util.HibernateUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by alexanderleonovich on 18.05.15.
  */
 public class AddressDao extends BaseDao<Address> {
-    private static final Logger log = LoggerFactory.getLogger(AddressDao.class);
+    private static final Logger log = LogManager.getLogger(AddressDao.class);
 
     public AddressDao(HibernateUtil util) {
         super(util);
