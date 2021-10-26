@@ -19,7 +19,9 @@ public class Constants {
 
 
         /* ERROR MESSAGES */
-        public static final String UNABLE_FIND_PERSON = "Unable find person:   ";
+        public static final String UNABLE_FIND_PERSON = "Unable to find person: ";
+        public static final String UNABLE_LOAD_PERSON = "Unable to load person: ";
+        public static final String UNABLE_DELETE_PERSON = "Unable to delete person: ";
         public static final String UNABLE_FLUSH_EXAMPLE = "Unable run flush example.   ";
         public static final String UNABLE_LIST_PERSONS = "Unable get list of persons:  ";
 

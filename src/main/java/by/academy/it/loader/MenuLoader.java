@@ -57,9 +57,8 @@ public class MenuLoader {
                     case 2: //Get Person
                         findPerson(scanner);
                         break;
-                    case 3:
-                        // Load Person
-                        person = loadPerson();
+                    case 3: // Load Person
+                        loadPerson(scanner);
                         break;
                     case 4:
                         // Save Person with Address

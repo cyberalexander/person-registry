@@ -79,10 +79,10 @@ public class PersonMenu {
             try {
                 DaoFactory.getInstance().getPersonDao().delete(personOptional.get());
             } catch (DaoException e) {
-                log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
+                throw new RuntimeException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
             }
         } else {
-            err.println("Person not found");
+            err.println("Person not found. Please enter ID of existing person.");
         }
     }
 
@@ -94,33 +94,27 @@ public class PersonMenu {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
 
-        Optional<Person> person = Optional.empty();
+        Optional<Person> person;
         Integer id = scanner.nextInt();
         try {
             person = Optional.ofNullable(DaoFactory.getInstance().getPersonDao().get(id));
         } catch (DaoException e) {
-            log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
+            throw new RuntimeException(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
-        out.print(person);
+        out.print("Found : " + person);
         return person;
     }
 
-    protected static Person loadPerson() {
-        out.println("Load by Id. Please enter entity id:");
+    protected static void loadPerson(Scanner scanner) {
+        out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
 
-        Scanner scanner = new Scanner(System.in);
-        Person person = null;
         Integer id = scanner.nextInt();
         try {
-            person = DaoFactory.getInstance().getPersonDao().load(id);
+            out.print(DaoFactory.getInstance().getPersonDao().load(id));
         } catch (DaoException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (NullPointerException e) {
-            log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
+            throw new RuntimeException(Constants.ConstList.UNABLE_LOAD_PERSON, e);
         }
-        out.print(person);
-        return person;
     }
 
     protected static void flushPersonSession() {
