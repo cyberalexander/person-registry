@@ -5,6 +5,7 @@ import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,7 +80,7 @@ public class PersonMenu {
             try {
                 DaoFactory.getInstance().getPersonDao().delete(personOptional.get());
             } catch (DaoException e) {
-                throw new RuntimeException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
             }
         } else {
             err.println("Person not found. Please enter ID of existing person.");
@@ -99,7 +100,7 @@ public class PersonMenu {
         try {
             person = Optional.ofNullable(DaoFactory.getInstance().getPersonDao().get(id));
         } catch (DaoException e) {
-            throw new RuntimeException(Constants.ConstList.UNABLE_FIND_PERSON, e);
+            throw new MenuException(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
         out.print("Found : " + person);
         return person;
@@ -113,7 +114,7 @@ public class PersonMenu {
         try {
             out.print(DaoFactory.getInstance().getPersonDao().load(id));
         } catch (DaoException e) {
-            throw new RuntimeException(Constants.ConstList.UNABLE_LOAD_PERSON, e);
+            throw new MenuException(Constants.ConstList.UNABLE_LOAD_PERSON, e);
         }
     }
 
