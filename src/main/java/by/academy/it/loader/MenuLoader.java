@@ -16,7 +16,6 @@ import static by.academy.it.loader.DepartmentMenu.findDepartment;
 import static by.academy.it.loader.DepartmentMenu.flushDepartmentSession;
 import static by.academy.it.loader.DepartmentMenu.getDepartments;
 import static by.academy.it.loader.DepartmentMenu.loadDepartment;
-import static by.academy.it.loader.PersonMenu.createAddress;
 import static by.academy.it.loader.PersonMenu.createPerson;
 import static by.academy.it.loader.PersonMenu.deletePerson;
 import static by.academy.it.loader.PersonMenu.findPerson;
@@ -60,17 +59,8 @@ public class MenuLoader {
                     case 3: // Load Person
                         loadPerson(scanner);
                         break;
-                    case 4:
-                        // Save Person with Address
-                        person = null;
-                        person = createPerson(person);
-                        address = null;
-                        address = createAddress(address);
-                        person.setAddress(address);
-                        address.setPerson(person);
-                        //getPersonDao().save(person);
-                        log.info("Saved Address-object " + address.toString());
-                        factory.getAddressDao().save(address);
+                    case 4: // Create Person
+                        createPerson(scanner);
                         break;
                     case 5:
                         // Delete address
@@ -79,21 +69,23 @@ public class MenuLoader {
                         break;
                     case 6:
                         // SAVE OR UPDATE ADDRESS //TODO update только адрес!:) why?
-                        person = createPerson(person);
+                        //TODO rewrite
+                        /*person = createPerson(person);
                         address = createAddress(address);
                         person.setAddress(address);
                         address.setPerson(person);
-                        factory.getAddressDao().saveOrUpdate(address);
+                        factory.getAddressDao().saveOrUpdate(address);*/
                         break;
                     case 7:
                         getAllPersons();
                         break;
                     case 8:
-                        person = createPerson(person);
+                        //TODO rewrite
+                        /*person = createPerson(person);
                         address = createAddress(address);
                         person.setAddress(address);
                         address.setPerson(person);
-                        factory.getPersonDao().update(person);
+                        factory.getPersonDao().update(person);*/
                         break;
                     case 9:
                         findAddress();

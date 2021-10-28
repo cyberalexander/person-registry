@@ -13,7 +13,7 @@
         </id>-->
 
         <property name="departmentName" type="string"/>
-        <set name="persons" cascade="all, all-delete-orphan" inverse="true" lazy="true">
+        <set name="persons" cascade="all, all-delete-orphan" inverse="true" lazy="false">
             <key>
                 <column name="department_id" not-null="true"/>
             </key>

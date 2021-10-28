@@ -13,6 +13,7 @@ public class Constants {
         public static final String WRITE_DEPARTMENT_NAME = "Department name : ";
         public static final String WRITE_CITY = "city : ";
         public static final String WRITE_STREET = "street : ";
+        public static final String WRITE_BUILDING = "Building : ";
         public static final String WRITE_ID = "ID : ";
         public static final String WRITE_NEW_NAME = "Name : ";
 
