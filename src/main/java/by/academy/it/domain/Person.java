@@ -89,7 +89,7 @@ public class Person implements Serializable, Automated {
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", department=" + this.department.getId() + " " +
+                ", department=" + Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null") + " " +
                 ", address='" + Optional.ofNullable(address).orElse(null) + '\'' +
         '}';
     }
