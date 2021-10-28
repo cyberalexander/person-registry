@@ -39,6 +39,14 @@ public class Department implements Serializable, Automated {
         this.persons = persons;
     }
 
+    public void addPersons(Set<Person> persons) {
+        if (this.persons.isEmpty()) {
+            this.setPersons(persons);
+        } else {
+            this.persons.addAll(persons);
+        }
+    }
+
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;

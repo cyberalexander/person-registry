@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.System.err;
@@ -27,49 +28,61 @@ public class PersonMenu {
 
     /**
      * Creating Person service
-     * @param person object of domain entity Person
+     * @param scanner object of domain entity Person
      * @return created and with setted parameters Person-object
      */
-    protected static Person createPerson(Person person) {
-        out.println("Please enter person description:");
+    protected static Person createPerson(Scanner scanner) throws DaoException {
+        out.println("Please enter person details:" + scanner.nextLine());
 
-        if (person == null){
-            person = new Person();
-        }
-        Scanner scanner = new Scanner(System.in);
+        Person person = new Person();
 
         out.print(Constants.ConstList.WRITE_NAME);
-        String parameter = scanner.nextLine();
-        person.setName(parameter);
+        String name = scanner.nextLine();
+        person.setName(name);
 
         out.print(Constants.ConstList.WRITE_SURNAME);
-        parameter = scanner.nextLine();
-        person.setSurname(parameter);
+        String surname = scanner.nextLine();
+        person.setSurname(surname);
 
         out.print(Constants.ConstList.WRITE_AGE);
         person.setAge(scanner.nextInt());
 
-        out.println(Constants.ConstList.WRITE_DEPARTMENT_NAME);
-        Department dep = Department.init();
-        dep.setDepartmentName(scanner.nextLine());
-        dep.setPersons(Collections.singleton(person));
-        person.setDepartment(dep);
+        Address address = createAddress(scanner);
+        person.setAddress(address);
+        address.setPerson(person);
+
+        List<Department> departments = DaoFactory.getInstance().getDepartmentDao().getAll();
+        if (departments.isEmpty()) {
+            Department dep = new Department();
+            out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME);
+            dep.setDepartmentName(scanner.nextLine());
+            dep.setPersons(Collections.singleton(person));
+            person.setDepartment(dep);
+        } else {
+            int randomDepartmentId = new Random().nextInt(departments.size() - 1) + 1;
+            Department randomDepartment = departments.get(randomDepartmentId);
+            randomDepartment.addPersons(Collections.singleton(person));
+            person.setDepartment(randomDepartment);
+            out.printf("Department %d assigned to Person", randomDepartment.getId());
+        }
+
+        DaoFactory.getInstance().getPersonDao().save(person);
         return person;
     }
 
-    public static Address createAddress(Address address) {
-        out.println("Please enter address description:");
+    public static Address createAddress(Scanner scanner) {
+        out.println("Please enter address description:" + scanner.nextLine());
 
-        if (address == null){
-            address = new Address();
-        }
-        Scanner scanner = new Scanner(System.in);
+        Address address = new Address();
 
-        out.println(Constants.ConstList.WRITE_CITY);
+        out.print(Constants.ConstList.WRITE_CITY);
         address.setCity(scanner.nextLine());
 
         out.print(Constants.ConstList.WRITE_STREET);
         address.setStreet(scanner.nextLine());
+
+        out.print(Constants.ConstList.WRITE_BUILDING);
+        address.setBuilding(scanner.nextInt());
 
         return address;
     }
