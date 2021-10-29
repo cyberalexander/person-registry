@@ -22,6 +22,7 @@ import static by.academy.it.loader.PersonMenu.findPerson;
 import static by.academy.it.loader.PersonMenu.flushPersonSession;
 import static by.academy.it.loader.PersonMenu.getAllPersons;
 import static by.academy.it.loader.PersonMenu.loadPerson;
+import static by.academy.it.loader.PersonMenu.updatePersonAddress;
 import static java.lang.System.out;
 
 /**
@@ -67,14 +68,8 @@ public class MenuLoader {
                         address = findAddress();
                         factory.getAddressDao().delete(address);
                         break;
-                    case 6:
-                        // SAVE OR UPDATE ADDRESS //TODO update только адрес!:) why?
-                        //TODO rewrite
-                        /*person = createPerson(person);
-                        address = createAddress(address);
-                        person.setAddress(address);
-                        address.setPerson(person);
-                        factory.getAddressDao().saveOrUpdate(address);*/
+                    case 6: //Update Person Address
+                        updatePersonAddress(scanner);
                         break;
                     case 7:
                         getAllPersons();
@@ -161,7 +156,7 @@ public class MenuLoader {
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("| 6. Save or Update Addr | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
+        out.println("| 6. Update Person Addr  | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");

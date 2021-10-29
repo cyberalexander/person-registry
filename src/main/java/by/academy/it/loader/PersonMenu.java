@@ -7,6 +7,7 @@ import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,6 +53,8 @@ public class PersonMenu {
         address.setPerson(person);
 
         List<Department> departments = DaoFactory.getInstance().getDepartmentDao().getAll();
+
+        // Create new Department, if there is no Departments created yet, or chose random one from existing Departments
         if (departments.isEmpty()) {
             Department dep = new Department();
             out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME);
@@ -115,7 +118,7 @@ public class PersonMenu {
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
-        out.print("Found : " + person);
+        log.debug("Found : {}", person);
         return person;
     }
 
@@ -143,7 +146,7 @@ public class PersonMenu {
         try {
             DaoFactory.getInstance().getPersonDao().flush(id, name);
         } catch (DaoException e) {
-            log.error(Constants.ConstList.UNABLE_FLUSH_EXAMPLE);
+            throw new MenuException(Constants.ConstList.UNABLE_FLUSH_EXAMPLE, e);
         }
     }
 
@@ -154,9 +157,43 @@ public class PersonMenu {
                 out.println(element.toString());
             }
         } catch (DaoException e) {
-            log.error(Constants.ConstList.UNABLE_LIST_PERSONS, e);
+            throw new MenuException(Constants.ConstList.UNABLE_LIST_PERSONS, e);
         }
     }
 
+
+    public static void updatePersonAddress(Scanner scanner) {
+        Optional<Person> person = Optional.empty();
+        while (!person.isPresent()) {
+            person = findPerson(scanner);
+            if (!person.isPresent()) {
+                log.warn("Person with such ID does not exists. Please enter ID of existing Person.");
+            }
+        }
+
+        Address address = person.get().getAddress();
+        scanner.nextLine();
+        out.print(Constants.ConstList.NEW_CITY);
+        String city = scanner.nextLine();
+        if (StringUtils.isNoneEmpty(city)) {
+            address.setCity(city);
+        }
+
+        out.print(Constants.ConstList.NEW_STREET);
+        String street = scanner.nextLine();
+        if (StringUtils.isNoneEmpty(street)) {
+            address.setStreet(street);
+        }
+
+        out.print(Constants.ConstList.NEW_BUILDING);
+        int building = scanner.nextInt();
+        address.setBuilding(building);
+
+        try {
+            DaoFactory.getInstance().getPersonDao().save(person.get());
+        } catch (DaoException e) {
+            throw new MenuException("Exception during update Person Address.", e);
+        }
+    }
 
 }
