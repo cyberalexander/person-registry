@@ -12,6 +12,10 @@ package by.academy.it.loader.exception;
  */
 public class MenuException extends RuntimeException {
 
+    public MenuException(Exception e) {
+        super(e);
+    }
+
     public MenuException(String message, Exception e) {
         super(message, e);
     }

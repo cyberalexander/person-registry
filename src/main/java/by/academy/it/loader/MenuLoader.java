@@ -16,13 +16,8 @@ import static by.academy.it.loader.DepartmentMenu.findDepartment;
 import static by.academy.it.loader.DepartmentMenu.flushDepartmentSession;
 import static by.academy.it.loader.DepartmentMenu.getDepartments;
 import static by.academy.it.loader.DepartmentMenu.loadDepartment;
-import static by.academy.it.loader.PersonMenu.createPerson;
-import static by.academy.it.loader.PersonMenu.deletePerson;
-import static by.academy.it.loader.PersonMenu.findPerson;
 import static by.academy.it.loader.PersonMenu.flushPersonSession;
 import static by.academy.it.loader.PersonMenu.getAllPersons;
-import static by.academy.it.loader.PersonMenu.loadPerson;
-import static by.academy.it.loader.PersonMenu.updatePersonAddress;
 import static java.lang.System.out;
 
 /**
@@ -52,24 +47,22 @@ public class MenuLoader {
                         System.exit(0);
                         break;
                     case 1: // Delete Person
-                        deletePerson(scanner);
+                        PersonMenu.deletePerson(scanner);
                         break;
                     case 2: //Get Person
-                        findPerson(scanner);
+                        PersonMenu.findPerson(scanner);
                         break;
                     case 3: // Load Person
-                        loadPerson(scanner);
+                        PersonMenu.loadPerson(scanner);
                         break;
                     case 4: // Create Person
-                        createPerson(scanner);
+                        PersonMenu.createPerson(scanner);
                         break;
-                    case 5:
-                        // Delete address
-                        address = findAddress();
-                        factory.getAddressDao().delete(address);
+                    case 5: // Delete address
+                        AddressMenu.deleteAddress(scanner);
                         break;
                     case 6: //Update Person Address
-                        updatePersonAddress(scanner);
+                        PersonMenu.updatePersonAddress(scanner);
                         break;
                     case 7:
                         getAllPersons();
@@ -83,7 +76,7 @@ public class MenuLoader {
                         factory.getPersonDao().update(person);*/
                         break;
                     case 9:
-                        findAddress();
+                        findAddress(scanner);
                         break;
                     case 10:
                         department = loadDepartment();
@@ -154,7 +147,7 @@ public class MenuLoader {
         out.println("\n+-----------------------------------------------+");
         out.println("|     Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:  |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address |");
+        out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address    |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("| 6. Update Person Addr  | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
