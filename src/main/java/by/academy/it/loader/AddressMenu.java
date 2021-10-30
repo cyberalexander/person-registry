@@ -3,38 +3,57 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
 import java.util.Scanner;
+
+import static java.lang.System.out;
 
 /**
  * Created by alexanderleonovich on 18.05.15.
  */
-public class AddressMenu extends MenuLoader {
-    private static Logger log = LogManager.getLogger(AddressMenu.class);
+public class AddressMenu {
+    private static final Logger log = LogManager.getLogger(AddressMenu.class);
 
     /**
      * Method for getting Person object from database or from sesion-cash
      * @return Person-object from database or from sesion-cash
      */
-    protected static Address findAddress() {
-        System.out.println("Get by Id. Please enter address id:");
-        System.out.print(Constants.ConstList.WRITE_ID);
+    protected static Optional<Address> findAddress(Scanner scanner) {
+        out.println("Please enter address id:");
+        out.print(Constants.ConstList.WRITE_ID);
 
-        Scanner scanner = new Scanner(System.in);
-        Address address = null;
+        Optional<Address> address;
         Integer id = scanner.nextInt();
         try {
-            address = DaoFactory.getInstance().getAddressDao().get(id);
+            address = Optional.ofNullable(DaoFactory.getInstance().getAddressDao().get(id));
         } catch (DaoException e) {
-            log.error(e, e);
-        } catch (NullPointerException e) {
-            log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
+            throw new MenuException(e);
         }
-        System.out.print(address);
+        log.debug("Found : {}", address);
         return address;
+    }
+
+    /**
+     * Method delete Address from database without any effect on related Person entity - related person
+     * will remain in database with address = null.
+     */
+    public static void deleteAddress(Scanner scanner) {
+        Optional<Address> address = findAddress(scanner);
+        if (address.isPresent()) {
+            try {
+                DaoFactory.getInstance().getAddressDao().delete(address.get());
+                log.info("Deleted : {}", address.get());
+            } catch (DaoException e) {
+                throw new MenuException(e);
+            }
+        } else {
+            log.warn("Address not found.");
+        }
     }
 
     protected static Address findAddress(Integer id) {
@@ -46,7 +65,7 @@ public class AddressMenu extends MenuLoader {
         } catch (NullPointerException e) {
             log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
-        System.out.print(address);
+        out.print(address);
         return address;
     }
 }
