@@ -73,6 +73,37 @@ public class PersonMenu {
         return person;
     }
 
+    protected static Optional<Person> updatePerson(Scanner scanner) {
+        Optional<Person> personOptional = findPerson(scanner);
+        if (personOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
+            try {
+                Person person = personOptional.get();
+                scanner.nextLine();
+                out.print(Constants.ConstList.WRITE_NAME);
+                String name = scanner.nextLine();
+                if (StringUtils.isNoneEmpty(name)) {
+                    person.setName(name);
+                }
+
+                out.print(Constants.ConstList.WRITE_SURNAME);
+                String surname = scanner.nextLine();
+                if (StringUtils.isNoneEmpty(surname)) {
+                    person.setSurname(surname);
+                }
+
+                out.print(Constants.ConstList.WRITE_AGE);
+                person.setAge(scanner.nextInt());
+
+                DaoFactory.getInstance().getPersonDao().update(person);
+            } catch (DaoException e) {
+                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+            }
+        } else {
+            err.println("Person not found. Please enter ID of existing person.");
+        }
+        return personOptional;
+    }
+
     public static Address createAddress(Scanner scanner) {
         out.println("Please enter address description:" + scanner.nextLine());
 
@@ -190,7 +221,7 @@ public class PersonMenu {
         address.setBuilding(building);
 
         try {
-            DaoFactory.getInstance().getPersonDao().save(person.get());
+            DaoFactory.getInstance().getPersonDao().update(person.get());
         } catch (DaoException e) {
             throw new MenuException("Exception during update Person Address.", e);
         }
