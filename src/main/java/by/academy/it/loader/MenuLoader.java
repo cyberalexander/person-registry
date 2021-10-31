@@ -46,34 +46,29 @@ public class MenuLoader {
                     case 0:
                         System.exit(0);
                         break;
-                    case 1: // Delete Person
-                        PersonMenu.deletePerson(scanner);
+                    case 1: // Create Person
+                        PersonMenu.createPerson(scanner);
                         break;
-                    case 2: //Get Person
+                    case 2: // Get Person
                         PersonMenu.findPerson(scanner);
                         break;
                     case 3: // Load Person
                         PersonMenu.loadPerson(scanner);
                         break;
-                    case 4: // Create Person
-                        PersonMenu.createPerson(scanner);
+                    case 4:
+                        getAllPersons();
                         break;
-                    case 5: // Delete address
-                        AddressMenu.deleteAddress(scanner);
+                    case 5: // Update Person
+                        PersonMenu.updatePerson(scanner);
                         break;
                     case 6: //Update Person Address
                         PersonMenu.updatePersonAddress(scanner);
                         break;
-                    case 7:
-                        getAllPersons();
+                    case 7: // Delete Person
+                        PersonMenu.deletePerson(scanner);
                         break;
-                    case 8:
-                        //TODO rewrite
-                        /*person = createPerson(person);
-                        address = createAddress(address);
-                        person.setAddress(address);
-                        address.setPerson(person);
-                        factory.getPersonDao().update(person);*/
+                    case 8:// Delete address
+                        AddressMenu.deleteAddress(scanner);
                         break;
                     case 9:
                         findAddress(scanner);
@@ -144,12 +139,12 @@ public class MenuLoader {
 
 
     private static void printMenu() {
-        out.println("\n+-----------------------------------------------+");
+        out.println("\n+--------------------------------------------------------------------------------------------+");
         out.println("|     Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:  |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|       0. Exit          |   1. Delete Person   |          2. Get Person   |       3. Load Person       |4. Save Pers with Addr | 5. Delete Address    |");
+        out.println("|       0. Exit          |   1. Create Person   |     2. Get Person        |       3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("| 6. Update Person Addr  | 7. Get All Persons   |     8. Update Person     |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
+        out.println("|6. Update Person Address|  7. Delete Person    |     8. Delete address    |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
