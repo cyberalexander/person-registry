@@ -66,7 +66,7 @@ public class PersonMenu {
             Department randomDepartment = departments.get(randomDepartmentId);
             randomDepartment.addPersons(Collections.singleton(person));
             person.setDepartment(randomDepartment);
-            out.printf("Department %d assigned to Person", randomDepartment.getId());
+            log.debug("Department {} assigned to Person", randomDepartment.getId());
         }
 
         DaoFactory.getInstance().getPersonDao().save(person);
@@ -156,10 +156,8 @@ public class PersonMenu {
     protected static void loadPerson(Scanner scanner) {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
-
-        Integer id = scanner.nextInt();
         try {
-            out.print(DaoFactory.getInstance().getPersonDao().load(id));
+            out.print(DaoFactory.getInstance().getPersonDao().load(scanner.nextInt()));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_LOAD_PERSON, e);
         }
