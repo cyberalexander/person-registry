@@ -3,6 +3,7 @@ package by.academy.it.loader;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,14 +55,12 @@ public class DepartmentMenu extends MenuLoader {
         out.print(Constants.ConstList.WRITE_ID);
 
         Scanner scanner = new Scanner(System.in);
-        Department department = null;
+        Department department;
         Integer id = scanner.nextInt();
         try {
             department = DaoFactory.getInstance().getDepartmentDao().load(id);
         } catch (DaoException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (NullPointerException e) {
-            log.error("Unable find department:", e);
+            throw new MenuException(Constants.ConstList.UNABLE_FIND_DEPARTMENT, e);
         }
         out.print(department);
         return department;
