@@ -67,7 +67,7 @@ public class MenuLoader {
                     case 7: // Delete Person
                         PersonMenu.deletePerson(scanner);
                         break;
-                    case 8:// Delete address
+                    case 8: // Delete address
                         AddressMenu.deleteAddress(scanner);
                         break;
                     case 9:
@@ -144,7 +144,7 @@ public class MenuLoader {
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|       0. Exit          |   1. Create Person   |     2. Get Person        |       3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|6. Update Person Address|  7. Delete Person    |     8. Delete address    |  9. Update Person with nam |10. Delete department  |     11. Get Depart   |");
+        out.println("|6. Update Person Address|  7. Delete Person    |     8. Delete address    |       9. Find Address      | 10. Delete department |     11. Get Depart   |");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
         out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");

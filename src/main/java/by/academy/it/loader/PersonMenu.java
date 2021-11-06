@@ -7,9 +7,8 @@ import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,15 +23,18 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 15.05.15.
  * Operation menu for Person-entity
  */
-public class PersonMenu {
-    private static Logger log = LogManager.getLogger(PersonMenu.class);
+@Log4j2
+public final class PersonMenu {
+
+    private PersonMenu() {
+    }
 
     /**
      * Creating Person service
      * @param scanner object of domain entity Person
      * @return created and with setted parameters Person-object
      */
-    protected static Person createPerson(Scanner scanner) throws DaoException {
+    public static Person createPerson(Scanner scanner) throws DaoException {
         out.println("Please enter person details:" + scanner.nextLine());
 
         Person person = new Person();
@@ -73,7 +75,7 @@ public class PersonMenu {
         return person;
     }
 
-    protected static Optional<Person> updatePerson(Scanner scanner) {
+    public static Optional<Person> updatePerson(Scanner scanner) {
         Optional<Person> personOptional = findPerson(scanner);
         if (personOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
             try {
@@ -121,7 +123,7 @@ public class PersonMenu {
         return address;
     }
 
-    protected static void deletePerson(Scanner scanner) {
+    public static void deletePerson(Scanner scanner) {
         Optional<Person> personOptional = findPerson(scanner);
         if (personOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
             try {
@@ -138,7 +140,7 @@ public class PersonMenu {
      * Method for getting Person object from database or from sesion-cash
      * @return Person-object from database or from sesion-cash
      */
-    protected static Optional<Person> findPerson(Scanner scanner) {
+    public static Optional<Person> findPerson(Scanner scanner) {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
 
@@ -153,7 +155,7 @@ public class PersonMenu {
         return person;
     }
 
-    protected static void loadPerson(Scanner scanner) {
+    public static void loadPerson(Scanner scanner) {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
         try {
@@ -163,7 +165,7 @@ public class PersonMenu {
         }
     }
 
-    protected static void flushPersonSession() {
+    public static void flushPersonSession() {
         out.println("Please enter ID:");
         out.print(Constants.ConstList.WRITE_ID);
         Scanner scanner = new Scanner(System.in);
@@ -224,5 +226,4 @@ public class PersonMenu {
             throw new MenuException("Exception during update Person Address.", e);
         }
     }
-
 }

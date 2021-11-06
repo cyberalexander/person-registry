@@ -5,8 +5,7 @@ import by.academy.it.domain.Address;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -16,14 +15,17 @@ import static java.lang.System.out;
 /**
  * Created by alexanderleonovich on 18.05.15.
  */
-public class AddressMenu {
-    private static final Logger log = LogManager.getLogger(AddressMenu.class);
+@Log4j2
+public final class AddressMenu {
+
+    private AddressMenu() {
+    }
 
     /**
      * Method for getting Person object from database or from sesion-cash
      * @return Person-object from database or from sesion-cash
      */
-    protected static Optional<Address> findAddress(Scanner scanner) {
+    public static Optional<Address> findAddress(Scanner scanner) {
         out.println("Please enter address id:");
         out.print(Constants.ConstList.WRITE_ID);
 
@@ -56,7 +58,7 @@ public class AddressMenu {
         }
     }
 
-    protected static Address findAddress(Integer id) {
+    public static Address findAddress(Integer id) {
         Address address = null;
         try {
             address = DaoFactory.getInstance().getAddressDao().get(id);
