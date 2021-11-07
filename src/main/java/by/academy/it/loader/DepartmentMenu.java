@@ -5,8 +5,7 @@ import by.academy.it.domain.Department;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +15,13 @@ import static java.lang.System.out;
 /**
  * Created by alexanderleonovich on 15.05.15.
  */
-public class DepartmentMenu extends MenuLoader {
-    private static Logger log = LogManager.getLogger(DepartmentMenu.class);
+@Log4j2
+public final class DepartmentMenu {
 
-    protected static Department createDepartment(Department department) {
+    private DepartmentMenu() {
+    }
+
+    public static Department createDepartment(Department department) {
         out.println("Please enter department description:");
         out.print(Constants.ConstList.WRITE_NAME);
 
@@ -32,7 +34,7 @@ public class DepartmentMenu extends MenuLoader {
         return department;
     }
 
-    protected static Department findDepartment() {
+    public static Department findDepartment() {
         out.println("Get by Id. Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
 
@@ -50,7 +52,7 @@ public class DepartmentMenu extends MenuLoader {
         return department;
     }
 
-    protected static Department loadDepartment() {
+    public static Department loadDepartment() {
         out.println("Load by Id. Please enter entity id:");
         out.print(Constants.ConstList.WRITE_ID);
 
@@ -67,7 +69,7 @@ public class DepartmentMenu extends MenuLoader {
     }
 
 
-    protected static void getDepartments() {
+    public static void getDepartments() {
         try {
             List<Department> list = DaoFactory.getInstance().getDepartmentDao().getAll();
             for (Department element : list) {
@@ -79,7 +81,7 @@ public class DepartmentMenu extends MenuLoader {
     }
 
 
-    protected static void flushDepartmentSession() {
+    public static void flushDepartmentSession() {
         out.println("Please enter ID:");
         out.print(Constants.ConstList.WRITE_ID);
         Scanner scanner = new Scanner(System.in);
