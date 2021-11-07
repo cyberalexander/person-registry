@@ -8,8 +8,10 @@ import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -52,19 +54,18 @@ public final class DepartmentMenu {
         return department;
     }
 
-    public static Department loadDepartment() {
-        out.println("Load by Id. Please enter entity id:");
+    public static Optional<Department> loadDepartment(Scanner scanner) {
+        out.println("Load by Id. Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
 
-        Scanner scanner = new Scanner(System.in);
-        Department department;
+        Optional<Department> department;
         Integer id = scanner.nextInt();
         try {
-            department = DaoFactory.getInstance().getDepartmentDao().load(id);
+            department = Optional.ofNullable(DaoFactory.getInstance().getDepartmentDao().load(id));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_DEPARTMENT, e);
         }
-        out.print(department);
+        log.debug("Found : {}", department);
         return department;
     }
 
@@ -94,6 +95,19 @@ public final class DepartmentMenu {
             DaoFactory.getInstance().getDepartmentDao().flush(id, name);
         } catch (DaoException e) {
             log.error("Unable run flush example");
+        }
+    }
+
+    public static void deleteDepartment(Scanner scanner) {
+        Optional<Department> departmentOptional = loadDepartment(scanner);
+        if (departmentOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
+            try {
+                DaoFactory.getInstance().getDepartmentDao().delete(departmentOptional.get());
+            } catch (DaoException e) {
+                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+            }
+        } else {
+            err.println("Department not found. Please enter ID of existing department.");
         }
     }
 }

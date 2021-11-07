@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static by.academy.it.loader.AddressMenu.findAddress;
 import static by.academy.it.loader.DepartmentMenu.createDepartment;
+import static by.academy.it.loader.DepartmentMenu.deleteDepartment;
 import static by.academy.it.loader.DepartmentMenu.findDepartment;
 import static by.academy.it.loader.DepartmentMenu.flushDepartmentSession;
 import static by.academy.it.loader.DepartmentMenu.getDepartments;
@@ -74,14 +75,13 @@ public class MenuLoader {
                         findAddress(scanner);
                         break;
                     case 10:
-                        department = loadDepartment();
-                        factory.getDepartmentDao().delete(department);
+                        deleteDepartment(scanner);
                         break;
                     case 11:
                         department = findDepartment();
                         break;
                     case 12:
-                        loadDepartment();
+                        loadDepartment(scanner);
                         break;
                     case 13:
                         department = null;
