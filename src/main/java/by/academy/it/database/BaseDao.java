@@ -103,7 +103,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
             transaction = session.beginTransaction();
             R response = function.apply(session);
             transaction.commit();
-            log.debug("Response : {}", response);
+            log.debug("Result : {}", response);
             return response;
         } catch (HibernateException e) {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
