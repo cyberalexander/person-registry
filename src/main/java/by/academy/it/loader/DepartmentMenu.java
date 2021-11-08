@@ -36,37 +36,32 @@ public final class DepartmentMenu {
         return department;
     }
 
-    public static Department findDepartment() {
+    public static Optional<Department> findDepartment(Scanner scanner) {
         out.println("Get by Id. Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
-
-        Scanner scanner = new Scanner(System.in);
-        Department department = null;
-        Integer id = scanner.nextInt();
         try {
-            department = DaoFactory.getInstance().getDepartmentDao().get(id);
+            Optional<Department> department = Optional.ofNullable(
+                DaoFactory.getInstance().getDepartmentDao().get(scanner.nextInt())
+            );
+            log.debug("Found : {}", department);
+            return department;
         } catch (DaoException e) {
-            log.error(e, e);
-        } catch (NullPointerException e) {
-            log.error("Unable find department:", e);
+            throw new MenuException(e);
         }
-        out.print(department);
-        return department;
     }
 
     public static Optional<Department> loadDepartment(Scanner scanner) {
         out.println("Load by Id. Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
-
-        Optional<Department> department;
-        Integer id = scanner.nextInt();
         try {
-            department = Optional.ofNullable(DaoFactory.getInstance().getDepartmentDao().load(id));
+            Optional<Department> department = Optional.ofNullable(
+                DaoFactory.getInstance().getDepartmentDao().load(scanner.nextInt())
+            );
+            log.debug("Found : {}", department);
+            return department;
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_DEPARTMENT, e);
         }
-        log.debug("Found : {}", department);
-        return department;
     }
 
 
