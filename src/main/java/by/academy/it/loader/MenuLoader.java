@@ -39,7 +39,7 @@ public class MenuLoader {
         Address address = null;
         Department department = null;
         Integer id;
-        try(Scanner scanner = new Scanner(System.in)) {
+        try (Scanner scanner = new Scanner(System.in)) {
             while (showMenu) {
                 printMenu();
                 int operation = scanner.nextInt();
@@ -78,7 +78,7 @@ public class MenuLoader {
                         deleteDepartment(scanner);
                         break;
                     case 11:
-                        department = findDepartment();
+                        findDepartment(scanner);
                         break;
                     case 12:
                         loadDepartment(scanner);
