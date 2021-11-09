@@ -23,16 +23,17 @@ public final class DepartmentMenu {
     private DepartmentMenu() {
     }
 
-    public static Department createDepartment(Department department) {
-        out.println("Please enter department description:");
+    public static Department createDepartment(Scanner scanner) {
+        out.println("Please enter department description:" + scanner.nextLine());
         out.print(Constants.ConstList.WRITE_NAME);
-
-        if (department == null){
-            department = new Department();
+        Department department = new Department();
+        department.setDepartmentName(scanner.nextLine());
+        try {
+            DaoFactory.getInstance().getDepartmentDao().save(department);
+            log.debug("Created : {}", department);
+        } catch (DaoException e) {
+            throw new MenuException(Constants.ConstList.UNABLE_CREATE_DEPARTMENT, e);
         }
-        Scanner scanner = new Scanner(System.in);
-        String parameter = scanner.nextLine();
-        department.setDepartmentName(parameter);
         return department;
     }
 

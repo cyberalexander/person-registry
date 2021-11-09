@@ -71,45 +71,40 @@ public class MenuLoader {
                     case 8: // Delete address
                         AddressMenu.deleteAddress(scanner);
                         break;
-                    case 9:
+                    case 9: // Get Address
                         findAddress(scanner);
                         break;
-                    case 10:
+                    case 10: // Delete Department
                         deleteDepartment(scanner);
                         break;
-                    case 11:
+                    case 11: // Get Department
                         findDepartment(scanner);
                         break;
-                    case 12:
+                    case 12: // Load Department
                         loadDepartment(scanner);
                         break;
-                    case 13:
-                        department = null;
-                        department = createDepartment(department);
-                        department.setId(getIdForSave());
-                        factory.getDepartmentDao().save(department);
+                    case 13: // Create Department
+                        DepartmentMenu.createDepartment(scanner);
                         break;
                     case 14:
-                        department = null;
-                        department = createDepartment(department);
+                        department = createDepartment(scanner);
                         id = getIdForSave();
                         department.setId(id);
                         factory.getDepartmentDao().save(department, String.valueOf(id));
                         break;
                     case 15:
-                        department = createDepartment(department);
+                        department = createDepartment(scanner);
                         factory.getDepartmentDao().saveOrUpdate(department);
                         break;
                     case 16:
                         getDepartments();
                         break;
                     case 17:
-                        department = createDepartment(department);
+                        department = createDepartment(scanner);
                         factory.getDepartmentDao().update(department);
                         break;
                     case 18:
-                        department = null;
-                        department = createDepartment(department);
+                        department = createDepartment(scanner);
                         id = getIdForSave();
                         department.setId(id);
                         factory.getDepartmentDao().update(department, String.valueOf(id));
