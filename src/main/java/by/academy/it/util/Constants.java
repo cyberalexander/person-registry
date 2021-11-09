@@ -29,6 +29,7 @@ public class Constants {
         public static final String UNABLE_FLUSH_EXAMPLE = "Unable run flush example.   ";
         public static final String UNABLE_LIST_PERSONS = "Unable get list of persons:  ";
         public static final String UNABLE_FIND_DEPARTMENT = "Unable to find department.";
+        public static final String UNABLE_CREATE_DEPARTMENT = "Unable to create department.";
 
 
         public static final String ERROR_FLUSH_DEPARTMENT = "Error Flush department.   ";
