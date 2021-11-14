@@ -98,7 +98,7 @@ public final class PersonMenu {
 
                 DaoFactory.getInstance().getPersonDao().update(person);
             } catch (DaoException e) {
-                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+                throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
             }
         } else {
             err.println("Person not found. Please enter ID of existing person.");
