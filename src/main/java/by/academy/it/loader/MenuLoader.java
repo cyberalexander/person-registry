@@ -56,13 +56,13 @@ public class MenuLoader {
                     case 3: // Load Person
                         PersonMenu.loadPerson(scanner);
                         break;
-                    case 4:
+                    case 4: // Get all Persons
                         getAllPersons();
                         break;
                     case 5: // Update Person
                         PersonMenu.updatePerson(scanner);
                         break;
-                    case 6: //Update Person Address
+                    case 6: // Update Person Address
                         PersonMenu.updatePersonAddress(scanner);
                         break;
                     case 7: // Delete Person
@@ -74,8 +74,8 @@ public class MenuLoader {
                     case 9: // Get Address
                         findAddress(scanner);
                         break;
-                    case 10: // Delete Department
-                        deleteDepartment(scanner);
+                    case 10: // Create Department
+                        DepartmentMenu.createDepartment(scanner);
                         break;
                     case 11: // Get Department
                         findDepartment(scanner);
@@ -83,21 +83,17 @@ public class MenuLoader {
                     case 12: // Load Department
                         loadDepartment(scanner);
                         break;
-                    case 13: // Create Department
-                        DepartmentMenu.createDepartment(scanner);
+                    case 13: // Get all Departments
+                        getDepartments();
                         break;
-                    case 14:
-                        department = createDepartment(scanner);
-                        id = getIdForSave();
-                        department.setId(id);
-                        factory.getDepartmentDao().save(department, String.valueOf(id));
+                    case 14: // Update Department
+                        DepartmentMenu.updateDepartment(scanner);
                         break;
-                    case 15:
-                        department = createDepartment(scanner);
-                        factory.getDepartmentDao().saveOrUpdate(department);
+                    case 15: // Delete Department
+                        deleteDepartment(scanner);
                         break;
                     case 16:
-                        getDepartments();
+                        log.warn("This option not applicable");
                         break;
                     case 17:
                         department = createDepartment(scanner);
@@ -136,15 +132,15 @@ public class MenuLoader {
     private static void printMenu() {
         out.println("\n+--------------------------------------------------------------------------------------------+");
         out.println("|     Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:  |");
-        out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|       0. Exit          |   1. Create Person   |     2. Get Person        |       3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
-        out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|6. Update Person Address|  7. Delete Person    |     8. Delete address    |       9. Find Address      | 10. Delete department |     11. Get Depart   |");
-        out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|   12. Load Department  | 13.  Save Department |  14. Save Depart with id |  15. Save or Update Depart | 16.  Get Depart list  | 17. Update Department|");
-        out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|18. Upd Depart with name| 19. Flush Person sess| 20. Flush Depart session |  21. Save or update people |    22. Get People     |23.Save or update Empl|");
-        out.println("+------------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|       0. Exit          |   1. Create Person   |    2. Get Person        |     3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|6. Update Person Address|  7. Delete Person    |    8. Delete address    |     9. Find Address      | 10. Create department |  11. Get Department  |");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|   12. Load Department  | 13. Get all Departs  |  14. Update Department  |   15. Delete Department  | 16.  Get Depart list  | 17. Update Department|");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|18. Upd Depart with name| 19. Flush Person sess| 20. Flush Depart session| 21. Save or update people|    22. Get People     |23.Save or update Empl|");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
     }
 
     private int getIdForSave() {
