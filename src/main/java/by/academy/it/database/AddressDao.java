@@ -22,7 +22,6 @@ public class AddressDao extends BaseDao<Address> {
     @SuppressWarnings("unchecked")
     public List<Address> parseResultForGetAll(Session session) {
         List<Address> addresses = session.createSQLQuery("SELECT * FROM T_ADDRESS").addEntity(Address.class).list();
-        log.debug("Queried : {}", addresses);
         return addresses;
     }
 

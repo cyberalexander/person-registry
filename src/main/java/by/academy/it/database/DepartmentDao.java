@@ -37,7 +37,6 @@ public class DepartmentDao extends BaseDao<Department> {
     @SuppressWarnings("unchecked")
     protected List<Department> parseResultForGetAll(Session session) {
         List<Department> departments = session.createSQLQuery("SELECT * FROM T_DEPARTMENT").addEntity(Department.class).list();
-        log.debug("Queried : {}", departments);
         return departments;
     }
 

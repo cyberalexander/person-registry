@@ -94,7 +94,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
      * @return The result of JPA operation over particular entity.
      * @throws DaoException custom project exception, thrown in case of any {@link HibernateException}
      */
-    protected  <R> R doInContext(Function<Session, R> function) throws DaoException {
+    protected <R> R doInContext(Function<Session, R> function) throws DaoException {
         log.debug("Function : {}", function);
         Session session = null;
         Transaction transaction = null;
@@ -103,7 +103,6 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
             transaction = session.beginTransaction();
             R response = function.apply(session);
             transaction.commit();
-            log.debug("Result : {}", response);
             return response;
         } catch (HibernateException e) {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
