@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -21,14 +22,30 @@ public class PersonDao extends BaseDao<Person> {
         super(util);
     }
 
-    public void flush(Integer id, String newName) throws DaoException {
+    public void flush(Person detached) throws DaoException {
+        Transaction t = null;
         try {
             Session session = util.getSession();
-            Person p = session.get(Person.class, id);
-            log.debug("Before flush : {}", p);
-            p.setName(newName);
+            t = session.beginTransaction();
+
+            log.debug("isDirty={}, contains detached object? : {}",
+                session.isDirty(), session.contains(detached));
+
+            Person attached = session.get(Person.class, detached.getPersonId());
+
+            log.debug("Initial Name: {}", attached.getName());
+            String newName = "FLUSH_TEST_" + attached.getName();
+            attached.setName(newName);
+            log.debug("Changed name: {}", attached.getName());
+
+            log.info("isDirty={}", session.isDirty());
             session.flush();
-            log.debug("After flush : {}", p);
+            t.commit();
+
+            t = session.beginTransaction();
+            Person queried = session.load(Person.class, detached.getId());
+            t.commit();
+            log.debug("Name in database equal to newName? : {}", queried.getName().equals(newName));
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
@@ -38,7 +55,6 @@ public class PersonDao extends BaseDao<Person> {
     @SuppressWarnings("unchecked")
     public List<Person> parseResultForGetAll(Session session) {
         List<Person> persons = session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
-        log.debug("Queried : {}", persons);
         return persons;
     }
 

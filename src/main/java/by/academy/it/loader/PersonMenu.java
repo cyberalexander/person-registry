@@ -1,5 +1,6 @@
 package by.academy.it.loader;
 
+import by.academy.it.database.PersonDao;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
@@ -25,6 +26,7 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class PersonMenu {
+    private static final PersonDao DAO = DaoFactory.getInstance().getPersonDao();
 
     private PersonMenu() {
     }
@@ -166,16 +168,10 @@ public final class PersonMenu {
     }
 
     public static void flushPersonSession() {
-        out.println("Please enter ID:");
-        out.print(Constants.ConstList.WRITE_ID);
-        Scanner scanner = new Scanner(System.in);
-        Integer id = scanner.nextInt();
-        out.println("Please enter new Name:");
-        out.print(Constants.ConstList.WRITE_NEW_NAME);
-        scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
         try {
-            DaoFactory.getInstance().getPersonDao().flush(id, name);
+            List<Person> persons = DAO.getAll();
+            Person randomPerson = persons.get(new Random().nextInt(persons.size() - 1) + 1);
+            DAO.flush(randomPerson);
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FLUSH_EXAMPLE, e);
         }
