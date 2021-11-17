@@ -2,6 +2,7 @@ package by.academy.it.database;
 
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
@@ -95,7 +97,9 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
      * @throws DaoException custom project exception, thrown in case of any {@link HibernateException}
      */
     protected <R> R doInContext(Function<Session, R> function) throws DaoException {
-        log.debug("Function : {}", function);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
         Session session = null;
         Transaction transaction = null;
         try {
@@ -111,13 +115,15 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
             if (!shareSession && session != null && session.isOpen()) {
                 session.close();
             }
+            stopWatch.stop();
+            log.debug("exec time : {}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
         }
     }
 
     protected abstract List<T> parseResultForGetAll(Session session);
 
     /**
-     * Util methods
+     * Method returns the Class of Dao implementation generic type.
      */
     @SuppressWarnings("unchecked")
     private Class<?> getPersistentClass() {

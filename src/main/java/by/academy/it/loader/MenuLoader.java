@@ -13,7 +13,6 @@ import java.util.Scanner;
 import static by.academy.it.loader.AddressMenu.findAddress;
 import static by.academy.it.loader.DepartmentMenu.deleteDepartment;
 import static by.academy.it.loader.DepartmentMenu.findDepartment;
-import static by.academy.it.loader.DepartmentMenu.flushDepartmentSession;
 import static by.academy.it.loader.DepartmentMenu.getDepartments;
 import static by.academy.it.loader.DepartmentMenu.loadDepartment;
 import static by.academy.it.loader.PersonMenu.flushPersonSession;
@@ -92,24 +91,7 @@ public class MenuLoader {
                         deleteDepartment(scanner);
                         break;
                     case 16:
-                        break;
-                    case 17:
-                        break;
-                    case 18:
-                        break;
-                    case 19:
                         flushPersonSession();
-                        break;
-                    case 20:
-                        flushDepartmentSession();
-                        break;
-                    case 21:
-
-                        break;
-                    case 22:
-                        break;
-                    case 23:
-
                         break;
                     default:
                         out.println("Choose proper number from the menu.");
@@ -129,18 +111,7 @@ public class MenuLoader {
         out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|6. Update Person Address|  7. Delete Person    |    8. Delete address    |     9. Find Address      | 10. Create department |  11. Get Department  |");
         out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|   12. Load Department  | 13. Get all Departs  |  14. Update Department  |   15. Delete Department  | 16.  ?                | 17. ?                |");
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|18. Upd Depart with name| 19. Flush Person sess| 20. Flush Depart session| 21. Save or update people|    22. Get People     |23.Save or update Empl|");
+        out.println("|   12. Load Department  | 13. Get all Departs  |  14. Update Department  |   15. Delete Department  | 16. Flush Session Demo| 17. N/A              |");
         out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
     }
-
-    private int getIdForSave() {
-        out.println("Write Id position for saving entity:");
-        out.print("Id - ");
-        Scanner scanner = new Scanner(System.in);
-        int id = scanner.nextInt();
-        return id;
-    }
-
 }

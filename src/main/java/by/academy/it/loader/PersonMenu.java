@@ -171,7 +171,7 @@ public final class PersonMenu {
         try {
             List<Person> persons = DAO.getAll();
             Person randomPerson = persons.get(new Random().nextInt(persons.size() - 1) + 1);
-            DAO.flush(randomPerson);
+            DAO.flushDemo(randomPerson);
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FLUSH_EXAMPLE, e);
         }

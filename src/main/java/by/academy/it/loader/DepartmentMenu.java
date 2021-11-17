@@ -95,22 +95,6 @@ public final class DepartmentMenu {
         }
     }
 
-    public static void flushDepartmentSession() {
-        out.println("Please enter ID:");
-        out.print(Constants.ConstList.WRITE_ID);
-        Scanner scanner = new Scanner(System.in);
-        Integer id = scanner.nextInt();
-        out.println("Please enter new Name:");
-        out.print(Constants.ConstList.WRITE_NEW_NAME);
-        scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
-        try {
-            DaoFactory.getInstance().getDepartmentDao().flush(id, name);
-        } catch (DaoException e) {
-            log.error("Unable run flush example");
-        }
-    }
-
     public static void deleteDepartment(Scanner scanner) {
         Optional<Department> departmentOptional = loadDepartment(scanner);
         if (departmentOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher

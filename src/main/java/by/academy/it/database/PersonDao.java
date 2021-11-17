@@ -22,8 +22,8 @@ public class PersonDao extends BaseDao<Person> {
         super(util);
     }
 
-    public void flush(Person detached) throws DaoException {
-        Transaction t = null;
+    public void flushDemo(Person detached) throws DaoException {
+        Transaction t;
         try {
             Session session = util.getSession();
             t = session.beginTransaction();
@@ -54,8 +54,7 @@ public class PersonDao extends BaseDao<Person> {
     @Override
     @SuppressWarnings("unchecked")
     public List<Person> parseResultForGetAll(Session session) {
-        List<Person> persons = session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
-        return persons;
+        return session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
     }
 
     @Override
