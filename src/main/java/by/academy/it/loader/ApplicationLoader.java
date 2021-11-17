@@ -22,7 +22,6 @@ public class ApplicationLoader {
     public static void main(String[] args) throws Exception {
         commandLineRunner();
         Locale.setDefault(Locale.US);
-        log.info("Hello, {}! You are in Start Menu", System.getProperty("user.name"));
         menuLoader.menu();
     }
 
