@@ -55,6 +55,25 @@ class DepartmentDaoTest implements BaseDaoTest<Department> {
         dao().releaseSession(); // close current database session if active
     }
 
+    /**
+     * Overridden this method from {@link BaseDaoTest#testLoad()} and added the hook to .withSharedSession() in order
+     * to avoid LazyInitializationException in case when accessing 'departmentName' field in assert.
+     */
+    @Test
+    @SneakyThrows
+    @Override
+    public void testLoad() {
+        Department entity = newInstance().populate();
+        dao().withSharedSession().save(entity); // here is the hook
+        Department expected = dao().load(entity.getId());
+        Assertions.assertEquals(
+            expected,
+            entity,
+            String.format("Loaded %s is not equal to %s", expected, entity)
+        );
+        dao().releaseSession();
+    }
+
     @Override
     public BaseDao<Department> dao() {
         return this.departmentDao;
