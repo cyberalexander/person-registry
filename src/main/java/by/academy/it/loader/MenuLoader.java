@@ -1,9 +1,5 @@
 package by.academy.it.loader;
 
-import by.academy.it.database.exception.DaoException;
-import by.academy.it.domain.Address;
-import by.academy.it.domain.Department;
-import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,27 +23,22 @@ public class MenuLoader {
     private static final Logger log = LogManager.getLogger(MenuLoader.class);
     private static Boolean showMenu = true;
     protected final DaoFactory factory;
+    private final Operator operator;
 
     public MenuLoader() {
         this.factory = DaoFactory.getInstance();
+        this.operator = new Operator();
     }
 
-    public void menu() throws DaoException {
-        Person person = null;
-        Address address = null;
-        Department department = null;
-        Integer id;
+    public void menu() {
         try (Scanner scanner = new Scanner(System.in)) {
             while (showMenu) {
                 printMenu();
                 int operation = scanner.nextInt();
+
+                operator.operation(operation).execute(scanner); //TODO Fix NPE, if operation not found
+
                 switch (operation) {
-                    case 0:
-                        System.exit(0);
-                        break;
-                    case 1: // Create Person
-                        PersonMenu.createPerson(scanner);
-                        break;
                     case 2: // Get Person
                         PersonMenu.findPerson(scanner);
                         break;
