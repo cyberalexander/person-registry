@@ -2,6 +2,7 @@ package by.academy.it.loader;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -24,8 +25,8 @@ public class Operator {
         );
     }
 
-    public Operation operation(Integer operationId) {
-        return operations.get(operationId);
+    public Optional<Operation> operation(Integer operationId) {
+        return Optional.ofNullable(operations.get(operationId));
     }
 
     public enum Operation {

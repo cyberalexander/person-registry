@@ -36,7 +36,7 @@ public class MenuLoader {
                 printMenu();
                 int operation = scanner.nextInt();
 
-                operator.operation(operation).execute(scanner); //TODO Fix NPE, if operation not found
+                operator.operation(operation).ifPresent(op -> op.execute(scanner));
 
                 switch (operation) {
                     case 2: // Get Person
