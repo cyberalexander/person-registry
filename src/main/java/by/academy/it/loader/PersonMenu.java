@@ -8,6 +8,7 @@ import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.loader.exception.MenuException;
 import by.academy.it.util.Constants;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,7 +37,8 @@ public final class PersonMenu {
      * @param scanner object of domain entity Person
      * @return created and with setted parameters Person-object
      */
-    public static Person createPerson(Scanner scanner) throws DaoException {
+    @SneakyThrows
+    public static Person createPerson(Scanner scanner) {
         out.println("Please enter person details:" + scanner.nextLine());
 
         Person person = new Person();
