@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -35,10 +36,9 @@ public final class PersonMenu {
     /**
      * Creating Person service
      * @param scanner object of domain entity Person
-     * @return created and with setted parameters Person-object
      */
     @SneakyThrows
-    public static Person createPerson(Scanner scanner) {
+    public static void createPerson(Scanner scanner) {
         out.println("Please enter person details:" + scanner.nextLine());
 
         Person person = new Person();
@@ -75,15 +75,13 @@ public final class PersonMenu {
             log.debug("Department {} assigned to Person", randomDepartment.getId());
         }
 
-        DaoFactory.getInstance().getPersonDao().save(person);
-        return person;
+        Serializable personId = DaoFactory.getInstance().getPersonDao().save(person);
+        log.trace("New Person created with ID : {}", personId);
     }
 
-    public static Optional<Person> updatePerson(Scanner scanner) {
-        Optional<Person> personOptional = findPerson(scanner);
-        if (personOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
-            try {
-                Person person = personOptional.get();
+    public static void updatePerson(Scanner scanner) {
+        findPerson(scanner).ifPresentOrElse(
+            person -> {
                 scanner.nextLine();
                 out.print(Constants.ConstList.WRITE_NAME);
                 String name = scanner.nextLine();
@@ -100,14 +98,14 @@ public final class PersonMenu {
                 out.print(Constants.ConstList.WRITE_AGE);
                 person.setAge(scanner.nextInt());
 
-                DaoFactory.getInstance().getPersonDao().update(person);
-            } catch (DaoException e) {
-                throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
-            }
-        } else {
-            err.println("Person not found. Please enter ID of existing person.");
-        }
-        return personOptional;
+                try {
+                    DaoFactory.getInstance().getPersonDao().update(person);
+                } catch (DaoException e) {
+                    throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
+                }
+            },
+            () -> err.println("Person not found. Please enter ID of existing person.")
+        );
     }
 
     public static Address createAddress(Scanner scanner) {

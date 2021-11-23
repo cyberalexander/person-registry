@@ -20,8 +20,10 @@ public class MenuLoader {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 printMenu();
-                operator.operation(scanner.nextInt()).ifPresent(op -> op.execute(scanner));
-                //TODO .orElse(() -> out.println("Choose proper number from the menu."));
+                operator.operation(scanner.nextInt()).ifPresentOrElse(
+                    op -> op.execute(scanner),
+                    () -> out.println("Choose proper number from the menu.")
+                );
             }
         }
     }
