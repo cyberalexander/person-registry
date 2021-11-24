@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
@@ -62,9 +63,7 @@ public final class PersonMenu {
 
         // Create new Department, if there is no Departments created yet, or chose random one from existing Departments
         if (departments.isEmpty()) {
-            Department dep = new Department();
-            out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME);
-            dep.setDepartmentName(scanner.nextLine());
+            Department dep = DepartmentMenu.createDepartment(scanner);
             dep.setPersons(Collections.singleton(person));
             person.setDepartment(dep);
         } else {
@@ -80,7 +79,7 @@ public final class PersonMenu {
     }
 
     public static void updatePerson(Scanner scanner) {
-        findPerson(scanner).ifPresentOrElse(
+        findPerson(scanner).ifPresent(
             person -> {
                 scanner.nextLine();
                 out.print(Constants.ConstList.WRITE_NAME);
@@ -103,13 +102,12 @@ public final class PersonMenu {
                 } catch (DaoException e) {
                     throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
                 }
-            },
-            () -> err.println("Person not found. Please enter ID of existing person.")
+            }
         );
     }
 
     public static Address createAddress(Scanner scanner) {
-        out.println("Please enter address description:" + scanner.nextLine());
+        out.println("Please enter new address parameters:" + scanner.nextLine());
 
         Address address = new Address();
 
@@ -126,16 +124,15 @@ public final class PersonMenu {
     }
 
     public static void deletePerson(Scanner scanner) {
-        Optional<Person> personOptional = findPerson(scanner);
-        if (personOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
-            try {
-                DaoFactory.getInstance().getPersonDao().delete(personOptional.get());
-            } catch (DaoException e) {
-                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+        findPerson(scanner).ifPresent(
+            person -> {
+                try {
+                    DaoFactory.getInstance().getPersonDao().delete(person);
+                } catch (DaoException e) {
+                    throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
+                }
             }
-        } else {
-            err.println("Person not found. Please enter ID of existing person.");
-        }
+        );
     }
 
     /**
@@ -149,11 +146,16 @@ public final class PersonMenu {
         Optional<Person> person;
         Integer id = scanner.nextInt();
         try {
-            person = Optional.ofNullable(DaoFactory.getInstance().getPersonDao().get(id));
+            Person p = DaoFactory.getInstance().getPersonDao().get(id);
+            if (Objects.nonNull(p)) {
+                person = Optional.of(p);
+            } else {
+                person = Optional.empty();
+                err.println("Person with ID:" + id + " not found. Please enter ID of existing person.");
+            }
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
-        log.debug("Found : {}", person);
         return person;
     }
 
@@ -163,7 +165,7 @@ public final class PersonMenu {
         try {
             out.print(DaoFactory.getInstance().getPersonDao().load(scanner.nextInt()));
         } catch (DaoException e) {
-            throw new MenuException(Constants.ConstList.UNABLE_LOAD_PERSON, e);
+            throw new MenuException(Constants.ConstList.UNABLE_LOAD_PERSON + e.getMessage(), e);
         }
     }
 

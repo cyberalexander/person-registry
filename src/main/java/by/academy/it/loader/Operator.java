@@ -40,7 +40,7 @@ public class Operator {
         DELETE_PERSON(7, PersonMenu::deletePerson),
         DELETE_ADDRESS(8, AddressMenu::deleteAddress),
         FIND_ADDRESS(9, AddressMenu::findAddress),
-        CREATE_DEPARTMENT(10, DepartmentMenu::createDepartment),
+        CREATE_DEPARTMENT(10, DepartmentMenu::createAndSave),
         FIND_DEPARTMENT(11, DepartmentMenu::findDepartment),
         LOAD_DEPARTMENT(12, DepartmentMenu::loadDepartment),
         FIND_DEPARTMENTS(13, scanner -> DepartmentMenu.getDepartments()),

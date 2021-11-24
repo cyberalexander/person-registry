@@ -28,17 +28,19 @@ public final class DepartmentMenu {
     }
 
     public static Department createDepartment(Scanner scanner) {
-        out.println("Please enter department description:" + scanner.nextLine());
+        out.println("Please enter new department details:" + scanner.nextLine());
         out.print(Constants.ConstList.WRITE_NAME);
         Department department = new Department();
         department.setDepartmentName(scanner.nextLine());
+        return department;
+    }
+
+    public static void createAndSave(Scanner scanner) {
         try {
-            departmentDao.save(department);
-            log.debug("Created : {}", department);
+            departmentDao.save(createDepartment(scanner));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_CREATE_DEPARTMENT, e);
         }
-        return department;
     }
 
     public static Optional<Department> findDepartment(Scanner scanner) {

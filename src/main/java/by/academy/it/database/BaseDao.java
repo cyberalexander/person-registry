@@ -116,7 +116,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
                 session.close();
             }
             stopWatch.stop();
-            log.debug("exec time : {}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
+            log.debug("exec_time:{}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
         }
     }
 
