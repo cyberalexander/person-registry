@@ -41,7 +41,7 @@ public class ApplicationLoader {
     private static final Logger log = LogManager.getLogger(ApplicationLoader.class);
     private static final MenuLoader menuLoader = new MenuLoader();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         commandLineRunner();
         Locale.setDefault(Locale.US);
         menuLoader.menu();

@@ -23,6 +23,8 @@
 package by.academy.it.database.exception;
 
 /**
+ * Custom project exception for DAO layer errors handling.
+ * <p>
  * Created by alexanderleonovich on 13.05.15.
  */
 public class DaoException extends Exception {
