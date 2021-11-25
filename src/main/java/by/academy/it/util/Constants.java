@@ -27,7 +27,13 @@ package by.academy.it.util;
  */
 public class Constants {
 
+    private Constants() {
+    }
+
     public static class ConstList{
+
+        private ConstList() {
+        }
 
         public static final String WRITE_NAME = "Name : ";
         public static final String WRITE_SURNAME = "Surname : ";
@@ -40,9 +46,6 @@ public class Constants {
         public static final String WRITE_BUILDING = "building : ";
         public static final String NEW_BUILDING = "New building : ";
         public static final String WRITE_ID = "ID : ";
-        public static final String WRITE_NEW_NAME = "Name : ";
-
-
 
         /* ERROR MESSAGES */
         public static final String UNABLE_FIND_PERSON = "Unable to find person: ";
