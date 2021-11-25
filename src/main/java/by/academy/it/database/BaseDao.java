@@ -71,8 +71,8 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public T get(Serializable id) throws DaoException {
-        return (T) doInContext(session -> session.get(getPersistentClass(), id));
+    public Optional<T> get(Serializable id) throws DaoException {
+        return (Optional<T>) doInContext(session -> Optional.ofNullable(session.get(getPersistentClass(), id)));
     }
 
     @Override

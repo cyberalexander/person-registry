@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -59,7 +60,7 @@ class DepartmentDaoTest implements BaseDaoTest<Department> {
         department.setPersons(persons);
         persons.forEach(p -> p.setDepartment(department));
         Serializable departmentId = dao().save(department);
-        Department queried = dao().get(departmentId);
+        Department queried = dao().get(departmentId).get();
 
         persons = queried.getPersons();
         Assertions.assertFalse(
@@ -68,9 +69,9 @@ class DepartmentDaoTest implements BaseDaoTest<Department> {
         );
 
         dao().delete(department);
-        Person relatedPerson = personDao.get(persons.iterator().next().getId());
-        Assertions.assertNull(
-            relatedPerson,
+        Optional<Person> relatedPerson = personDao.get(persons.iterator().next().getId());
+        Assertions.assertTrue(
+            relatedPerson.isEmpty(),
             String.format("%s should be deleted from database after related department deleted.", queried)
         );
 

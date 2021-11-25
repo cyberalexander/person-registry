@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created : 09/10/2021 10:51
@@ -53,7 +54,7 @@ public interface BaseDaoTest<T extends Automated> {
     default void testGet() {
         T entity = newInstance().populate();
         dao().save(entity);
-        T expected = dao().get(entity.getId());
+        T expected = dao().get(entity.getId()).get();
         Assertions.assertEquals(
             expected,
             entity,
@@ -87,7 +88,7 @@ public interface BaseDaoTest<T extends Automated> {
         T entity = newInstance().populate();
         dao().save(entity);
         dao().update(entity.modify());
-        T queried = dao().get(entity.getId());
+        T queried = dao().get(entity.getId()).get();
         Assertions.assertEquals(
             entity,
             queried,
@@ -101,7 +102,7 @@ public interface BaseDaoTest<T extends Automated> {
         T entity = newInstance().populate();
         dao().save(entity); // 1. Insert new entity to the database
         dao().saveOrUpdate(entity.modify()); // 2. Modify that entity and flush modified details to the database
-        T queried = dao().get(entity.getId()); // 3. Query actual entity details from the database
+        T queried = dao().get(entity.getId()).get(); // 3. Query actual entity details from the database
         Assertions.assertEquals(
             entity,
             queried,
@@ -117,9 +118,9 @@ public interface BaseDaoTest<T extends Automated> {
         Assertions.assertNotNull(entity.getId(), "After save() id is null.");
         dao().delete(entity);
         Integer id = entity.getId();
-        T queried = dao().get(id);
-        Assertions.assertNull(
-            queried,
+        Optional<T> queried = dao().get(id);
+        Assertions.assertTrue(
+            queried.isEmpty(),
             String.format("%s should not be present in database after delete() operation executed.", queried)
         );
     }

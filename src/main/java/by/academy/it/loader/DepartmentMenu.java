@@ -43,8 +43,7 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class DepartmentMenu {
-
-    private static final IDao<Department> departmentDao = DaoFactory.getInstance().getDepartmentDao();
+    private static final IDao<Department> DAO = DaoFactory.getInstance().getDepartmentDao();
 
     private DepartmentMenu() {
     }
@@ -59,31 +58,32 @@ public final class DepartmentMenu {
 
     public static void createAndSave(Scanner scanner) {
         try {
-            departmentDao.save(createDepartment(scanner));
+            DAO.save(createDepartment(scanner));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_CREATE_DEPARTMENT, e);
         }
     }
 
     public static Optional<Department> findDepartment(Scanner scanner) {
-        out.println("Get by Id. Please enter department id:");
+        out.println("Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
         try {
-            Optional<Department> department = Optional.ofNullable(departmentDao.get(scanner.nextInt()));
-            log.debug("Found : {}", department);
+            int id = scanner.nextInt();
+            Optional<Department> department = DAO.get(id);
+            if (department.isEmpty()) {
+                err.println("Department with ID:" + id + " not found. Please enter ID of existing department.");
+            }
             return department;
         } catch (DaoException e) {
             throw new MenuException(e);
         }
     }
 
-    public static Optional<Department> loadDepartment(Scanner scanner) {
-        out.println("Load by Id. Please enter department id:");
+    public static void loadDepartment(Scanner scanner) {
+        out.println("Please enter department id:");
         out.print(Constants.ConstList.WRITE_ID);
         try {
-            Optional<Department> department = Optional.ofNullable(departmentDao.load(scanner.nextInt()));
-            log.debug("Found : {}", department);
-            return department;
+            out.println(DAO.load(scanner.nextInt()));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_DEPARTMENT, e);
         }
@@ -101,34 +101,27 @@ public final class DepartmentMenu {
     }
 
     public static void updateDepartment(Scanner scanner) {
-        Optional<Department> department = findDepartment(scanner);
-        if (department.isPresent()) {
-            Department dep = department.get();
+        findDepartment(scanner).ifPresent(department -> {
             out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME + scanner.nextLine());
             String name = scanner.nextLine();
             if (StringUtils.isNoneEmpty(name)) {
-                dep.setDepartmentName(name);
+                department.setDepartmentName(name);
             }
             try {
-                departmentDao.saveOrUpdate(dep);
+                DAO.saveOrUpdate(department);
             } catch (DaoException e) {
                 throw new MenuException(Constants.ConstList.UNABLE_UPDATE_DEPARTMENT, e);
             }
-        } else {
-            err.println("Department not found. Please enter ID of existing department.");
-        }
+        });
     }
 
     public static void deleteDepartment(Scanner scanner) {
-        Optional<Department> departmentOptional = loadDepartment(scanner);
-        if (departmentOptional.isPresent()) { //TODO replace with isPresentOrElse when move to Java9 or higher
+        findDepartment(scanner).ifPresent(department -> {
             try {
-                departmentDao.delete(departmentOptional.get());
+                DAO.delete(department);
             } catch (DaoException e) {
                 throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
             }
-        } else {
-            err.println("Department not found. Please enter ID of existing department.");
-        }
+        });
     }
 }

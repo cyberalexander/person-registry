@@ -43,7 +43,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         personDao.save(person);
         Integer departmentId = person.getDepartment().getId();
         personDao.delete(person);
-        Department queried = departmentDao.get(departmentId);
+        Department queried = departmentDao.get(departmentId).get();
         Assertions.assertNotNull(
             queried,
             String.format("%s should be present in database after related person deleted.", queried)

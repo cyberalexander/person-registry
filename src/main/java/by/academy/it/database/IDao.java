@@ -26,6 +26,7 @@ import by.academy.it.database.exception.DaoException;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
@@ -38,7 +39,7 @@ public interface IDao<T> {
 
     void saveOrUpdate(T t) throws DaoException;
 
-    T get(Serializable id) throws DaoException;
+    Optional<T> get(Serializable id) throws DaoException;
 
     T load(Serializable id) throws DaoException;
 

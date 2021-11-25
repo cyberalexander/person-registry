@@ -37,7 +37,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
@@ -62,7 +61,7 @@ public final class PersonMenu {
      */
     @SneakyThrows
     public static void createPerson(Scanner scanner) {
-        out.println("Please enter person details:" + scanner.nextLine());
+        out.println("Please enter new Person details:" + scanner.nextLine());
 
         Person person = new Person();
 
@@ -93,10 +92,10 @@ public final class PersonMenu {
             Department randomDepartment = departments.get(randomDepartmentId);
             randomDepartment.addPersons(Collections.singleton(person));
             person.setDepartment(randomDepartment);
-            log.debug("Department {} assigned to Person", randomDepartment.getId());
+            log.trace("Existing Department {} assigned to new Person", randomDepartment.getId());
         }
 
-        Serializable personId = DaoFactory.getInstance().getPersonDao().save(person);
+        Serializable personId = DAO.save(person);
         log.trace("New Person created with ID : {}", personId);
     }
 
@@ -120,7 +119,7 @@ public final class PersonMenu {
                 person.setAge(scanner.nextInt());
 
                 try {
-                    DaoFactory.getInstance().getPersonDao().update(person);
+                    DAO.update(person);
                 } catch (DaoException e) {
                     throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
                 }
@@ -129,7 +128,7 @@ public final class PersonMenu {
     }
 
     public static Address createAddress(Scanner scanner) {
-        out.println("Please enter new address parameters:" + scanner.nextLine());
+        out.println("Please enter new address details:" + scanner.nextLine());
 
         Address address = new Address();
 
@@ -149,7 +148,7 @@ public final class PersonMenu {
         findPerson(scanner).ifPresent(
             person -> {
                 try {
-                    DaoFactory.getInstance().getPersonDao().delete(person);
+                    DAO.delete(person);
                 } catch (DaoException e) {
                     throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
                 }
@@ -165,27 +164,23 @@ public final class PersonMenu {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
 
-        Optional<Person> person;
-        Integer id = scanner.nextInt();
         try {
-            Person p = DaoFactory.getInstance().getPersonDao().get(id);
-            if (Objects.nonNull(p)) {
-                person = Optional.of(p);
-            } else {
-                person = Optional.empty();
+            Integer id = scanner.nextInt();
+            Optional<Person> person = DAO.get(id);
+            if (person.isEmpty()) {
                 err.println("Person with ID:" + id + " not found. Please enter ID of existing person.");
             }
+            return person;
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_FIND_PERSON, e);
         }
-        return person;
     }
 
     public static void loadPerson(Scanner scanner) {
         out.println("Please enter person id:");
         out.print(Constants.ConstList.WRITE_ID);
         try {
-            out.print(DaoFactory.getInstance().getPersonDao().load(scanner.nextInt()));
+            out.print(DAO.load(scanner.nextInt()));
         } catch (DaoException e) {
             throw new MenuException(Constants.ConstList.UNABLE_LOAD_PERSON + e.getMessage(), e);
         }
@@ -201,9 +196,9 @@ public final class PersonMenu {
         }
     }
 
-    protected static void getAllPersons() {
+    public static void getAllPersons() {
         try {
-            List<Person> list = DaoFactory.getInstance().getPersonDao().getAll();
+            List<Person> list = DAO.getAll();
             for (Person element : list) {
                 out.println(element.toString());
             }
@@ -214,36 +209,30 @@ public final class PersonMenu {
 
 
     public static void updatePersonAddress(Scanner scanner) {
-        Optional<Person> person = Optional.empty();
-        while (!person.isPresent()) {
-            person = findPerson(scanner);
-            if (!person.isPresent()) {
-                log.warn("Person with such ID does not exists. Please enter ID of existing Person.");
+        findPerson(scanner).ifPresent(person -> {
+            Address address = person.getAddress();
+            scanner.nextLine();
+            out.print(Constants.ConstList.NEW_CITY);
+            String city = scanner.nextLine();
+            if (StringUtils.isNoneEmpty(city)) {
+                address.setCity(city);
             }
-        }
 
-        Address address = person.get().getAddress();
-        scanner.nextLine();
-        out.print(Constants.ConstList.NEW_CITY);
-        String city = scanner.nextLine();
-        if (StringUtils.isNoneEmpty(city)) {
-            address.setCity(city);
-        }
+            out.print(Constants.ConstList.NEW_STREET);
+            String street = scanner.nextLine();
+            if (StringUtils.isNoneEmpty(street)) {
+                address.setStreet(street);
+            }
 
-        out.print(Constants.ConstList.NEW_STREET);
-        String street = scanner.nextLine();
-        if (StringUtils.isNoneEmpty(street)) {
-            address.setStreet(street);
-        }
+            out.print(Constants.ConstList.NEW_BUILDING);
+            int building = scanner.nextInt();
+            address.setBuilding(building);
 
-        out.print(Constants.ConstList.NEW_BUILDING);
-        int building = scanner.nextInt();
-        address.setBuilding(building);
-
-        try {
-            DaoFactory.getInstance().getPersonDao().update(person.get());
-        } catch (DaoException e) {
-            throw new MenuException("Exception during update Person Address.", e);
-        }
+            try {
+                DAO.update(person);
+            } catch (DaoException e) {
+                throw new MenuException("Exception during update Person Address.", e);
+            }
+        });
     }
 }

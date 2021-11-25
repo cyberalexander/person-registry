@@ -22,6 +22,7 @@
  */
 package by.academy.it.loader;
 
+import by.academy.it.database.IDao;
 import by.academy.it.database.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.factory.DaoFactory;
@@ -32,6 +33,7 @@ import lombok.extern.log4j.Log4j2;
 import java.util.Optional;
 import java.util.Scanner;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -39,6 +41,7 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class AddressMenu {
+    private static final IDao<Address> DAO = DaoFactory.getInstance().getAddressDao();
 
     private AddressMenu() {
     }
@@ -51,15 +54,16 @@ public final class AddressMenu {
         out.println("Please enter address id:");
         out.print(Constants.ConstList.WRITE_ID);
 
-        Optional<Address> address;
-        Integer id = scanner.nextInt();
         try {
-            address = Optional.ofNullable(DaoFactory.getInstance().getAddressDao().get(id));
+            Integer id = scanner.nextInt();
+            Optional<Address> address = DAO.get(id);
+            if (address.isEmpty()) {
+                err.println("Address with ID:" + id + " not found. Please enter ID of existing address.");
+            }
+            return address;
         } catch (DaoException e) {
             throw new MenuException(e);
         }
-        log.debug("Found : {}", address);
-        return address;
     }
 
     /**
@@ -67,29 +71,12 @@ public final class AddressMenu {
      * will remain in database with address = null.
      */
     public static void deleteAddress(Scanner scanner) {
-        Optional<Address> address = findAddress(scanner);
-        if (address.isPresent()) {
+        findAddress(scanner).ifPresent(address -> {
             try {
-                DaoFactory.getInstance().getAddressDao().delete(address.get());
-                log.info("Deleted : {}", address.get());
+                DAO.delete(address);
             } catch (DaoException e) {
                 throw new MenuException(e);
             }
-        } else {
-            log.warn("Address not found.");
-        }
-    }
-
-    public static Address findAddress(Integer id) {
-        Address address = null;
-        try {
-            address = DaoFactory.getInstance().getAddressDao().get(id);
-        } catch (DaoException e) {
-            log.error(e, e);
-        } catch (NullPointerException e) {
-            log.error(Constants.ConstList.UNABLE_FIND_PERSON, e);
-        }
-        out.print(address);
-        return address;
+        });
     }
 }
