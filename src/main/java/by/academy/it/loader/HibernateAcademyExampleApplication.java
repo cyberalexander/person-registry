@@ -37,14 +37,13 @@ import java.util.stream.Stream;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class ApplicationLoader {
-    private static final Logger log = LogManager.getLogger(ApplicationLoader.class);
-    private static final MenuLoader menuLoader = new MenuLoader();
+public class HibernateAcademyExampleApplication {
+    private static final Logger log = LogManager.getLogger(HibernateAcademyExampleApplication.class);
 
     public static void main(String[] args) {
         commandLineRunner();
         Locale.setDefault(Locale.US);
-        menuLoader.menu();
+        new MenuLoader().menu();
     }
 
     /**

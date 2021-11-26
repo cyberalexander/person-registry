@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.academy.it</groupId>
     <artifactId>hibernate-academy-example</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>IT-Academy | Hibernate technology console application</description>
@@ -99,7 +99,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>by.academy.it.loader.ApplicationLoader</mainClass>
+                            <mainClass>by.academy.it.loader.HibernateAcademyExampleApplication</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

@@ -24,6 +24,7 @@ package by.academy.it.loader;
 
 import java.util.Scanner;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -44,15 +45,15 @@ public class MenuLoader {
                 printMenu();
                 operator.operation(scanner.nextInt()).ifPresentOrElse(
                     op -> op.execute(scanner),
-                    () -> out.println("Choose proper number from the menu.")
+                    () -> err.println("Choose proper number from the menu.")
                 );
             }
         }
     }
 
     private void printMenu() {
-        out.println("\n+--------------------------------------------------------------------------------------------+");
-        out.println("|     Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:  |");
+        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|                      Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:                   |");
         out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
         out.println("|       0. Exit          |   1. Create Person   |    2. Get Person        |     3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
         out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");

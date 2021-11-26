@@ -12,4 +12,5 @@ System name: **hibernate-academy-example**
 build:
 ```bash
 $ mvn -U clean install
+$ java -jar target/hibernate-academy-example.jar
 ```

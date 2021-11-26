@@ -169,6 +169,8 @@ public final class PersonMenu {
             Optional<Person> person = DAO.get(id);
             if (person.isEmpty()) {
                 err.println("Person with ID:" + id + " not found. Please enter ID of existing person.");
+            } else {
+                out.println(person.get());
             }
             return person;
         } catch (DaoException e) {
