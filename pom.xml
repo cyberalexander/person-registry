@@ -31,7 +31,7 @@
     <version>2.0.3</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>IT-Academy | Hibernate technology console application</description>
+    <description>Person entity managing console application.</description>
     <url>https://github.com/cyberalexander/Hibernate-Academy-Example</url>
     <licenses>
         <license>
