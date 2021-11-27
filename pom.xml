@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.academy.it</groupId>
     <artifactId>person-registry</artifactId>
-    <version>2.0.3</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>Person entity managing console application.</description>
@@ -51,6 +51,7 @@
 
     <properties>
         <!-- ========= Project properties ========= -->
+        <revision>2.0.3</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
