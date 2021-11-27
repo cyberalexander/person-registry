@@ -99,7 +99,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>by.academy.it.loader.PersonRegistryApplication</mainClass>
+                            <mainClass>by.academy.it.PersonRegistryApplication</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
