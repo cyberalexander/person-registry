@@ -24,7 +24,7 @@ package by.academy.it.database;
 
 /**
  * Created : 18/10/2021 11:04
- * Project : Hibernate-Academy-Example
+ * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich

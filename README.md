@@ -6,11 +6,11 @@ This project was developed during study in <a href="https://www.it-academy.by">I
 
 This is a console application, that allows user to manage Person entity, and it's related entities: Address & Department.
 
-System name: **hibernate-academy-example**
+System name: **person-registry**
 
 ## Getting Started
 build:
 ```bash
 $ mvn -U clean install
-$ java -jar target/hibernate-academy-example.jar
+$ java -jar target/person-registry.jar
 ```

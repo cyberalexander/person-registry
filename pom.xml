@@ -27,12 +27,12 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.academy.it</groupId>
-    <artifactId>hibernate-academy-example</artifactId>
+    <artifactId>person-registry</artifactId>
     <version>2.0.3</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>Person entity managing console application.</description>
-    <url>https://github.com/cyberalexander/Hibernate-Academy-Example</url>
+    <url>https://github.com/cyberalexander/person-registry</url>
     <licenses>
         <license>
             <name>${project.licence}</name>
@@ -45,7 +45,7 @@
             <name>Aliaksandr Leanovich</name>
             <email>taurum13@gmail.com</email>
             <organization>by.academy.it</organization>
-            <organizationUrl>https://github.com/cyberalexander/Hibernate-Academy-Example</organizationUrl>
+            <organizationUrl>https://github.com/cyberalexander/person-registry</organizationUrl>
         </developer>
     </developers>
 
@@ -56,7 +56,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
         <license>MIT License</license>
-        <license.url>https://github.com/cyberalexander/Hibernate-Academy-Example/blob/master/LICENSE</license.url>
+        <license.url>https://github.com/cyberalexander/person-registry/blob/master/LICENSE</license.url>
 
         <!-- ========= Plugins versions ========= -->
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
@@ -99,7 +99,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>by.academy.it.loader.HibernateAcademyExampleApplication</mainClass>
+                            <mainClass>by.academy.it.loader.PersonRegistryApplication</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

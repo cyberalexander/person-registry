@@ -37,8 +37,8 @@ import java.util.stream.Stream;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class HibernateAcademyExampleApplication {
-    private static final Logger log = LogManager.getLogger(HibernateAcademyExampleApplication.class);
+public class PersonRegistryApplication {
+    private static final Logger log = LogManager.getLogger(PersonRegistryApplication.class);
 
     public static void main(String[] args) {
         commandLineRunner();

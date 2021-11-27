@@ -33,7 +33,7 @@ import java.util.Optional;
 
 /**
  * Created : 09/10/2021 10:51
- * Project : Hibernate-Academy-Example
+ * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich

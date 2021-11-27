@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 
 /**
  * Created : 12/10/2021 08:40
- * Project : Hibernate-Academy-Example
+ * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich

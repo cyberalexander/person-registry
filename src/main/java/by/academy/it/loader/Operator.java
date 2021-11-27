@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created : 19/11/2021 09:55
- * Project : Hibernate-Academy-Example
+ * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich

@@ -26,7 +26,7 @@ package by.academy.it.loader.exception;
  * Project exception for handling failures in application menu.
  * <p>
  * Created : 26/10/2021 09:13
- * Project : Hibernate-Academy-Example
+ * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich
