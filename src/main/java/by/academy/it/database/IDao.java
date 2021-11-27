@@ -22,7 +22,7 @@
  */
 package by.academy.it.database;
 
-import by.academy.it.database.exception.DaoException;
+import by.academy.it.exception.DaoException;
 
 import java.io.Serializable;
 import java.util.List;

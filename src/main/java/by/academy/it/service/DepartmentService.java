@@ -20,13 +20,13 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package by.academy.it.loader;
+package by.academy.it.service;
 
 import by.academy.it.database.IDao;
-import by.academy.it.database.exception.DaoException;
+import by.academy.it.exception.DaoException;
 import by.academy.it.domain.Department;
 import by.academy.it.factory.DaoFactory;
-import by.academy.it.loader.exception.MenuException;
+import by.academy.it.exception.MenuException;
 import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -42,10 +42,10 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 15.05.15.
  */
 @Log4j2
-public final class DepartmentMenu {
+public final class DepartmentService {
     private static final IDao<Department> DAO = DaoFactory.getInstance().getDepartmentDao();
 
-    private DepartmentMenu() {
+    private DepartmentService() {
     }
 
     public static Department createDepartment(Scanner scanner) {

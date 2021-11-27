@@ -20,15 +20,15 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package by.academy.it.loader;
+package by.academy.it.service;
 
 import by.academy.it.database.PersonDao;
-import by.academy.it.database.exception.DaoException;
+import by.academy.it.exception.DaoException;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
-import by.academy.it.loader.exception.MenuException;
+import by.academy.it.exception.MenuException;
 import by.academy.it.util.Constants;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -49,15 +49,14 @@ import static java.lang.System.out;
  * Operation menu for Person-entity
  */
 @Log4j2
-public final class PersonMenu {
+public final class PersonService {
     private static final PersonDao DAO = DaoFactory.getInstance().getPersonDao();
 
-    private PersonMenu() {
+    private PersonService() {
     }
 
     /**
      * Creating Person service
-     * @param scanner object of domain entity Person
      */
     @SneakyThrows
     public static void createPerson(Scanner scanner) {
@@ -84,7 +83,7 @@ public final class PersonMenu {
 
         // Create new Department, if there is no Departments created yet, or chose random one from existing Departments
         if (departments.isEmpty()) {
-            Department dep = DepartmentMenu.createDepartment(scanner);
+            Department dep = DepartmentService.createDepartment(scanner);
             dep.setPersons(Collections.singleton(person));
             person.setDepartment(dep);
         } else {

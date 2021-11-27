@@ -25,8 +25,7 @@ package by.academy.it;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
-import by.academy.it.loader.MenuLoader;
-import by.academy.it.loader.Try;
+import by.academy.it.util.Try;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

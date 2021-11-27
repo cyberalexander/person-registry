@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2015-2021 Aliaksandr Leanovich
+ * Copyright (c) 2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,11 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package by.academy.it.loader;
+package by.academy.it;
+
+import by.academy.it.service.AddressService;
+import by.academy.it.service.DepartmentService;
+import by.academy.it.service.PersonService;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -38,10 +42,10 @@ import java.util.stream.Collectors;
  * @author alexanderleonovich
  * @version 1.0
  */
-public class Operator {
+public class OperationProvider {
     private final Map<Integer, Operation> operations;
 
-    public Operator() {
+    public OperationProvider() {
         this.operations = Arrays.stream(Operation.values()).collect(
             Collectors.toMap(Operation::id, Function.identity())
         );
@@ -53,22 +57,22 @@ public class Operator {
 
     public enum Operation {
         EXIT(0, scanner -> System.exit(0)),
-        CREATE_PERSON(1, PersonMenu::createPerson),
-        GET_PERSON(2, PersonMenu::findPerson),
-        LOAD_PERSON(3, PersonMenu::loadPerson),
-        GET_ALL_PERSONS(4, scanner -> PersonMenu.getAllPersons()),
-        UPDATE_PERSON(5, PersonMenu::updatePerson),
-        UPDATE_ADDRESS(6, PersonMenu::updatePersonAddress),
-        DELETE_PERSON(7, PersonMenu::deletePerson),
-        DELETE_ADDRESS(8, AddressMenu::deleteAddress),
-        FIND_ADDRESS(9, AddressMenu::findAddress),
-        CREATE_DEPARTMENT(10, DepartmentMenu::createAndSave),
-        FIND_DEPARTMENT(11, DepartmentMenu::findDepartment),
-        LOAD_DEPARTMENT(12, DepartmentMenu::loadDepartment),
-        FIND_DEPARTMENTS(13, scanner -> DepartmentMenu.getDepartments()),
-        UPDATE_DEPARTMENT(14, DepartmentMenu::updateDepartment),
-        DELETE_DEPARTMENT(15, DepartmentMenu::deleteDepartment),
-        FLUSH_SESSION_DEMO(16, scanner -> PersonMenu.flushPersonSession());
+        CREATE_PERSON(1, PersonService::createPerson),
+        GET_PERSON(2, PersonService::findPerson),
+        LOAD_PERSON(3, PersonService::loadPerson),
+        GET_ALL_PERSONS(4, scanner -> PersonService.getAllPersons()),
+        UPDATE_PERSON(5, PersonService::updatePerson),
+        UPDATE_ADDRESS(6, PersonService::updatePersonAddress),
+        DELETE_PERSON(7, PersonService::deletePerson),
+        DELETE_ADDRESS(8, AddressService::deleteAddress),
+        FIND_ADDRESS(9, AddressService::findAddress),
+        CREATE_DEPARTMENT(10, DepartmentService::createAndSave),
+        FIND_DEPARTMENT(11, DepartmentService::findDepartment),
+        LOAD_DEPARTMENT(12, DepartmentService::loadDepartment),
+        FIND_DEPARTMENTS(13, scanner -> DepartmentService.getDepartments()),
+        UPDATE_DEPARTMENT(14, DepartmentService::updateDepartment),
+        DELETE_DEPARTMENT(15, DepartmentService::deleteDepartment),
+        FLUSH_SESSION_DEMO(16, scanner -> PersonService.flushPersonSession());
 
         private final Integer operationId;
         private final Consumer<Scanner> operator;

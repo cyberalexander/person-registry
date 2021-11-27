@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2015-2021 Aliaksandr Leanovich
+ * Copyright (c) 2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +20,16 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package by.academy.it.loader.exception;
+package by.academy.it.exception;
 
 /**
- * Project exception for handling failures in application menu.
+ * Custom project exception for DAO layer errors handling.
  * <p>
- * Created : 26/10/2021 09:13
- * Project : person-registry
- * IDE : IntelliJ IDEA
- *
- * @author alexanderleonovich
- * @version 1.0
+ * Created by alexanderleonovich on 13.05.15.
  */
-public class MenuException extends RuntimeException {
+public class DaoException extends Exception {
 
-    public MenuException(Exception e) {
-        super(e);
-    }
-
-    public MenuException(String message, Exception e) {
-        super(message, e);
+    public DaoException(Exception exception) {
+        super(exception);
     }
 }

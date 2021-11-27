@@ -22,7 +22,7 @@
  */
 package by.academy.it.database;
 
-import by.academy.it.database.exception.DaoException;
+import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
