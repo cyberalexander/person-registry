@@ -91,7 +91,9 @@ public final class PersonService {
             Department randomDepartment = departments.get(randomDepartmentId);
             randomDepartment.addPersons(Collections.singleton(person));
             person.setDepartment(randomDepartment);
-            log.trace("Existing Department {} assigned to new Person", randomDepartment.getId());
+            if (log.isTraceEnabled()) {
+                log.trace("Existing Department {} assigned to new Person", randomDepartment.getId());
+            }
         }
 
         Serializable personId = DAO.save(person);

@@ -22,11 +22,10 @@
  */
 package by.academy.it.database;
 
-import by.academy.it.exception.DaoException;
 import by.academy.it.domain.Person;
+import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -37,8 +36,8 @@ import java.util.List;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
+@Log4j2
 public class PersonDao extends BaseDao<Person> {
-    private static final Logger log = LogManager.getLogger(PersonDao.class);
 
     public PersonDao(HibernateUtil util) {
         super(util);
@@ -50,24 +49,33 @@ public class PersonDao extends BaseDao<Person> {
             Session session = util.getSession();
             t = session.beginTransaction();
 
-            log.debug("isDirty={}, contains detached object? : {}",
-                session.isDirty(), session.contains(detached));
+            if (log.isDebugEnabled()) {
+                log.debug("isDirty={}, contains detached object? : {}", session.isDirty(), session.contains(detached));
+            }
 
             Person attached = session.get(Person.class, detached.getPersonId());
 
-            log.debug("Initial Name: {}", attached.getName());
+            if (log.isDebugEnabled()) {
+                log.debug("Initial Name: {}", attached.getName());
+            }
             String newName = "FLUSH_TEST_" + attached.getName();
             attached.setName(newName);
-            log.debug("Changed name: {}", attached.getName());
+            if (log.isDebugEnabled()) {
+                log.debug("Changed name: {}", attached.getName());
+            }
 
-            log.info("isDirty={}", session.isDirty());
+            if (log.isInfoEnabled()) {
+                log.info("isDirty={}", session.isDirty());
+            }
             session.flush();
             t.commit();
 
             t = session.beginTransaction();
             Person queried = session.load(Person.class, detached.getId());
             t.commit();
-            log.debug("Name in database equal to newName? : {}", queried.getName().equals(newName));
+            if (log.isDebugEnabled()) {
+                log.debug("Name in database equal to newName? : {}", queried.getName().equals(newName));
+            }
         } catch (HibernateException e) {
             throw new DaoException(e);
         }

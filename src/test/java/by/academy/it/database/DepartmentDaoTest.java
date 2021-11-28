@@ -85,6 +85,7 @@ class DepartmentDaoTest implements BaseDaoTest<Department> {
     @Test
     @SneakyThrows
     @Override
+    @SuppressWarnings("PMD.JUnit5TestShouldBePackagePrivate")
     public void testLoad() {
         Department entity = newInstance().populate();
         dao().withSharedSession().save(entity); // here is the hook

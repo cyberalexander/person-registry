@@ -24,9 +24,8 @@ package by.academy.it.database;
 
 import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.StopWatch;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -42,8 +41,8 @@ import java.util.function.Function;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
+@Log4j2
 public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
-    private static final Logger log = LogManager.getLogger(BaseDao.class);
     protected boolean shareSession = false;
     protected HibernateUtil util;
 
@@ -113,8 +112,9 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     /**
      * Common method, which wraps the business logic of working with {@link Transaction} & {@link Session}
      * in every related operation.
+     *
      * @param function The function which is consuming {@link Session} instance and executing any operation over it.
-     * @param <R> The result of function execution.
+     * @param <R>      The result of function execution.
      * @return The result of JPA operation over particular entity.
      * @throws DaoException custom project exception, thrown in case of any {@link HibernateException}
      */
@@ -138,7 +138,9 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
                 session.close();
             }
             stopWatch.stop();
-            log.debug("exec_time:{}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
+            if (log.isDebugEnabled()) {
+                log.debug("exec_time:{}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
+            }
         }
     }
 
