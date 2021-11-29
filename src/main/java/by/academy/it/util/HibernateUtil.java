@@ -64,6 +64,7 @@ public class HibernateUtil {
         Session session = this.sessionThreadLocal.get();
         if (session == null || !session.isOpen()) {
             session = factory.openSession();
+            log.debug("Session {} initialized!", session);
             this.sessionThreadLocal.set(session);
         }
         return session;

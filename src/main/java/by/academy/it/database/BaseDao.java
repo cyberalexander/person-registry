@@ -144,6 +144,20 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
         }
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public <E extends IDao<T>> E withSharedSession() {
+        this.shareSession = true;
+        return (E) this;
+    }
+
+    @Override
+    public void releaseSession() {
+        Session session = this.util.getSession();
+        session.close();
+        log.debug("Session {} closed!", session);
+    }
+
     protected abstract List<T> parseResultForGetAll(Session session);
 
     /**

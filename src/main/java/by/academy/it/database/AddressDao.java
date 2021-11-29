@@ -42,18 +42,4 @@ public class AddressDao extends BaseDao<Address> {
     public List<Address> parseResultForGetAll(Session session) {
         return session.createSQLQuery("SELECT * FROM T_ADDRESS").addEntity(Address.class).list();
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Address>> E withSharedSession() {
-        this.shareSession = true;
-        return (E) this;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Address>> E releaseSession() {
-        super.util.getSession().close();
-        return (E) this;
-    }
 }

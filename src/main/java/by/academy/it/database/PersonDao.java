@@ -86,18 +86,4 @@ public class PersonDao extends BaseDao<Person> {
     public List<Person> parseResultForGetAll(Session session) {
         return session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Person>> E withSharedSession() {
-        this.shareSession = true;
-        return (E) this;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Person>> E releaseSession() {
-        super.util.getSession().close();
-        return (E) this;
-    }
 }

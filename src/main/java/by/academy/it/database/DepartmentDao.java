@@ -42,18 +42,4 @@ public class DepartmentDao extends BaseDao<Department> {
     protected List<Department> parseResultForGetAll(Session session) {
         return session.createSQLQuery("SELECT * FROM T_DEPARTMENT").addEntity(Department.class).list();
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Department>> E withSharedSession() {
-        this.shareSession = true;
-        return (E) this;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <E extends IDao<Department>> E releaseSession() {
-        super.util.getSession().close();
-        return (E) this;
-    }
 }

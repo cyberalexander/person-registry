@@ -42,5 +42,5 @@ public interface ISessionManager<T> {
      * Method attempts to close the session.
      * @return Same instance of the DAO who invoked this method.
      */
-    <E extends IDao<T>> E releaseSession();
+    void releaseSession();
 }
