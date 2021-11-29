@@ -35,8 +35,6 @@ public interface IDao<T> {
 
     Serializable save(T t) throws DaoException;
 
-    Serializable save(T t, String id) throws DaoException;
-
     void saveOrUpdate(T t) throws DaoException;
 
     Optional<T> get(Serializable id) throws DaoException;

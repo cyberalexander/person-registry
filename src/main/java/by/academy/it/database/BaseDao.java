@@ -56,11 +56,6 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     }
 
     @Override
-    public Serializable save(T t, String id) throws DaoException {
-        return doInContext(session -> session.save(id, t));
-    }
-
-    @Override
     public void saveOrUpdate(T t) throws DaoException {
         doInContext(session -> {
             session.saveOrUpdate(t);
@@ -134,12 +129,13 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
             throw new DaoException(e);
         } finally {
-            if (!shareSession && session != null && session.isOpen()) {
-                session.close();
-            }
             stopWatch.stop();
             if (log.isDebugEnabled()) {
                 log.debug("exec_time:{}ms", stopWatch.getTime(TimeUnit.MILLISECONDS));
+            }
+            if (!shareSession && session != null && session.isOpen()) {
+                session.close();
+                log.debug("Session {} closed!", session);
             }
         }
     }
@@ -155,7 +151,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     public void releaseSession() {
         Session session = this.util.getSession();
         session.close();
-        log.debug("Session {} closed!", session);
+        log.debug("Session {} released!", session);
     }
 
     protected abstract List<T> parseResultForGetAll(Session session);
