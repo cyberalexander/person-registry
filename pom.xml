@@ -64,6 +64,7 @@
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
         <pmd.plugin.verion>3.15.0</pmd.plugin.verion>
+        <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
 
         <!-- ========= Dependencies versions ========= -->
         <hibernate.version>5.4.23.Final</hibernate.version>
@@ -72,6 +73,7 @@
         <junit.version>5.3.2</junit.version>
         <lombok.version>1.18.20</lombok.version>
         <apache.commons.lang.version>3.10</apache.commons.lang.version>
+        <checkstyle.version>9.0</checkstyle.version>
     </properties>
 
     <!-- Build settings -->
@@ -153,7 +155,7 @@
                 <version>${pmd.plugin.verion}</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>src/main/resources/pmd-ruleset.xml</ruleset>
+                        <ruleset>src/main/resources/quality/pmd-ruleset.xml</ruleset>
                     </rulesets>
                     <targetJdk>${java.version}</targetJdk>
                     <includeTests>true</includeTests>
@@ -167,6 +169,46 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>oob-checks</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <suppressionsLocation>src/main/resources/quality/checkstyle_suppressions.xml</suppressionsLocation>
+                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>check-custom-checks</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <configLocation>src/main/resources/quality/custom_checkstyle.xml</configLocation>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
