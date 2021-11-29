@@ -43,20 +43,20 @@ import java.util.function.Function;
  */
 @Log4j2
 public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
-    protected boolean shareSession = false;
-    protected HibernateUtil util;
+    private boolean shareSession = false;
+    private final HibernateUtil util;
 
-    protected BaseDao(HibernateUtil util) {
-        this.util = util;
+    protected BaseDao(final HibernateUtil hibernate) {
+        this.util = hibernate;
     }
 
     @Override
-    public Serializable save(T t) throws DaoException {
+    public Serializable save(final T t) throws DaoException {
         return doInContext(session -> session.save(t));
     }
 
     @Override
-    public void saveOrUpdate(T t) throws DaoException {
+    public void saveOrUpdate(final T t) throws DaoException {
         doInContext(session -> {
             session.saveOrUpdate(t);
             return null;
@@ -65,18 +65,18 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Optional<T> get(Serializable id) throws DaoException {
+    public Optional<T> get(final Serializable id) throws DaoException {
         return (Optional<T>) doInContext(session -> Optional.ofNullable(session.get(getPersistentClass(), id)));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public T load(Serializable id) throws DaoException {
+    public T load(final Serializable id) throws DaoException {
         return (T) doInContext(session -> session.load(getPersistentClass(), id));
     }
 
     @Override
-    public void delete(T t) throws DaoException {
+    public void delete(final T t) throws DaoException {
         doInContext(session -> {
             session.delete(t);
             return null;
@@ -89,7 +89,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     }
 
     @Override
-    public void update(T t) throws DaoException {
+    public void update(final T t) throws DaoException {
         doInContext(session -> {
             session.update(t);
             return null;
@@ -97,7 +97,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
     }
 
     @Override
-    public void update(T t, String id) throws DaoException {
+    public void update(final T t, final String id) throws DaoException {
         doInContext(session -> {
             session.update(id, t);
             return null;
@@ -113,7 +113,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
      * @return The result of JPA operation over particular entity.
      * @throws DaoException custom project exception, thrown in case of any {@link HibernateException}
      */
-    protected <R> R doInContext(Function<Session, R> function) throws DaoException {
+    protected <R> R doInContext(final Function<Session, R> function) throws DaoException {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
@@ -154,10 +154,15 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
         log.debug("Session {} released!", session);
     }
 
+    protected HibernateUtil hibernate() {
+        return this.util;
+    }
+
     protected abstract List<T> parseResultForGetAll(Session session);
 
     /**
      * Method returns the Class of Dao implementation generic type.
+     * @return The class of the persistent entity, managed by one of the Dao implementations.
      */
     @SuppressWarnings("unchecked")
     private Class<?> getPersistentClass() {

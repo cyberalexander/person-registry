@@ -33,13 +33,13 @@ import java.util.List;
  */
 public class AddressDao extends BaseDao<Address> {
 
-    public AddressDao(HibernateUtil util) {
+    public AddressDao(final HibernateUtil util) {
         super(util);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Address> parseResultForGetAll(Session session) {
+    public List<Address> parseResultForGetAll(final Session session) {
         return session.createSQLQuery("SELECT * FROM T_ADDRESS").addEntity(Address.class).list();
     }
 }

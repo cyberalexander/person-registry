@@ -34,11 +34,11 @@ package by.academy.it.exception;
  */
 public class MenuException extends RuntimeException {
 
-    public MenuException(Exception e) {
+    public MenuException(final Exception e) {
         super(e);
     }
 
-    public MenuException(String message, Exception e) {
+    public MenuException(final String message, final Exception e) {
         super(message, e);
     }
 }

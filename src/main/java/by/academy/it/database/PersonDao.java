@@ -39,14 +39,14 @@ import java.util.List;
 @Log4j2
 public class PersonDao extends BaseDao<Person> {
 
-    public PersonDao(HibernateUtil util) {
+    public PersonDao(final HibernateUtil util) {
         super(util);
     }
 
-    public void flushDemo(Person detached) throws DaoException {
+    public void flushDemo(final Person detached) throws DaoException {
         Transaction t;
         try {
-            Session session = util.getSession();
+            Session session = super.hibernate().getSession();
             t = session.beginTransaction();
 
             if (log.isDebugEnabled()) {
@@ -83,7 +83,7 @@ public class PersonDao extends BaseDao<Person> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Person> parseResultForGetAll(Session session) {
+    public List<Person> parseResultForGetAll(final Session session) {
         return session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
     }
 }

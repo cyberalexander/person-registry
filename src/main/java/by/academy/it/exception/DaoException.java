@@ -29,7 +29,7 @@ package by.academy.it.exception;
  */
 public class DaoException extends Exception {
 
-    public DaoException(Exception exception) {
+    public DaoException(final Exception exception) {
         super(exception);
     }
 }

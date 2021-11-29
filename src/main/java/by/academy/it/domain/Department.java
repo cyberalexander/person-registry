@@ -22,6 +22,7 @@
  */
 package by.academy.it.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -31,7 +32,8 @@ import java.util.Set;
  * Time 20:23
  */
 public class Department implements Serializable, Automated {
-
+    @Serial
+    private static final long serialVersionUID = 251807806583275242L;
     private Integer id;
     private String departmentName;
     private Set<Person> persons; /* one-to-many relation */

@@ -26,8 +26,7 @@ import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Try;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -38,10 +37,13 @@ import java.util.stream.Stream;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class PersonRegistryApplication {
-    private static final Logger log = LogManager.getLogger(PersonRegistryApplication.class);
+@Log4j2
+public final class PersonRegistryApplication {
 
-    public static void main(String[] args) {
+    private PersonRegistryApplication() {
+    }
+
+    public static void main(final String[] args) {
         commandLineRunner();
         Locale.setDefault(Locale.US);
         new MenuLoader().menu();
@@ -52,9 +54,10 @@ public class PersonRegistryApplication {
      * Method doing some work before application starts.
      */
     public static void commandLineRunner() {
+        final int testDataCount = 20;
         PersonDao personDao = DaoFactory.getInstance().getPersonDao();
         Set<Try<Serializable>> result = Stream.generate(Person::init)
-            .limit(20)
+            .limit(testDataCount)
             .map(person -> Try.of(() -> personDao.save(person)))
             .collect(Collectors.toSet());
         Set<Throwable> failures = result.stream()

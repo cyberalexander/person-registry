@@ -22,6 +22,7 @@
  */
 package by.academy.it.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -34,8 +35,8 @@ import java.util.Set;
  * Created by alexanderleonovich on 13.05.15.
  */
 public class Person implements Serializable, Automated {
-    private static final long serialVersionUID = 1L;
-
+    @Serial
+    private static final long serialVersionUID = -6977333908792086914L;
     private Integer personId;
     private Integer age;
     private String name;
@@ -106,14 +107,14 @@ public class Person implements Serializable, Automated {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "personId=" + personId +
-                ", age=" + age +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", department=" + Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null") + " " +
-                ", address='" + Optional.ofNullable(address).orElse(null) + '\'' +
-        '}';
+        return "Person{"
+            + "personId=" + personId
+            + ", age=" + age
+            + ", name='" + name
+            + "', surname='" + surname
+            + "', department=" + Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null")
+            + ", address='" + Optional.ofNullable(address).orElse(null) + '\''
+            + '}';
     }
 
     @Override

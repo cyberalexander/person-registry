@@ -33,13 +33,13 @@ import java.util.List;
  */
 public class DepartmentDao extends BaseDao<Department> {
 
-    public DepartmentDao(HibernateUtil util) {
+    public DepartmentDao(final HibernateUtil util) {
         super(util);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    protected List<Department> parseResultForGetAll(Session session) {
+    protected List<Department> parseResultForGetAll(final Session session) {
         return session.createSQLQuery("SELECT * FROM T_DEPARTMENT").addEntity(Department.class).list();
     }
 }

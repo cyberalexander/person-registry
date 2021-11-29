@@ -22,6 +22,7 @@
  */
 package by.academy.it.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -30,7 +31,8 @@ import java.util.Random;
  * Created by alexanderleonovich on 16.05.15.
  */
 public class Address implements Serializable, Automated {
-
+    @Serial
+    private static final long serialVersionUID = 4644921171733108650L;
     private Integer personId;
     private String city;
     private String street;
