@@ -34,6 +34,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -50,7 +51,28 @@ public interface CrudConsoleService<T> {
 
     Serializable create(Scanner scanner);
 
-    Optional<T> find(Scanner scanner);
+    /**
+     * Method for getting Entity object from database or from session-cash
+     * @param scanner Console input scanner
+     * @return Optional of enityt type T
+     */
+    default Optional<T> find(Scanner scanner) {
+        out.println("Please enter entity id:");
+        out.print(Constants.ConstList.WRITE_ID);
+
+        try {
+            Integer id = scanner.nextInt();
+            Optional<T> entity = dao().get(id);
+            if (entity.isEmpty()) {
+                err.println("Entity with ID:" + id + " not found. Please enter ID of existing entity.");
+            } else {
+                out.println(entity.get());
+            }
+            return entity;
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ConstList.UNABLE_FIND_ENTITY, e.getMessage()), e);
+        }
+    }
 
     default T load(Scanner scanner) {
         out.println("Please enter entity id:");

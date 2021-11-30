@@ -97,7 +97,10 @@ public class Person implements Serializable, Automated {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
         Person person = (Person) o;
-        return getPersonId().equals(person.getPersonId()) && getAge().equals(person.getAge()) && getName().equals(person.getName()) && getSurname().equals(person.getSurname());
+        return getPersonId().equals(person.getPersonId())
+            && getAge().equals(person.getAge())
+            && getName().equals(person.getName())
+            && getSurname().equals(person.getSurname());
     }
 
     @Override
@@ -112,7 +115,8 @@ public class Person implements Serializable, Automated {
             + ", age=" + age
             + ", name='" + name
             + "', surname='" + surname
-            + "', department=" + Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null")
+            + "', department=" +
+            Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null")
             + ", address='" + Optional.ofNullable(address).orElse(null) + '\''
             + '}';
     }

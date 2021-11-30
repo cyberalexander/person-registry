@@ -85,7 +85,11 @@ public class Department implements Serializable, Automated {
 
         Department department = (Department) obj;
         if (id != null ? !id.equals(department.id) : department.id != null) return false;
-        if (departmentName != null ? !departmentName.equals(department.departmentName) : department.departmentName != null) return false;
+        if (
+            departmentName != null
+                ? !departmentName.equals(department.departmentName)
+                : department.departmentName != null
+        ) return false;
         return true;
     }
 

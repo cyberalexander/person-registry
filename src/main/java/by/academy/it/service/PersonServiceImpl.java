@@ -38,11 +38,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
-import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -52,9 +50,12 @@ import static java.lang.System.out;
 @Log4j2
 public final class PersonServiceImpl implements PersonService {
     private final PersonDao dao;
+    private final DepartmentService departmentService;
+
 
     public PersonServiceImpl() {
         dao = DaoFactory.getInstance().getPersonDao();
+        this.departmentService = new DepartmentServiceImpl();
     }
 
     @Override
@@ -91,7 +92,7 @@ public final class PersonServiceImpl implements PersonService {
 
         // Create new Department, if there is no Departments created yet, or chose random one from existing Departments
         if (departments.isEmpty()) {
-            Department dep = DepartmentService.createDepartment(scanner);
+            Department dep = departmentService.createNewDepartment(scanner);
             dep.setPersons(Collections.singleton(person));
             person.setDepartment(dep);
         } else {
@@ -107,29 +108,6 @@ public final class PersonServiceImpl implements PersonService {
         Serializable personId = dao.save(person);
         log.trace("New Person created with ID : {}", personId);
         return personId;
-    }
-
-    /**
-     * Method for getting Person object from database or from sesion-cash
-     * @return Person-object from database or from sesion-cash
-     */
-    @Override
-    public Optional<Person> find(Scanner scanner) {
-        out.println("Please enter person id:");
-        out.print(Constants.ConstList.WRITE_ID);
-
-        try {
-            Integer id = scanner.nextInt();
-            Optional<Person> person = dao.get(id);
-            if (person.isEmpty()) {
-                err.println("Person with ID:" + id + " not found. Please enter ID of existing person.");
-            } else {
-                out.println(person.get());
-            }
-            return person;
-        } catch (DaoException e) {
-            throw new MenuException(Constants.ConstList.UNABLE_FIND_PERSON, e);
-        }
     }
 
     @Override

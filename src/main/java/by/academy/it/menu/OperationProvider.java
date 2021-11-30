@@ -23,9 +23,10 @@
 package by.academy.it.menu;
 
 import by.academy.it.domain.Address;
+import by.academy.it.domain.Department;
 import by.academy.it.service.AddressService;
 import by.academy.it.service.CrudConsoleService;
-import by.academy.it.service.DepartmentService;
+import by.academy.it.service.DepartmentServiceImpl;
 import by.academy.it.service.PersonService;
 import by.academy.it.service.PersonServiceImpl;
 
@@ -44,13 +45,16 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public class OperationProvider {
-    private final Map<Integer, Consumer<Scanner>> operations = new HashMap<>(16);
+    private final Map<Integer, Consumer<Scanner>> operations = new HashMap<>(17);
     private final PersonService personService;
     private final CrudConsoleService<Address> addressService;
+    private final CrudConsoleService<Department> departmentService;
 
     public OperationProvider() {
         this.personService = new PersonServiceImpl();
         this.addressService = new AddressService();
+        this.departmentService = new DepartmentServiceImpl();
+
         operations.put(0, scanner -> System.exit(0));
         operations.put(1, personService::create);
         operations.put(2, personService::find);
@@ -61,12 +65,12 @@ public class OperationProvider {
         operations.put(7, personService::delete);
         operations.put(8, addressService::delete);
         operations.put(9, addressService::find);
-        operations.put(10, DepartmentService::createAndSave);
-        operations.put(11, DepartmentService::findDepartment);
-        operations.put(12, DepartmentService::loadDepartment);
-        operations.put(13, scanner -> DepartmentService.getDepartments());
-        operations.put(14, DepartmentService::updateDepartment);
-        operations.put(15, DepartmentService::deleteDepartment);
+        operations.put(10, departmentService::create);
+        operations.put(11, departmentService::find);
+        operations.put(12, departmentService::load);
+        operations.put(13, scanner -> departmentService.readAll());
+        operations.put(14, departmentService::update);
+        operations.put(15, departmentService::delete);
         operations.put(16, scanner -> personService.flushDemo());
     }
 
