@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2015-2021 Aliaksandr Leanovich
+ * Copyright (c) 2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package by.academy.it;
+package by.academy.it.menu;
 
 import java.util.Scanner;
 
@@ -31,10 +31,10 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 13.05.15.
  * Class for load menu in console and for execute operations with entities
  */
-public class MenuLoader {
+public class ConsoleMenu {
     private final OperationProvider provider;
 
-    public MenuLoader() {
+    public ConsoleMenu() {
         this.provider = new OperationProvider();
     }
 
@@ -44,7 +44,7 @@ public class MenuLoader {
             while (true) {
                 printMenu();
                 provider.operation(scanner.nextInt()).ifPresentOrElse(
-                    op -> op.execute(scanner),
+                    op -> op.accept(scanner),
                     () -> err.println("Choose proper number from the menu.")
                 );
             }

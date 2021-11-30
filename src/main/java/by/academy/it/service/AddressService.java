@@ -23,13 +23,15 @@
 package by.academy.it.service;
 
 import by.academy.it.database.IDao;
-import by.academy.it.exception.DaoException;
 import by.academy.it.domain.Address;
-import by.academy.it.factory.DaoFactory;
+import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
+import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -40,23 +42,35 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 18.05.15.
  */
 @Log4j2
-public final class AddressService {
-    private static final IDao<Address> DAO = DaoFactory.getInstance().getAddressDao();
+public final class AddressService implements CrudConsoleService<Address> {
+    private final IDao<Address> dao;
 
-    private AddressService() {
+    public AddressService() {
+        dao = DaoFactory.getInstance().getAddressDao();
+    }
+
+    @Override
+    public IDao<Address> dao() {
+        return this.dao;
+    }
+
+    @Override
+    public Serializable create(Scanner scanner) {
+        return null;
     }
 
     /**
      * Method for getting Person object from database or from sesion-cash
      * @return Person-object from database or from sesion-cash
      */
-    public static Optional<Address> findAddress(Scanner scanner) {
+    @Override
+    public Optional<Address> find(Scanner scanner) {
         out.println("Please enter address id:");
         out.print(Constants.ConstList.WRITE_ID);
 
         try {
             Integer id = scanner.nextInt();
-            Optional<Address> address = DAO.get(id);
+            Optional<Address> address = dao.get(id);
             if (address.isEmpty()) {
                 err.println("Address with ID:" + id + " not found. Please enter ID of existing address.");
             }
@@ -66,14 +80,56 @@ public final class AddressService {
         }
     }
 
+    @Override
+    public Address load(Scanner scanner) {
+        out.println("Please enter address id:");
+        out.print(Constants.ConstList.WRITE_ID);
+        try {
+            Address address = dao.load(scanner.nextInt());
+            out.print(address);
+            return address;
+        } catch (DaoException e) {
+            throw new MenuException(e);
+        }
+    }
+
+    @Override
+    public void update(Scanner scanner) {
+        find(scanner).ifPresent(address -> {
+            scanner.nextLine();
+            out.print(Constants.ConstList.NEW_CITY);
+            String city = scanner.nextLine();
+            if (StringUtils.isNoneEmpty(city)) {
+                address.setCity(city);
+            }
+
+            out.print(Constants.ConstList.NEW_STREET);
+            String street = scanner.nextLine();
+            if (StringUtils.isNoneEmpty(street)) {
+                address.setStreet(street);
+            }
+
+            out.print(Constants.ConstList.NEW_BUILDING);
+            int building = scanner.nextInt();
+            address.setBuilding(building);
+
+            try {
+                dao.update(address);
+            } catch (DaoException e) {
+                throw new MenuException("Exception during update Person Address.", e);
+            }
+        });
+    }
+
     /**
      * Method delete Address from database without any effect on related Person entity - related person
      * will remain in database with address = null.
      */
-    public static void deleteAddress(Scanner scanner) {
-        findAddress(scanner).ifPresent(address -> {
+    @Override
+    public void delete(Scanner scanner) {
+        find(scanner).ifPresent(address -> {
             try {
-                DAO.delete(address);
+                dao.delete(address);
             } catch (DaoException e) {
                 throw new MenuException(e);
             }

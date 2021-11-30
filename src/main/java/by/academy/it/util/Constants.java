@@ -48,11 +48,13 @@ public class Constants {
         public static final String WRITE_ID = "ID : ";
 
         /* ERROR MESSAGES */
+        public static final String UNABLE_LOAD_ENTITY = "Unable to load entity: %s";
+        public static final String UNABLE_READ_ENTITIES = "Unable get entities: %s";
+
+
         public static final String UNABLE_FIND_PERSON = "Unable to find person: ";
-        public static final String UNABLE_LOAD_PERSON = "Unable to load person: ";
         public static final String UNABLE_UPDATE_PERSON = "Unable to update person: ";
         public static final String UNABLE_DELETE_PERSON = "Unable to delete person: ";
-        public static final String UNABLE_LIST_PERSONS = "Unable get list of persons:  ";
 
         public static final String UNABLE_FLUSH_EXAMPLE = "Unable run flush example.   ";
 
