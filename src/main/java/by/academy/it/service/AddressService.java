@@ -32,10 +32,8 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.Scanner;
 
-import static java.lang.System.err;
 import static java.lang.System.out;
 
 /**
@@ -56,41 +54,7 @@ public final class AddressService implements CrudConsoleService<Address> {
 
     @Override
     public Serializable create(Scanner scanner) {
-        return null;
-    }
-
-    /**
-     * Method for getting Person object from database or from sesion-cash
-     * @return Person-object from database or from sesion-cash
-     */
-    @Override
-    public Optional<Address> find(Scanner scanner) {
-        out.println("Please enter address id:");
-        out.print(Constants.ConstList.WRITE_ID);
-
-        try {
-            Integer id = scanner.nextInt();
-            Optional<Address> address = dao.get(id);
-            if (address.isEmpty()) {
-                err.println("Address with ID:" + id + " not found. Please enter ID of existing address.");
-            }
-            return address;
-        } catch (DaoException e) {
-            throw new MenuException(e);
-        }
-    }
-
-    @Override
-    public Address load(Scanner scanner) {
-        out.println("Please enter address id:");
-        out.print(Constants.ConstList.WRITE_ID);
-        try {
-            Address address = dao.load(scanner.nextInt());
-            out.print(address);
-            return address;
-        } catch (DaoException e) {
-            throw new MenuException(e);
-        }
+        throw new UnsupportedOperationException("Standalone create address operation is not supported here");
     }
 
     @Override
@@ -117,21 +81,6 @@ public final class AddressService implements CrudConsoleService<Address> {
                 dao.update(address);
             } catch (DaoException e) {
                 throw new MenuException("Exception during update Person Address.", e);
-            }
-        });
-    }
-
-    /**
-     * Method delete Address from database without any effect on related Person entity - related person
-     * will remain in database with address = null.
-     */
-    @Override
-    public void delete(Scanner scanner) {
-        find(scanner).ifPresent(address -> {
-            try {
-                dao.delete(address);
-            } catch (DaoException e) {
-                throw new MenuException(e);
             }
         });
     }

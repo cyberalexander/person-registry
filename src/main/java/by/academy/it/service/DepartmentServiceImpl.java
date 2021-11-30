@@ -76,15 +76,4 @@ public final class DepartmentServiceImpl implements DepartmentService {
             }
         });
     }
-
-    @Override
-    public void delete(Scanner scanner) {
-        find(scanner).ifPresent(department -> {
-            try {
-                dao.delete(department);
-            } catch (DaoException e) {
-                throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
-            }
-        });
-    }
 }

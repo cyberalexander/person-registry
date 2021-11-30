@@ -143,20 +143,6 @@ public final class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void delete(Scanner scanner) {
-        find(scanner).ifPresent(
-            person -> {
-                try {
-                    dao.delete(person);
-                } catch (DaoException e) {
-                    throw new MenuException(Constants.ConstList.UNABLE_DELETE_PERSON, e);
-                }
-            }
-        );
-    }
-
-
-    @Override
     public void flushDemo() {
         try {
             List<Person> persons = dao.getAll();

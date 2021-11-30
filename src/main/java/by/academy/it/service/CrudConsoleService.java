@@ -100,6 +100,14 @@ public interface CrudConsoleService<T> {
 
     void update(Scanner scanner);
 
-    void delete(Scanner scanner);
+    default void delete(Scanner scanner) {
+        find(scanner).ifPresent(department -> {
+            try {
+                dao().delete(department);
+            } catch (DaoException e) {
+                throw new MenuException(String.format(Constants.ConstList.UNABLE_DELETE_ENTITY, e.getMessage()), e);
+            }
+        });
+    }
 
 }

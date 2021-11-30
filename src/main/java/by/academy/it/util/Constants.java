@@ -51,10 +51,10 @@ public class Constants {
         public static final String UNABLE_LOAD_ENTITY = "Unable to load entity: %s";
         public static final String UNABLE_READ_ENTITIES = "Unable get entities: %s";
         public static final String UNABLE_FIND_ENTITY = "Unable to find entity: %s";
+        public static final String UNABLE_DELETE_ENTITY = "Unable to delete entity: %s";
 
 
         public static final String UNABLE_UPDATE_PERSON = "Unable to update person: ";
-        public static final String UNABLE_DELETE_PERSON = "Unable to delete person: ";
 
         public static final String UNABLE_FLUSH_EXAMPLE = "Unable run flush example.   ";
 
