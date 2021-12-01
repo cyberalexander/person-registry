@@ -22,6 +22,7 @@
  */
 package by.academy.it.service;
 
+import by.academy.it.ConsoleScanner;
 import by.academy.it.database.IDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Address;
@@ -84,7 +85,7 @@ public final class PersonServiceImpl implements PersonService {
         out.print(Constants.ConstList.WRITE_AGE);
         person.setAge(scanner.nextInt());
 
-        Address address = createNewAddress(scanner);
+        Address address = createNewAddress(new ConsoleScanner(scanner)); //TODO rework
         person.setAddress(address);
         address.setPerson(person);
 
@@ -153,7 +154,8 @@ public final class PersonServiceImpl implements PersonService {
         }
     }
 
-    private Address createNewAddress(Scanner scanner) {
+    public Address createNewAddress(ConsoleScanner scanner) {
+
         out.println("Please enter new address details:" + scanner.nextLine());
 
         Address address = new Address();
