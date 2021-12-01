@@ -28,6 +28,10 @@ import java.util.Scanner;
 /**
  * This is a wrapper class on {@link Scanner} class. Created for the purpose of unit-testing,
  * as {@link Scanner} is a final class and cannot be simply "mocked" without additional effort.
+ * <p>
+ * The idea of this wrapper-scanner taken from  the following
+ * <a href="https://gist.github.com/JordanTFA/8e6f32bf1a114eed48c762c7fda4d5e8">gist</a>.
+ * <p>
  * Created : 01/12/2021 11:13
  * Project : person-registry
  * IDE : IntelliJ IDEA
@@ -40,7 +44,7 @@ public class ConsoleScanner {
 
     private final Scanner scanner;
 
-    public ConsoleScanner(Scanner scanner){
+    public ConsoleScanner(Scanner scanner) {
         this.scanner = scanner;
     }
 
