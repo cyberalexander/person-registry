@@ -14,3 +14,12 @@ build:
 $ mvn -U clean install
 $ java -jar target/person-registry.jar
 ```
+
+### Tech stack:
+- Java 17
+- Maven
+- Hibernate 5.X
+- MySQL 8.X
+- JUnit 5
+- Lombok
+- PMD, CheckStyle
