@@ -23,7 +23,7 @@
 
 package by.academy.it.service;
 
-import by.academy.it.ConsoleScanner;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.domain.Address;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;

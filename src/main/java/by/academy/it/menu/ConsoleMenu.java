@@ -22,6 +22,8 @@
  */
 package by.academy.it.menu;
 
+import by.academy.it.util.ConsoleScanner;
+
 import java.util.Scanner;
 
 import static java.lang.System.err;
@@ -40,7 +42,7 @@ public class ConsoleMenu {
 
     @SuppressWarnings("all")
     public void menu() {
-        try (Scanner scanner = new Scanner(System.in)) {
+        try (ConsoleScanner scanner = new ConsoleScanner(new Scanner(System.in))) {
             while (true) {
                 printMenu();
                 provider.operation(scanner.nextInt()).ifPresentOrElse(

@@ -22,7 +22,6 @@
  */
 package by.academy.it.service;
 
-import by.academy.it.ConsoleScanner;
 import by.academy.it.database.IDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Address;
@@ -31,6 +30,7 @@ import by.academy.it.domain.Person;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -40,7 +40,6 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -69,7 +68,7 @@ public final class PersonServiceImpl implements PersonService {
      */
     @Override
     @SneakyThrows
-    public Serializable create(Scanner scanner) {
+    public Serializable create(ConsoleScanner scanner) {
         out.println("Please enter new Person details:" + scanner.nextLine());
 
         Person person = new Person();
@@ -85,7 +84,7 @@ public final class PersonServiceImpl implements PersonService {
         out.print(Constants.ConstList.WRITE_AGE);
         person.setAge(scanner.nextInt());
 
-        Address address = createNewAddress(new ConsoleScanner(scanner)); //TODO rework
+        Address address = createNewAddress(scanner);
         person.setAddress(address);
         address.setPerson(person);
 
@@ -112,7 +111,7 @@ public final class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void update(Scanner scanner) {
+    public void update(ConsoleScanner scanner) {
         find(scanner).ifPresent(
             person -> {
                 scanner.nextLine();

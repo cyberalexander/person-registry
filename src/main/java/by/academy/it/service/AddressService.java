@@ -27,12 +27,12 @@ import by.academy.it.domain.Address;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -53,12 +53,12 @@ public final class AddressService implements CrudConsoleService<Address> {
     }
 
     @Override
-    public Serializable create(Scanner scanner) {
+    public Serializable create(ConsoleScanner scanner) {
         throw new UnsupportedOperationException("Standalone create address operation is not supported here");
     }
 
     @Override
-    public void update(Scanner scanner) {
+    public void update(ConsoleScanner scanner) {
         find(scanner).ifPresent(address -> {
             scanner.nextLine();
             out.print(Constants.ConstList.NEW_CITY);

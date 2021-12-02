@@ -24,9 +24,8 @@
 package by.academy.it.service;
 
 import by.academy.it.domain.Department;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
-
-import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -40,7 +39,7 @@ import static java.lang.System.out;
  */
 public interface DepartmentService extends CrudConsoleService<Department> {
 
-    default Department createNewDepartment(Scanner scanner) {
+    default Department createNewDepartment(ConsoleScanner scanner) {
         out.println("Please enter new department details:" + scanner.nextLine());
         out.print(Constants.ConstList.WRITE_NAME);
         Department department = new Department();

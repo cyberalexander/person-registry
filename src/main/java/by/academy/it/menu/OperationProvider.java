@@ -29,11 +29,11 @@ import by.academy.it.service.CrudConsoleService;
 import by.academy.it.service.DepartmentServiceImpl;
 import by.academy.it.service.PersonService;
 import by.academy.it.service.PersonServiceImpl;
+import by.academy.it.util.ConsoleScanner;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.function.Consumer;
 
 /**
@@ -45,7 +45,7 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public class OperationProvider {
-    private final Map<Integer, Consumer<Scanner>> operations = new HashMap<>(17);
+    private final Map<Integer, Consumer<ConsoleScanner>> operations = new HashMap<>(17);
     private final PersonService personService;
     private final CrudConsoleService<Address> addressService;
     private final CrudConsoleService<Department> departmentService;
@@ -74,7 +74,7 @@ public class OperationProvider {
         operations.put(16, scanner -> personService.flushDemo());
     }
 
-    public Optional<Consumer<Scanner>> operation(Integer operationId) {
+    public Optional<Consumer<ConsoleScanner>> operation(Integer operationId) {
         return Optional.ofNullable(operations.get(operationId));
     }
 }

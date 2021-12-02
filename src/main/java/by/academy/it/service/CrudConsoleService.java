@@ -26,12 +26,12 @@ package by.academy.it.service;
 import by.academy.it.database.IDao;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 import static java.lang.System.err;
@@ -49,14 +49,14 @@ public interface CrudConsoleService<T> {
 
     IDao<T> dao();
 
-    Serializable create(Scanner scanner);
+    Serializable create(ConsoleScanner scanner);
 
     /**
      * Method for getting Entity object from database or from session-cash
      * @param scanner Console input scanner
      * @return Optional of enityt type T
      */
-    default Optional<T> find(Scanner scanner) {
+    default Optional<T> find(ConsoleScanner scanner) {
         out.println("Please enter entity id:");
         out.print(Constants.ConstList.WRITE_ID);
 
@@ -74,7 +74,7 @@ public interface CrudConsoleService<T> {
         }
     }
 
-    default T load(Scanner scanner) {
+    default T load(ConsoleScanner scanner) {
         out.println("Please enter entity id:");
         out.print(Constants.ConstList.WRITE_ID);
         try {
@@ -98,9 +98,9 @@ public interface CrudConsoleService<T> {
         }
     }
 
-    void update(Scanner scanner);
+    void update(ConsoleScanner scanner);
 
-    default void delete(Scanner scanner) {
+    default void delete(ConsoleScanner scanner) {
         find(scanner).ifPresent(department -> {
             try {
                 dao().delete(department);

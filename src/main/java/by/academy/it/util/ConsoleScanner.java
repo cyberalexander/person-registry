@@ -21,7 +21,7 @@
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package by.academy.it;
+package by.academy.it.util;
 
 import java.util.Scanner;
 
@@ -39,8 +39,7 @@ import java.util.Scanner;
  * @author alexanderleonovich
  * @version 1.0
  */
-//TODO this is a DRAFT version of the class. Might be modified in future
-public class ConsoleScanner {
+public class ConsoleScanner implements AutoCloseable {
 
     private final Scanner scanner;
 
@@ -54,5 +53,10 @@ public class ConsoleScanner {
 
     public String nextLine() {
         return scanner.nextLine();
+    }
+
+    @Override
+    public void close() {
+        this.scanner.close();
     }
 }

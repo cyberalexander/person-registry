@@ -27,12 +27,12 @@ import by.academy.it.domain.Department;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.factory.DaoFactory;
+import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -53,7 +53,7 @@ public final class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Serializable create(Scanner scanner) {
+    public Serializable create(ConsoleScanner scanner) {
         try {
             return dao.save(createNewDepartment(scanner));
         } catch (DaoException e) {
@@ -62,7 +62,7 @@ public final class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void update(Scanner scanner) {
+    public void update(ConsoleScanner scanner) {
         find(scanner).ifPresent(department -> {
             out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME + scanner.nextLine());
             String name = scanner.nextLine();
