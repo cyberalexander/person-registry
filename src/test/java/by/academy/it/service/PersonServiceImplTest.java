@@ -47,7 +47,7 @@ class PersonServiceImplTest {
 
     //TODO the DRAFT version of the test. To be modified/reworked in future.
     @Test
-    void createNewAddress() {
+    void testCreateNewAddress() {
         ConsoleScanner scannerMock = Mockito.mock(ConsoleScanner.class);
         Mockito.when(scannerMock.nextLine()).thenReturn("TEST");
         Mockito.when(scannerMock.nextInt()).thenReturn(1);
@@ -57,8 +57,7 @@ class PersonServiceImplTest {
         expected.setStreet("TEST");
         expected.setBuilding(1);
 
-        log.debug("Expected : {}", expected);
-        log.debug("Actual : {}", actual);
+        log.debug("\nExpected : {}\nActual : {}", expected, actual);
         Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
     }
 }
