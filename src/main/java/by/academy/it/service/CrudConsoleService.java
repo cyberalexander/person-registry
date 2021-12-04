@@ -24,6 +24,7 @@
 package by.academy.it.service;
 
 import by.academy.it.database.IDao;
+import by.academy.it.domain.Automated;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.util.ConsoleScanner;
@@ -45,7 +46,7 @@ import static java.lang.System.out;
  * @author alexanderleonovich
  * @version 1.0
  */
-public interface CrudConsoleService<T> {
+public interface CrudConsoleService<T extends Automated> {
 
     IDao<T> dao();
 
