@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2015-2021 Aliaksandr Leanovich
+ * Copyright (c) 2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,53 +23,35 @@
 
 package by.academy.it.service;
 
-import by.academy.it.domain.Person;
+import by.academy.it.domain.Automated;
 import by.academy.it.util.ConsoleScanner;
-import by.academy.it.domain.Address;
-import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.internal.verification.Times;
+
+import java.util.Optional;
 
 /**
- * Created : 01/12/2021 09:33
+ * Created : 04/12/2021 09:33
  * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich
  * @version 1.0
  */
-@Log4j2
-@ExtendWith(MockitoExtension.class)
-class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
-    private final PersonServiceImpl personService = new PersonServiceImpl();
+public interface CrudConsoleServiceTest<T extends Automated> {
 
-    //TODO the DRAFT version of the test. To be modified/reworked in future.
+    CrudConsoleService<T> serviceMock();
+
+    Logger logger();
+
     @Test
-    void testCreateNewAddress() {
+    default void testFind() {
         ConsoleScanner scannerMock = Mockito.mock(ConsoleScanner.class);
-        Mockito.when(scannerMock.nextLine()).thenReturn("TEST");
         Mockito.when(scannerMock.nextInt()).thenReturn(1);
-        Address actual = personService.createNewAddress(scannerMock);
-        Address expected = new Address();
-        expected.setCity("TEST");
-        expected.setStreet("TEST");
-        expected.setBuilding(1);
-
-        log.debug("\nExpected : {}\nActual : {}", expected, actual);
-        Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
-    }
-
-    @Override
-    public CrudConsoleService<Person> serviceMock() {
-        return this.personService;
-    }
-
-    @Override
-    public Logger logger() {
-        return log;
+        Optional<T> actual = serviceMock().find(scannerMock);
+        logger().debug("Actual : {}", actual);
+        Mockito.verify(scannerMock, new Times(1)).nextInt();
     }
 }
