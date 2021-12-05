@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Aliaksandr Leanovich
+ * Copyright (c) 2015-2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@ package by.academy.it.menu;
 
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
+import by.academy.it.factory.DaoFactory;
 import by.academy.it.service.AddressService;
 import by.academy.it.service.CrudConsoleService;
 import by.academy.it.service.DepartmentServiceImpl;
@@ -51,9 +52,9 @@ public class OperationProvider {
     private final CrudConsoleService<Department> departmentService;
 
     public OperationProvider() {
-        this.personService = new PersonServiceImpl();
-        this.addressService = new AddressService();
+        this.personService = new PersonServiceImpl(DaoFactory.getInstance().getPersonDao(), new DepartmentServiceImpl());
         this.departmentService = new DepartmentServiceImpl();
+        this.addressService = new AddressService();
 
         operations.put(0, scanner -> System.exit(0));
         operations.put(1, personService::create);

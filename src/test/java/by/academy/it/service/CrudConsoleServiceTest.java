@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Aliaksandr Leanovich
+ * Copyright (c) 2015-2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +23,13 @@
 
 package by.academy.it.service;
 
+import by.academy.it.database.BaseDao;
 import by.academy.it.domain.Automated;
 import by.academy.it.util.ConsoleScanner;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.verification.Times;
 
 import java.util.Optional;
 
@@ -43,15 +44,20 @@ import java.util.Optional;
 public interface CrudConsoleServiceTest<T extends Automated> {
 
     CrudConsoleService<T> serviceMock();
-
+    ConsoleScanner scannerMock();
+    BaseDao<T> daoMock();
     Logger logger();
 
     @Test
+    @SneakyThrows
     default void testFind() {
         ConsoleScanner scannerMock = Mockito.mock(ConsoleScanner.class);
         Mockito.when(scannerMock.nextInt()).thenReturn(1);
+
         Optional<T> actual = serviceMock().find(scannerMock);
         logger().debug("Actual : {}", actual);
-        Mockito.verify(scannerMock, new Times(1)).nextInt();
+
+        Mockito.verify(scannerMock).nextInt();
+        Mockito.verify(daoMock()).get(Mockito.any());
     }
 }

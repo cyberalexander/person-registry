@@ -52,10 +52,9 @@ public final class PersonServiceImpl implements PersonService {
     private final PersonDao dao;
     private final DepartmentService departmentService;
 
-
-    public PersonServiceImpl() {
-        dao = DaoFactory.getInstance().getPersonDao();
-        this.departmentService = new DepartmentServiceImpl();
+    public PersonServiceImpl(PersonDao dao, DepartmentService departmentService) {
+        this.dao = dao;
+        this.departmentService = departmentService;
     }
 
     @Override

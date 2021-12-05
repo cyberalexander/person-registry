@@ -23,16 +23,24 @@
 
 package by.academy.it.service;
 
+import by.academy.it.database.BaseDao;
+import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.domain.Address;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.verification.Times;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 /**
  * Created : 01/12/2021 09:33
@@ -45,27 +53,53 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @Log4j2
 @ExtendWith(MockitoExtension.class)
 class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
-    private final PersonServiceImpl personService = new PersonServiceImpl();
+
+    @InjectMocks
+    private PersonServiceImpl personService;
+    @Mock
+    private PersonDao daoMock;
+    @Mock
+    private ConsoleScanner scannerMock;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        Person mockedResponse = Person.init();
+        mockedResponse.setPersonId(1);
+        Mockito.lenient().when(daoMock.get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
+
+    }
 
     //TODO the DRAFT version of the test. To be modified/reworked in future.
     @Test
     void testCreateNewAddress() {
-        ConsoleScanner scannerMock = Mockito.mock(ConsoleScanner.class);
-        Mockito.when(scannerMock.nextLine()).thenReturn("TEST");
-        Mockito.when(scannerMock.nextInt()).thenReturn(1);
-        Address actual = personService.createNewAddress(scannerMock);
+        Mockito.when(scannerMock().nextLine()).thenReturn("TEST");
+        Mockito.when(scannerMock().nextInt()).thenReturn(1);
+        Address actual = ((PersonServiceImpl) serviceMock()).createNewAddress(scannerMock());
+
         Address expected = new Address();
         expected.setCity("TEST");
         expected.setStreet("TEST");
         expected.setBuilding(1);
 
-        log.debug("\nExpected : {}\nActual : {}", expected, actual);
+        logger().debug("\nExpected : {}\nActual : {}", expected, actual);
         Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
+        Mockito.verify(scannerMock(), new Times(3)).nextLine();
+        Mockito.verify(scannerMock()).nextInt();
     }
 
     @Override
     public CrudConsoleService<Person> serviceMock() {
         return this.personService;
+    }
+
+    @Override
+    public ConsoleScanner scannerMock() {
+        return this.scannerMock;
+    }
+
+    @Override
+    public BaseDao<Person> daoMock() {
+        return this.daoMock;
     }
 
     @Override
