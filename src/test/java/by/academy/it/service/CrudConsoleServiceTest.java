@@ -29,7 +29,9 @@ import by.academy.it.util.ConsoleScanner;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
@@ -41,23 +43,52 @@ import java.util.Optional;
  * @author alexanderleonovich
  * @version 1.0
  */
-public interface CrudConsoleServiceTest<T extends Automated> {
+@ExtendWith(MockitoExtension.class)
+abstract class CrudConsoleServiceTest<T extends Automated> {
 
-    CrudConsoleService<T> serviceMock();
-    ConsoleScanner scannerMock();
-    BaseDao<T> daoMock();
-    Logger logger();
+    abstract CrudConsoleService<T> serviceMock();
+    abstract ConsoleScanner scannerMock();
+    abstract BaseDao<T> daoMock();
+    abstract Logger logger();
+
+    abstract void testUpdate();
 
     @Test
     @SneakyThrows
-    default void testFind() {
-        ConsoleScanner scannerMock = Mockito.mock(ConsoleScanner.class);
-        Mockito.when(scannerMock.nextInt()).thenReturn(1);
+    void testFind() {
+        Mockito.when(scannerMock().nextInt()).thenReturn(1);
 
-        Optional<T> actual = serviceMock().find(scannerMock);
+        Optional<T> actual = serviceMock().find(scannerMock());
         logger().debug("Actual : {}", actual);
 
-        Mockito.verify(scannerMock).nextInt();
+        Mockito.verify(scannerMock()).nextInt();
         Mockito.verify(daoMock()).get(Mockito.any());
+    }
+
+    @Test
+    @SneakyThrows
+    void testLoad() {
+        Mockito.when(scannerMock().nextInt()).thenReturn(1);
+
+        T actual = serviceMock().load(scannerMock());
+        logger().debug("Actual : {}", actual);
+
+        Mockito.verify(scannerMock()).nextInt();
+        Mockito.verify(daoMock()).load(Mockito.any());
+    }
+
+    @Test
+    @SneakyThrows
+    void testReadAll() {
+        serviceMock().readAll();
+        Mockito.verify(daoMock()).getAll();
+    }
+
+    @Test
+    @SneakyThrows
+    void testDelete() {
+        serviceMock().delete(scannerMock());
+        Mockito.verify(scannerMock()).nextInt();
+        Mockito.verify(daoMock()).delete(Mockito.any());
     }
 }

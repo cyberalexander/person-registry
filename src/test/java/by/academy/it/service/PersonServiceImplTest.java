@@ -25,20 +25,19 @@ package by.academy.it.service;
 
 import by.academy.it.database.BaseDao;
 import by.academy.it.database.PersonDao;
+import by.academy.it.domain.Address;
 import by.academy.it.domain.Person;
 import by.academy.it.util.ConsoleScanner;
-import by.academy.it.domain.Address;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
@@ -51,8 +50,7 @@ import java.util.Optional;
  * @version 1.0
  */
 @Log4j2
-@ExtendWith(MockitoExtension.class)
-class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
+class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
 
     @InjectMocks
     private PersonServiceImpl personService;
@@ -65,7 +63,7 @@ class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
     void setUp() throws Exception {
         Person mockedResponse = Person.init();
         mockedResponse.setPersonId(1);
-        Mockito.lenient().when(daoMock.get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
+        Mockito.lenient().when(daoMock().get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
 
     }
 
@@ -74,7 +72,7 @@ class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
     void testCreateNewAddress() {
         Mockito.when(scannerMock().nextLine()).thenReturn("TEST");
         Mockito.when(scannerMock().nextInt()).thenReturn(1);
-        Address actual = ((PersonServiceImpl) serviceMock()).createNewAddress(scannerMock());
+        Address actual = personService.createNewAddress(scannerMock());
 
         Address expected = new Address();
         expected.setCity("TEST");
@@ -85,6 +83,17 @@ class PersonServiceImplTest implements CrudConsoleServiceTest<Person> {
         Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
         Mockito.verify(scannerMock(), new Times(3)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
+    }
+
+    @Test
+    @Override
+    @SneakyThrows
+    void testUpdate() {
+        serviceMock().update(scannerMock());
+        Mockito.verify(scannerMock(), new Times(4)).nextLine();
+        Mockito.verify(scannerMock()).nextInt();
+        Mockito.verify(daoMock()).get(Mockito.any());
+        Mockito.verify(daoMock()).update(Mockito.any());
     }
 
     @Override
