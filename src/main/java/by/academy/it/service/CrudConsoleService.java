@@ -110,5 +110,4 @@ public interface CrudConsoleService<T extends Automated> {
             }
         });
     }
-
 }
