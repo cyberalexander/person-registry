@@ -60,6 +60,8 @@
         <license.url>https://github.com/cyberalexander/person-registry/blob/master/LICENSE</license.url>
 
         <!-- ========= Plugins versions ========= -->
+        <dependency.plugin.version>3.1.2</dependency.plugin.version>
+        <jar.plugin.version>3.2.0</jar.plugin.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
@@ -85,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
+                <version>${dependency.plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>install</phase>
@@ -101,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>${jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -124,8 +126,7 @@
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <annotationProcessorPaths>
-                        <!--for lombok annotations to resolve-->
-                        <!--contradictory to maven, intelliJ fails with this-->
+                        <!--for lombok annotations to resolve contradictory to maven, intelliJ fails with this-->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
