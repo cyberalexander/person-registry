@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2015-2021 Aliaksandr Leanovich
+ * Copyright (c) 2021 Aliaksandr Leanovich
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,71 +24,73 @@
 package by.academy.it.service;
 
 import by.academy.it.database.BaseDao;
-import by.academy.it.domain.Automated;
+import by.academy.it.domain.Department;
 import by.academy.it.util.ConsoleScanner;
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.internal.verification.Times;
 
 import java.util.Optional;
 
 /**
- * Created : 04/12/2021 09:33
+ * Created : 06/12/2021 14:12
  * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich
  * @version 1.0
  */
-@Log4j2
-@ExtendWith(MockitoExtension.class)
-abstract class CrudConsoleServiceTest<T extends Automated> {
+class DepartmentServiceImplTest extends CrudConsoleServiceTest<Department> {
 
-    abstract CrudConsoleService<T> serviceMock();
-    abstract ConsoleScanner scannerMock();
-    abstract BaseDao<T> daoMock();
+    @InjectMocks
+    private DepartmentServiceImpl departmentService;
+    @Mock
+    private BaseDao<Department> daoMock;
+    @Mock
+    private ConsoleScanner scannerMock;
 
-    abstract void testUpdate();
+    @BeforeEach
+    void setUp() throws Exception {
+        Department mockedResponse = Department.init();
+        mockedResponse.setId(1);
+        Mockito.lenient().when(daoMock().get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
+    }
 
     @Test
+    @Override
     @SneakyThrows
-    void testFind() {
-        Mockito.when(scannerMock().nextInt()).thenReturn(1);
-
-        Optional<T> actual = serviceMock().find(scannerMock());
-        log.debug("Actual : {}", actual);
-
+    void testUpdate() {
+        serviceMock().update(scannerMock());
+        Mockito.verify(scannerMock(), new Times(2)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
         Mockito.verify(daoMock()).get(Mockito.any());
+        Mockito.verify(daoMock()).saveOrUpdate(Mockito.any());
     }
 
     @Test
-    @SneakyThrows
-    void testLoad() {
-        Mockito.when(scannerMock().nextInt()).thenReturn(1);
-
-        T actual = serviceMock().load(scannerMock());
-        log.debug("Actual : {}", actual);
-
-        Mockito.verify(scannerMock()).nextInt();
-        Mockito.verify(daoMock()).load(Mockito.any());
+    void create() {
     }
 
     @Test
-    @SneakyThrows
-    void testReadAll() {
-        serviceMock().readAll();
-        Mockito.verify(daoMock()).getAll();
+    void update() {
     }
 
-    @Test
-    @SneakyThrows
-    void testDelete() {
-        serviceMock().delete(scannerMock());
-        Mockito.verify(scannerMock()).nextInt();
-        Mockito.verify(daoMock()).delete(Mockito.any());
+    @Override
+    CrudConsoleService<Department> serviceMock() {
+        return this.departmentService;
+    }
+
+    @Override
+    ConsoleScanner scannerMock() {
+        return this.scannerMock;
+    }
+
+    @Override
+    BaseDao<Department> daoMock() {
+        return this.daoMock;
     }
 }

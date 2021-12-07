@@ -30,7 +30,6 @@ import by.academy.it.domain.Person;
 import by.academy.it.util.ConsoleScanner;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,10 +63,8 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
         Person mockedResponse = Person.init();
         mockedResponse.setPersonId(1);
         Mockito.lenient().when(daoMock().get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
-
     }
 
-    //TODO the DRAFT version of the test. To be modified/reworked in future.
     @Test
     void testCreateNewAddress() {
         Mockito.when(scannerMock().nextLine()).thenReturn("TEST");
@@ -79,7 +76,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
         expected.setStreet("TEST");
         expected.setBuilding(1);
 
-        logger().debug("\nExpected : {}\nActual : {}", expected, actual);
+        log.debug("\nExpected : {}\nActual : {}", expected, actual);
         Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
         Mockito.verify(scannerMock(), new Times(3)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
@@ -109,10 +106,5 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     @Override
     public BaseDao<Person> daoMock() {
         return this.daoMock;
-    }
-
-    @Override
-    public Logger logger() {
-        return log;
     }
 }

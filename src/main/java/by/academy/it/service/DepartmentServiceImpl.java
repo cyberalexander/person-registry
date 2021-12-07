@@ -26,7 +26,6 @@ import by.academy.it.database.IDao;
 import by.academy.it.domain.Department;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
-import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
 import lombok.extern.log4j.Log4j2;
@@ -43,8 +42,8 @@ import static java.lang.System.out;
 public final class DepartmentServiceImpl implements DepartmentService {
     private final IDao<Department> dao;
 
-    public DepartmentServiceImpl() {
-        dao = DaoFactory.getInstance().getDepartmentDao();
+    public DepartmentServiceImpl(IDao<Department> dao) {
+        this.dao = dao;
     }
 
     @Override
