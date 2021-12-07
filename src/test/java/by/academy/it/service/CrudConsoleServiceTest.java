@@ -47,7 +47,7 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 abstract class CrudConsoleServiceTest<T extends Automated> {
 
-    abstract CrudConsoleService<T> serviceMock();
+    abstract CrudConsoleService<T> service();
     abstract ConsoleScanner scannerMock();
     abstract BaseDao<T> daoMock();
 
@@ -58,7 +58,7 @@ abstract class CrudConsoleServiceTest<T extends Automated> {
     void testFind() {
         Mockito.when(scannerMock().nextInt()).thenReturn(1);
 
-        Optional<T> actual = serviceMock().find(scannerMock());
+        Optional<T> actual = service().find(scannerMock());
         log.debug("Actual : {}", actual);
 
         Mockito.verify(scannerMock()).nextInt();
@@ -70,7 +70,7 @@ abstract class CrudConsoleServiceTest<T extends Automated> {
     void testLoad() {
         Mockito.when(scannerMock().nextInt()).thenReturn(1);
 
-        T actual = serviceMock().load(scannerMock());
+        T actual = service().load(scannerMock());
         log.debug("Actual : {}", actual);
 
         Mockito.verify(scannerMock()).nextInt();
@@ -80,14 +80,14 @@ abstract class CrudConsoleServiceTest<T extends Automated> {
     @Test
     @SneakyThrows
     void testReadAll() {
-        serviceMock().readAll();
+        service().readAll();
         Mockito.verify(daoMock()).getAll();
     }
 
     @Test
     @SneakyThrows
     void testDelete() {
-        serviceMock().delete(scannerMock());
+        service().delete(scannerMock());
         Mockito.verify(scannerMock()).nextInt();
         Mockito.verify(daoMock()).delete(Mockito.any());
     }

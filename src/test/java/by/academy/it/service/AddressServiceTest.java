@@ -24,64 +24,42 @@
 package by.academy.it.service;
 
 import by.academy.it.database.BaseDao;
-import by.academy.it.domain.Department;
+import by.academy.it.domain.Address;
 import by.academy.it.util.ConsoleScanner;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.verification.Times;
 
 import java.util.Optional;
 
 /**
- * Created : 06/12/2021 14:12
+ * Created : 07/12/2021 09:43
  * Project : person-registry
  * IDE : IntelliJ IDEA
  *
  * @author alexanderleonovich
  * @version 1.0
  */
-class DepartmentServiceImplTest extends CrudConsoleServiceTest<Department> {
+class AddressServiceTest extends CrudConsoleServiceTest<Address> {
 
     @InjectMocks
-    private DepartmentServiceImpl departmentService;
+    private AddressService addressService;
     @Mock
-    private BaseDao<Department> daoMock;
+    private BaseDao<Address> daoMock;
     @Mock
     private ConsoleScanner scannerMock;
 
     @BeforeEach
     void setUp() throws Exception {
-        Department mockedResponse = Department.init();
-        mockedResponse.setId(1);
+        Address mockedResponse = Address.init();
+        mockedResponse.setPersonId(1);
         Mockito.lenient().when(daoMock().get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
     }
 
-    @Test
     @Override
-    @SneakyThrows
-    void testUpdate() {
-        service().update(scannerMock());
-        Mockito.verify(scannerMock(), new Times(2)).nextLine();
-        Mockito.verify(scannerMock()).nextInt();
-        Mockito.verify(daoMock()).get(Mockito.any());
-        Mockito.verify(daoMock()).saveOrUpdate(Mockito.any());
-    }
-
-    @Test
-    void create() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Override
-    CrudConsoleService<Department> service() {
-        return this.departmentService;
+    CrudConsoleService<Address> service() {
+        return this.addressService;
     }
 
     @Override
@@ -90,7 +68,20 @@ class DepartmentServiceImplTest extends CrudConsoleServiceTest<Department> {
     }
 
     @Override
-    BaseDao<Department> daoMock() {
+    BaseDao<Address> daoMock() {
         return this.daoMock;
     }
+
+    @Override
+    void testUpdate() {
+
+    }
+/*
+    @Test
+    void create() {
+    }
+
+    @Test
+    void update() {
+    }*/
 }

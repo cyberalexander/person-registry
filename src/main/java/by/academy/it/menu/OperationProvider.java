@@ -54,7 +54,7 @@ public class OperationProvider {
     public OperationProvider() {
         this.departmentService = new DepartmentServiceImpl(DaoFactory.getInstance().getDepartmentDao());
         this.personService = new PersonServiceImpl(DaoFactory.getInstance().getPersonDao(), this.departmentService);
-        this.addressService = new AddressService();
+        this.addressService = new AddressService(DaoFactory.getInstance().getAddressDao());
 
         operations.put(0, scanner -> System.exit(0));
         operations.put(1, personService::create);

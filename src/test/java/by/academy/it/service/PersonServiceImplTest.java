@@ -86,7 +86,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     @Override
     @SneakyThrows
     void testUpdate() {
-        serviceMock().update(scannerMock());
+        service().update(scannerMock());
         Mockito.verify(scannerMock(), new Times(4)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
         Mockito.verify(daoMock()).get(Mockito.any());
@@ -94,7 +94,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     }
 
     @Override
-    public CrudConsoleService<Person> serviceMock() {
+    public CrudConsoleService<Person> service() {
         return this.personService;
     }
 
