@@ -29,10 +29,8 @@ import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
-import by.academy.it.factory.DaoFactory;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
@@ -66,7 +64,6 @@ public final class PersonServiceImpl implements PersonService {
      * Creating Person service
      */
     @Override
-    @SneakyThrows
     public Serializable create(ConsoleScanner scanner) {
         out.println("Please enter new Person details:" + scanner.nextLine());
 
@@ -87,7 +84,7 @@ public final class PersonServiceImpl implements PersonService {
         person.setAddress(address);
         address.setPerson(person);
 
-        List<Department> departments = DaoFactory.getInstance().getDepartmentDao().getAll();
+        List<Department> departments = departmentService.readAll().toList();
 
         // Create new Department, if there is no Departments created yet, or chose random one from existing Departments
         if (departments.isEmpty()) {
