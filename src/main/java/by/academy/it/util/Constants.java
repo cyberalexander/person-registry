@@ -30,9 +30,9 @@ public class Constants {
     private Constants() {
     }
 
-    public static class ConstList{
+    public static class Other {
 
-        private ConstList() {
+        private Other() {
         }
 
         public static final String WRITE_NAME = "Name : ";
@@ -46,20 +46,19 @@ public class Constants {
         public static final String WRITE_BUILDING = "building : ";
         public static final String NEW_BUILDING = "New building : ";
         public static final String WRITE_ID = "ID : ";
+    }
 
-        /* ERROR MESSAGES */
-        public static final String UNABLE_LOAD_ENTITY = "Unable to load entity: %s";
-        public static final String UNABLE_READ_ENTITIES = "Unable get entities: %s";
-        public static final String UNABLE_FIND_ENTITY = "Unable to find entity: %s";
-        public static final String UNABLE_DELETE_ENTITY = "Unable to delete entity: %s";
+    public static class ErrorMessage {
 
+        private ErrorMessage() {
+        }
 
-        public static final String UNABLE_UPDATE_PERSON = "Unable to update person: ";
-
-        public static final String UNABLE_FLUSH_EXAMPLE = "Unable run flush example.   ";
-
-        public static final String UNABLE_FIND_DEPARTMENT = "Unable to find department.";
-        public static final String UNABLE_CREATE_DEPARTMENT = "Unable to create department.";
-        public static final String UNABLE_UPDATE_DEPARTMENT = "Unable to update department.";
+        public static final String LOAD_ERROR =     "PR-0001: Exception occurred while to loading entity by ID. %s";
+        public static final String GET_ALL_ERROR =  "PR-0002: Exception occurred while getting entities. %s";
+        public static final String FIND_ERROR =     "PR-0003: Exception occurred while finding entity by ID. %s";
+        public static final String DELETE_ERROR =   "PR-0004: Exception occurred while deleting entity. %s";
+        public static final String UPDATE_ERROR =   "PR-0005: Exception occurred while updating %s";
+        public static final String SAVE_ERROR =     "PR-0006: Exception occurred while saving %s";
+        public static final String FLUSH_ERROR =    "PR-0007: Exception occurred during flush demo execution. %s";
     }
 }

@@ -60,19 +60,19 @@ public final class AddressService implements CrudConsoleService<Address> {
     public void update(ConsoleScanner scanner) {
         find(scanner).ifPresent(address -> {
             scanner.nextLine();
-            out.print(Constants.ConstList.NEW_CITY);
+            out.print(Constants.Other.NEW_CITY);
             String city = scanner.nextLine();
             if (StringUtils.isNoneEmpty(city)) {
                 address.setCity(city);
             }
 
-            out.print(Constants.ConstList.NEW_STREET);
+            out.print(Constants.Other.NEW_STREET);
             String street = scanner.nextLine();
             if (StringUtils.isNoneEmpty(street)) {
                 address.setStreet(street);
             }
 
-            out.print(Constants.ConstList.NEW_BUILDING);
+            out.print(Constants.Other.NEW_BUILDING);
             int building = scanner.nextInt();
             address.setBuilding(building);
 

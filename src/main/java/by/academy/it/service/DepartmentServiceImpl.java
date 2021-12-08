@@ -53,17 +53,18 @@ public final class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Serializable create(ConsoleScanner scanner) {
+        Department newDepartment = createNewDepartment(scanner);
         try {
-            return dao.save(createNewDepartment(scanner));
+            return dao.save(newDepartment);
         } catch (DaoException e) {
-            throw new MenuException(Constants.ConstList.UNABLE_CREATE_DEPARTMENT, e);
+            throw new MenuException(String.format(Constants.ErrorMessage.SAVE_ERROR, newDepartment), e);
         }
     }
 
     @Override
     public void update(ConsoleScanner scanner) {
         find(scanner).ifPresent(department -> {
-            out.print(Constants.ConstList.WRITE_DEPARTMENT_NAME + scanner.nextLine());
+            out.print(Constants.Other.WRITE_DEPARTMENT_NAME + scanner.nextLine());
             String name = scanner.nextLine();
             if (StringUtils.isNoneEmpty(name)) {
                 department.setDepartmentName(name);
@@ -71,7 +72,7 @@ public final class DepartmentServiceImpl implements DepartmentService {
             try {
                 dao.saveOrUpdate(department);
             } catch (DaoException e) {
-                throw new MenuException(Constants.ConstList.UNABLE_UPDATE_DEPARTMENT, e);
+                throw new MenuException(String.format(Constants.ErrorMessage.UPDATE_ERROR, department), e);
             }
         });
     }

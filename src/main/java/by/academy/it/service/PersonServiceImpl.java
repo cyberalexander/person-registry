@@ -72,15 +72,15 @@ public final class PersonServiceImpl implements PersonService {
 
         Person person = new Person();
 
-        out.print(Constants.ConstList.WRITE_NAME);
+        out.print(Constants.Other.WRITE_NAME);
         String name = scanner.nextLine();
         person.setName(name);
 
-        out.print(Constants.ConstList.WRITE_SURNAME);
+        out.print(Constants.Other.WRITE_SURNAME);
         String surname = scanner.nextLine();
         person.setSurname(surname);
 
-        out.print(Constants.ConstList.WRITE_AGE);
+        out.print(Constants.Other.WRITE_AGE);
         person.setAge(scanner.nextInt());
 
         Address address = createNewAddress(scanner);
@@ -104,8 +104,13 @@ public final class PersonServiceImpl implements PersonService {
             }
         }
 
-        Serializable personId = dao.save(person);
-        log.trace("New Person created with ID : {}", personId);
+        Serializable personId;
+        try {
+            personId = dao.save(person);
+            log.trace("New Person created with ID : {}", personId);
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ErrorMessage.SAVE_ERROR, person), e);
+        }
         return personId;
     }
 
@@ -114,19 +119,19 @@ public final class PersonServiceImpl implements PersonService {
         find(scanner).ifPresent(
             person -> {
                 scanner.nextLine();
-                out.print(Constants.ConstList.WRITE_NAME);
+                out.print(Constants.Other.WRITE_NAME);
                 String name = scanner.nextLine();
                 if (StringUtils.isNoneEmpty(name)) {
                     person.setName(name);
                 }
 
-                out.print(Constants.ConstList.WRITE_SURNAME);
+                out.print(Constants.Other.WRITE_SURNAME);
                 String surname = scanner.nextLine();
                 if (StringUtils.isNoneEmpty(surname)) {
                     person.setSurname(surname);
                 }
 
-                out.print(Constants.ConstList.NEW_STREET);
+                out.print(Constants.Other.NEW_STREET);
                 String street = scanner.nextLine();
                 if (StringUtils.isNoneEmpty(street)) {
                     person.getAddress().setStreet(street);
@@ -135,7 +140,7 @@ public final class PersonServiceImpl implements PersonService {
                 try {
                     dao.update(person);
                 } catch (DaoException e) {
-                    throw new MenuException(Constants.ConstList.UNABLE_UPDATE_PERSON, e);
+                    throw new MenuException(String.format(Constants.ErrorMessage.UPDATE_ERROR, person), e);
                 }
             }
         );
@@ -148,7 +153,7 @@ public final class PersonServiceImpl implements PersonService {
             Person randomPerson = persons.get(new Random().nextInt(persons.size() - 1) + 1);
             dao.flushDemo(randomPerson);
         } catch (DaoException e) {
-            throw new MenuException(Constants.ConstList.UNABLE_FLUSH_EXAMPLE, e);
+            throw new MenuException(String.format(Constants.ErrorMessage.FLUSH_ERROR, e.getMessage()), e);
         }
     }
 
@@ -158,13 +163,13 @@ public final class PersonServiceImpl implements PersonService {
 
         Address address = new Address();
 
-        out.print(Constants.ConstList.WRITE_CITY);
+        out.print(Constants.Other.WRITE_CITY);
         address.setCity(scanner.nextLine());
 
-        out.print(Constants.ConstList.WRITE_STREET);
+        out.print(Constants.Other.WRITE_STREET);
         address.setStreet(scanner.nextLine());
 
-        out.print(Constants.ConstList.WRITE_BUILDING);
+        out.print(Constants.Other.WRITE_BUILDING);
         address.setBuilding(scanner.nextInt());
 
         return address;

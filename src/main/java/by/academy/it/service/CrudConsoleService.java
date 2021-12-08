@@ -59,7 +59,7 @@ public interface CrudConsoleService<T extends Automated> {
      */
     default Optional<T> find(ConsoleScanner scanner) {
         out.println("Please enter entity id:");
-        out.print(Constants.ConstList.WRITE_ID);
+        out.print(Constants.Other.WRITE_ID);
 
         try {
             Integer id = scanner.nextInt();
@@ -71,19 +71,19 @@ public interface CrudConsoleService<T extends Automated> {
             }
             return entity;
         } catch (DaoException e) {
-            throw new MenuException(String.format(Constants.ConstList.UNABLE_FIND_ENTITY, e.getMessage()), e);
+            throw new MenuException(String.format(Constants.ErrorMessage.FIND_ERROR, e.getMessage()), e);
         }
     }
 
     default T load(ConsoleScanner scanner) {
         out.println("Please enter entity id:");
-        out.print(Constants.ConstList.WRITE_ID);
+        out.print(Constants.Other.WRITE_ID);
         try {
             T entity = dao().load(scanner.nextInt());
             out.print(entity);
             return entity;
         } catch (DaoException e) {
-            throw new MenuException(String.format(Constants.ConstList.UNABLE_LOAD_ENTITY, e.getMessage()), e);
+            throw new MenuException(String.format(Constants.ErrorMessage.LOAD_ERROR, e.getMessage()), e);
         }
     }
 
@@ -95,7 +95,7 @@ public interface CrudConsoleService<T extends Automated> {
             }
             return list.stream();
         } catch (DaoException e) {
-            throw new MenuException(String.format(Constants.ConstList.UNABLE_READ_ENTITIES, e.getMessage()), e);
+            throw new MenuException(String.format(Constants.ErrorMessage.GET_ALL_ERROR, e.getMessage()), e);
         }
     }
 
@@ -106,7 +106,7 @@ public interface CrudConsoleService<T extends Automated> {
             try {
                 dao().delete(department);
             } catch (DaoException e) {
-                throw new MenuException(String.format(Constants.ConstList.UNABLE_DELETE_ENTITY, e.getMessage()), e);
+                throw new MenuException(String.format(Constants.ErrorMessage.DELETE_ERROR, e.getMessage()), e);
             }
         });
     }

@@ -41,7 +41,7 @@ public interface DepartmentService extends CrudConsoleService<Department> {
 
     default Department createNewDepartment(ConsoleScanner scanner) {
         out.println("Please enter new department details:" + scanner.nextLine());
-        out.print(Constants.ConstList.WRITE_NAME);
+        out.print(Constants.Other.WRITE_NAME);
         Department department = new Department();
         department.setDepartmentName(scanner.nextLine());
         return department;
