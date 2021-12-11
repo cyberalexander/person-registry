@@ -26,6 +26,7 @@ import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.menu.ConsoleMenu;
+import by.academy.it.menu.OperationProvider;
 import by.academy.it.util.Try;
 import lombok.extern.log4j.Log4j2;
 
@@ -47,7 +48,8 @@ public final class PersonRegistryApplication {
     public static void main(final String[] args) {
         commandLineRunner();
         Locale.setDefault(Locale.US);
-        new ConsoleMenu().menu();
+        ConsoleMenu consoleMenu = new ConsoleMenu(new OperationProvider()); //TODO instantiate by custom framework
+        consoleMenu.menu();
     }
 
     /**

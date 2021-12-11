@@ -36,8 +36,8 @@ import static java.lang.System.out;
 public class ConsoleMenu {
     private final OperationProvider provider;
 
-    public ConsoleMenu() {
-        this.provider = new OperationProvider();
+    public ConsoleMenu(OperationProvider provider) {
+        this.provider = provider;
     }
 
     @SuppressWarnings("all")
