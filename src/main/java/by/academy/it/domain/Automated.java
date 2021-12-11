@@ -32,6 +32,8 @@ package by.academy.it.domain;
  */
 public interface Automated {
 
+    Integer ONE_HUNDRED = 100;
+
     Integer getId();
 
     <T> T populate();

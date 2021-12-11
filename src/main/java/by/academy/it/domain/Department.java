@@ -22,6 +22,8 @@
  */
 package by.academy.it.domain;
 
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -31,6 +33,7 @@ import java.util.Set;
  * Created by alexanderleonovich on 15.05.15.
  * Time 20:23
  */
+@Data
 public class Department implements Serializable, Automated {
     @Serial
     private static final long serialVersionUID = 251807806583275242L;
@@ -41,26 +44,6 @@ public class Department implements Serializable, Automated {
     @Override
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Set<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(Set<Person> persons) {
-        this.persons = persons;
     }
 
     public void addPersons(Set<Person> persons) {

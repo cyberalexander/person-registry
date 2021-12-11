@@ -22,6 +22,8 @@
  */
 package by.academy.it.domain;
 
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -30,6 +32,7 @@ import java.util.Random;
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
+@Data
 public class Address implements Serializable, Automated {
     @Serial
     private static final long serialVersionUID = 4644921171733108650L;
@@ -38,46 +41,6 @@ public class Address implements Serializable, Automated {
     private String street;
     private Integer building;
     private Person person;
-
-    public String getCity() {
-        return this.city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return this.street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public Integer getPersonId() {
-        return this.personId;
-    }
-
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
-    }
-
-    public Person getPerson() {
-        return this.person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Integer getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(Integer building) {
-        this.building = building;
-    }
 
     @Override
     public int hashCode() {

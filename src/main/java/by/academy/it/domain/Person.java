@@ -22,6 +22,8 @@
  */
 package by.academy.it.domain;
 
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,6 +36,7 @@ import java.util.Set;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
+@Data
 public class Person implements Serializable, Automated {
     @Serial
     private static final long serialVersionUID = -6977333908792086914L;
@@ -44,58 +47,14 @@ public class Person implements Serializable, Automated {
     private Department department; /* many-to-one relation */
     private Address address; /* one-to-one relation */
 
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Integer id) {
-        this.personId = id;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Person)) {
+            return false;
+        }
         Person person = (Person) o;
         return getPersonId().equals(person.getPersonId())
             && getAge().equals(person.getAge())
@@ -115,8 +74,8 @@ public class Person implements Serializable, Automated {
             + ", age=" + age
             + ", name='" + name
             + "', surname='" + surname
-            + "', department=" +
-            Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null")
+            + "', department="
+            + Optional.ofNullable(this.department).map(dep -> String.valueOf(dep.getId())).orElse("null")
             + ", address='" + Optional.ofNullable(address).orElse(null) + '\''
             + '}';
     }
@@ -131,7 +90,7 @@ public class Person implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setName("modified_name_" + now);
         this.setSurname("modified_surname_" + now);
-        this.setAge(new Random().nextInt(100 - 1) + 1);
+        this.setAge(new Random().nextInt(Automated.ONE_HUNDRED - 1) + 1);
         this.getAddress().setStreet("modified_street_" + now);
         return this;
     }
@@ -141,7 +100,7 @@ public class Person implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setName("name_" + now);
         this.setSurname("surname_" + now);
-        this.setAge(new Random().nextInt(100 - 1) + 1);
+        this.setAge(new Random().nextInt(Automated.ONE_HUNDRED - 1) + 1);
 
         Address addr = Address.init();
         this.setAddress(addr);
