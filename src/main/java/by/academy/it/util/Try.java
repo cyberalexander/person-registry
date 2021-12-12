@@ -39,9 +39,9 @@ public class Try<V> {
     private final V success;
     private final Throwable failure;
 
-    public Try(V success, Throwable failure) {
-        this.success = success;
-        this.failure = failure;
+    public Try(final V s, final Throwable f) {
+        this.success = s;
+        this.failure = f;
     }
 
     public boolean isSuccess() {
@@ -60,11 +60,11 @@ public class Try<V> {
         return failure;
     }
 
-    public static <V> Try<V> success(V value) {
+    public static <V> Try<V> success(final V value) {
         return new Try<>(value, null);
     }
 
-    public static <V> Try<V> failure(Throwable failure) {
+    public static <V> Try<V> failure(final Throwable failure) {
         return new Try<>(null, failure);
     }
 
@@ -77,7 +77,7 @@ public class Try<V> {
         }
     }
 
-    public static <V> Try<V> of(Callable<V> action) {
+    public static <V> Try<V> of(final Callable<V> action) {
         try {
             return success(action.call());
         } catch (Throwable e) {
@@ -86,7 +86,7 @@ public class Try<V> {
     }
 
     @SuppressWarnings("unchecked")
-    public <B> Try<B> map(Function<V, B> mappingFunction) {
+    public <B> Try<B> map(final Function<V, B> mappingFunction) {
         if (isSuccess()) {
             try {
                 return success(mappingFunction.apply(get()));
@@ -99,7 +99,7 @@ public class Try<V> {
     }
 
     @SuppressWarnings({"unchecked", "PMD.ReturnFromFinallyBlock"})
-    public <B> Try<B> map(Function<V, B> mappingFunction, Consumer<V> finalizer) {
+    public <B> Try<B> map(final Function<V, B> mappingFunction, final Consumer<V> finalizer) {
         if (isSuccess()) {
             try {
                 return success(mappingFunction.apply(get()));

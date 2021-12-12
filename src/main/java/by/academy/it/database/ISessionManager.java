@@ -34,13 +34,13 @@ public interface ISessionManager<T> {
 
     /**
      * Method set flag to share single hibernate session between multiple database requests.
+     * @param <D> Particlular {@link IDao} implementation type.
      * @return Same instance of the DAO who invoked this method.
      */
-    <E extends IDao<T>> E withSharedSession();
+    <D extends IDao<T>> D withSharedSession();
 
     /**
      * Method attempts to close the session.
-     * @return Same instance of the DAO who invoked this method.
      */
     void releaseSession();
 }

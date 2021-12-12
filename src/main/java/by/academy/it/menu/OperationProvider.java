@@ -75,7 +75,7 @@ public class OperationProvider {
         operations.put(16, scanner -> personService.flushDemo());
     }
 
-    public Optional<Consumer<ConsoleScanner>> operation(Integer operationId) {
+    public Optional<Consumer<ConsoleScanner>> operation(final Integer operationId) {
         return Optional.ofNullable(operations.get(operationId));
     }
 }

@@ -47,24 +47,24 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class PersonServiceImpl implements PersonService {
-    private final PersonDao dao;
+    private final PersonDao personDao;
     private final DepartmentService departmentService;
 
-    public PersonServiceImpl(PersonDao dao, DepartmentService departmentService) {
-        this.dao = dao;
-        this.departmentService = departmentService;
+    public PersonServiceImpl(final PersonDao dao, final DepartmentService service) {
+        this.personDao = dao;
+        this.departmentService = service;
     }
 
     @Override
     public IDao<Person> dao() {
-        return this.dao;
+        return this.personDao;
     }
 
     /**
      * Creating Person service
      */
     @Override
-    public Serializable create(ConsoleScanner scanner) {
+    public Serializable create(final ConsoleScanner scanner) {
         out.println("Please enter new Person details:" + scanner.nextLine());
 
         Person person = new Person();
@@ -103,7 +103,7 @@ public final class PersonServiceImpl implements PersonService {
 
         Serializable personId;
         try {
-            personId = dao.save(person);
+            personId = personDao.save(person);
             log.trace("New Person created with ID : {}", personId);
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.SAVE_ERROR, person), e);
@@ -112,7 +112,7 @@ public final class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void update(ConsoleScanner scanner) {
+    public void update(final ConsoleScanner scanner) {
         find(scanner).ifPresent(
             person -> {
                 scanner.nextLine();
@@ -135,7 +135,7 @@ public final class PersonServiceImpl implements PersonService {
                 }
 
                 try {
-                    dao.update(person);
+                    personDao.update(person);
                 } catch (DaoException e) {
                     throw new MenuException(String.format(Constants.ErrorMessage.UPDATE_ERROR, person), e);
                 }
@@ -146,15 +146,15 @@ public final class PersonServiceImpl implements PersonService {
     @Override
     public void flushDemo() {
         try {
-            List<Person> persons = dao.getAll();
+            List<Person> persons = personDao.getAll();
             Person randomPerson = persons.get(new Random().nextInt(persons.size() - 1) + 1);
-            dao.flushDemo(randomPerson);
+            personDao.flushDemo(randomPerson);
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.FLUSH_ERROR, e.getMessage()), e);
         }
     }
 
-    public Address createNewAddress(ConsoleScanner scanner) {
+    public Address createNewAddress(final ConsoleScanner scanner) {
 
         out.println("Please enter new address details:" + scanner.nextLine());
 
