@@ -40,24 +40,24 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class AddressService implements CrudConsoleService<Address> {
-    private final IDao<Address> dao;
+    private final IDao<Address> addressDao;
 
-    public AddressService(IDao<Address> dao) {
-        this.dao = dao;
+    public AddressService(final IDao<Address> dao) {
+        this.addressDao = dao;
     }
 
     @Override
     public IDao<Address> dao() {
-        return this.dao;
+        return this.addressDao;
     }
 
     @Override
-    public Serializable create(ConsoleScanner scanner) {
+    public Serializable create(final ConsoleScanner scanner) {
         throw new UnsupportedOperationException("Standalone create address operation is not supported here");
     }
 
     @Override
-    public void update(ConsoleScanner scanner) {
+    public void update(final ConsoleScanner scanner) {
         find(scanner).ifPresent(address -> {
             scanner.nextLine();
             out.print(Constants.Other.NEW_CITY);
@@ -77,7 +77,7 @@ public final class AddressService implements CrudConsoleService<Address> {
             address.setBuilding(building);
 
             try {
-                dao.update(address);
+                addressDao.update(address);
             } catch (DaoException e) {
                 throw new MenuException("Exception during update Person Address.", e);
             }

@@ -37,5 +37,5 @@
     <suppress files="." checks="MethodParamPad"/>
     <suppress files="." checks="DesignForExtension"/>
 
-    <suppress files="App.java" checks="MagicNumber"/>
+    <suppress files="OperationProvider.java" checks="MagicNumber"/>
 </suppressions>

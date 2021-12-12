@@ -27,6 +27,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -44,32 +45,31 @@ public class Address implements Serializable, Automated {
 
     @Override
     public int hashCode() {
-        int result = city != null ? city.hashCode() : 0;
-        result = 31 * result + (street != null ? street.hashCode() : 0);
-        result = 31 * result + (personId != null ? personId.hashCode() : 0);
-        return result;
+        return Objects.hash(getPersonId(), getCity(), getStreet(), getBuilding());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Address)) return false;
-
-        Address address = (Address) obj;
-        if (city != null ? !city.equals(address.city) : address.city != null) return false;
-        if (street != null ? !street.equals(address.street) : address.street != null) return false;
-        if (personId != null ? !personId.equals(address.personId) : address.personId != null) return false;
-        return true;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Address)) {
+            return false;
+        }
+        Address address = (Address) o;
+        return Objects.equals(getPersonId(), address.getPersonId())
+            && getCity().equals(address.getCity())
+            && getStreet().equals(address.getStreet())
+            && getBuilding().equals(address.getBuilding());
     }
 
     @Override
     public String toString() {
-        return "Address{" +
-                "personId=" + personId +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", building=" + building +
-                '}';
+        return "Address{"
+            + "personId=" + personId
+            + ", city='" + city + '\''
+            + ", street='" + street + '\''
+            + ", building=" + building + '}';
     }
 
     @Override

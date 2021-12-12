@@ -43,8 +43,8 @@ public class ConsoleScanner implements AutoCloseable {
 
     private final Scanner scanner;
 
-    public ConsoleScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public ConsoleScanner(final Scanner s) {
+        this.scanner = s;
     }
 
     public int nextInt() {
