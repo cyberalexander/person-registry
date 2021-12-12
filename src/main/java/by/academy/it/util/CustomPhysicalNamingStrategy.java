@@ -82,7 +82,7 @@ public class CustomPhysicalNamingStrategy extends PhysicalNamingStrategyStandard
         return Identifier.toIdentifier(convertValue(name.getText()));
     }
 
-    private String convertValue(String name) {
+    private String convertValue(final String name) {
         final String regex = "([a-z])([A-Z])";
         final String replacement = "$1_$2";
         return name.replaceAll(regex, replacement).toLowerCase();

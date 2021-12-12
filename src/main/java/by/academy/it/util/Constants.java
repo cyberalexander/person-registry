@@ -25,12 +25,12 @@ package by.academy.it.util;
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
-public class Constants {
+public final class Constants {
 
     private Constants() {
     }
 
-    public static class Other {
+    public static final class Other {
 
         private Other() {
         }
@@ -48,7 +48,7 @@ public class Constants {
         public static final String WRITE_ID = "ID : ";
     }
 
-    public static class ErrorMessage {
+    public static final class ErrorMessage {
 
         private ErrorMessage() {
         }

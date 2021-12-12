@@ -22,8 +22,7 @@
  */
 package by.academy.it.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,8 +32,8 @@ import org.hibernate.cfg.Configuration;
 /**
  * Created by alexanderleonovich on 13.05.15.
  */
-public class HibernateUtil {
-    private static final Logger log = LogManager.getLogger(HibernateUtil.class);
+@Log4j2
+public final class HibernateUtil {
     private static HibernateUtil util = null;
     private final SessionFactory factory;
 
@@ -70,8 +69,8 @@ public class HibernateUtil {
         return session;
     }
 
-    public static synchronized HibernateUtil getHibernateUtil(){
-        if (util == null){
+    public static synchronized HibernateUtil getHibernateUtil() {
+        if (util == null) {
             util = new HibernateUtil();
         }
         return util;

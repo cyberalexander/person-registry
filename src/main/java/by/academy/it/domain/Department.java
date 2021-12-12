@@ -27,6 +27,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -46,34 +47,30 @@ public class Department implements Serializable, Automated {
         return id;
     }
 
-    public void addPersons(Set<Person> persons) {
+    public void addPersons(final Set<Person> newPersons) {
         if (this.persons.isEmpty()) {
-            this.setPersons(persons);
+            this.setPersons(newPersons);
         } else {
-            this.persons.addAll(persons);
+            this.persons.addAll(newPersons);
         }
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (departmentName != null ? departmentName.hashCode() : 0);
-        return result;
+        return Objects.hash(getId(), getDepartmentName());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Department)) return false;
-
-        Department department = (Department) obj;
-        if (id != null ? !id.equals(department.id) : department.id != null) return false;
-        if (
-            departmentName != null
-                ? !departmentName.equals(department.departmentName)
-                : department.departmentName != null
-        ) return false;
-        return true;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Department)) {
+            return false;
+        }
+        Department that = (Department) o;
+        return getId().equals(that.getId())
+            && getDepartmentName().equals(that.getDepartmentName());
     }
 
     @Override

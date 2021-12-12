@@ -40,29 +40,29 @@ import static java.lang.System.out;
  */
 @Log4j2
 public final class DepartmentServiceImpl implements DepartmentService {
-    private final IDao<Department> dao;
+    private final IDao<Department> departmentDao;
 
-    public DepartmentServiceImpl(IDao<Department> dao) {
-        this.dao = dao;
+    public DepartmentServiceImpl(final IDao<Department> dao) {
+        this.departmentDao = dao;
     }
 
     @Override
     public IDao<Department> dao() {
-        return this.dao;
+        return this.departmentDao;
     }
 
     @Override
-    public Serializable create(ConsoleScanner scanner) {
+    public Serializable create(final ConsoleScanner scanner) {
         Department newDepartment = createNewDepartment(scanner);
         try {
-            return dao.save(newDepartment);
+            return departmentDao.save(newDepartment);
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.SAVE_ERROR, newDepartment), e);
         }
     }
 
     @Override
-    public void update(ConsoleScanner scanner) {
+    public void update(final ConsoleScanner scanner) {
         find(scanner).ifPresent(department -> {
             out.print(Constants.Other.WRITE_DEPARTMENT_NAME + scanner.nextLine());
             String name = scanner.nextLine();
@@ -70,7 +70,7 @@ public final class DepartmentServiceImpl implements DepartmentService {
                 department.setDepartmentName(name);
             }
             try {
-                dao.saveOrUpdate(department);
+                departmentDao.saveOrUpdate(department);
             } catch (DaoException e) {
                 throw new MenuException(String.format(Constants.ErrorMessage.UPDATE_ERROR, department), e);
             }
