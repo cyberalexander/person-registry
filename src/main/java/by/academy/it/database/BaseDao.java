@@ -40,6 +40,8 @@ import java.util.function.Function;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
+ *
+ * @param <T> Persistent entity class to be managed by {@link BaseDao} implementation.
  */
 @Log4j2
 public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
@@ -162,6 +164,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
 
     /**
      * Method returns the Class of Dao implementation generic type.
+     *
      * @return The class of the persistent entity, managed by one of the Dao implementations.
      */
     @SuppressWarnings("unchecked")

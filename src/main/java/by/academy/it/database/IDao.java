@@ -30,6 +30,7 @@ import java.util.Optional;
 
 /**
  * Created by alexanderleonovich on 13.05.15.
+ * @param <T> Persistent entity class to be managed by {@link IDao} implementation.
  */
 public interface IDao<T> {
 

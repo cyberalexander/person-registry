@@ -31,6 +31,7 @@ import java.util.function.Function;
  * Project : hibernate-crm
  * IDE : IntelliJ IDEA
  *
+ * @param <V> The type of the successfully processed result.
  * @author alexanderleonovich
  * @version 1.0
  */

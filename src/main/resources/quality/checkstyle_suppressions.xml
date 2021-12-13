@@ -28,14 +28,12 @@
     <!-- LineLength overridden from google_checks.xml and suppressed in custom_checkstyle.xml -->
     <suppress files="." checks="LineLength"/>
 
+    <suppress files="OperationProvider.java" checks="MagicNumber"/>
+
     <suppress files="." checks="JavadocVariable"/>
-    <!--TODO fix it later -->
+    <!--TODO candidates to be fixed. -->
     <suppress files="." checks="JavadocPackage"/>
     <suppress files="." checks="JavadocStyle"/>
-    <suppress files="." checks="JavadocType"/>
     <suppress files="." checks="MissingJavadocMethod"/>
-    <suppress files="." checks="MethodParamPad"/>
     <suppress files="." checks="DesignForExtension"/>
-
-    <suppress files="OperationProvider.java" checks="MagicNumber"/>
 </suppressions>

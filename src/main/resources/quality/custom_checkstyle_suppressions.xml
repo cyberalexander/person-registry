@@ -25,5 +25,9 @@
         "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
         "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 <suppressions>
+    <!--
+    Exception for a specific case, where the business logic of printing menu exists.
+    In order to keep original formatting there even if it's exceeds allowed custom max line length.
+    -->
     <suppress files="ConsoleMenu" checks="LineLength"/>
 </suppressions>

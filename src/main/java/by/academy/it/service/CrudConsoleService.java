@@ -43,6 +43,8 @@ import static java.lang.System.out;
  * Project : person-registry
  * IDE : IntelliJ IDEA
  *
+ * @param <T> The Class type of the persisted business entity
+ *            managed by the implementation of the {@link CrudConsoleService}
  * @author alexanderleonovich
  * @version 1.0
  */
@@ -54,6 +56,7 @@ public interface CrudConsoleService<T extends Automated> {
 
     /**
      * Method for getting Entity object from database or from session-cash
+     *
      * @param scanner Console input scanner
      * @return Optional of enityt type T
      */

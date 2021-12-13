@@ -27,6 +27,7 @@ package by.academy.it.database;
  * Project : person-registry
  * IDE : IntelliJ IDEA
  *
+ * @param <T> Persistent entity class to be managed by {@link IDao} implementation.
  * @author alexanderleonovich
  * @version 1.0
  */
@@ -34,6 +35,7 @@ public interface ISessionManager<T> {
 
     /**
      * Method set flag to share single hibernate session between multiple database requests.
+     *
      * @param <D> Particlular {@link IDao} implementation type.
      * @return Same instance of the DAO who invoked this method.
      */
