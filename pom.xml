@@ -70,6 +70,7 @@
         <jacoco.version>0.8.7</jacoco.version>
 
         <!-- ========= Dependencies versions ========= -->
+        <winter.version>0.0.2-SNAPSHOT</winter.version>
         <hibernate.version>5.4.23.Final</hibernate.version>
         <mysql.connector.version>8.0.17</mysql.connector.version>
         <log4j.version>2.14.1</log4j.version>
@@ -308,6 +309,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>com.leonovich.winter.io</groupId>
+            <artifactId>winter-io</artifactId>
+            <version>${winter.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>

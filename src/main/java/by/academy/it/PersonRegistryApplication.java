@@ -28,9 +28,12 @@ import by.academy.it.factory.DaoFactory;
 import by.academy.it.menu.ConsoleMenu;
 import by.academy.it.menu.OperationProvider;
 import by.academy.it.util.Try;
+import com.leonovich.winter.io.Application;
+import com.leonovich.winter.io.configuration.ApplicationContext;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,11 +44,14 @@ import java.util.stream.Stream;
  */
 @Log4j2
 public final class PersonRegistryApplication {
+    private static final String PACKAGE_NAME = PersonRegistryApplication.class.getPackageName();
 
     private PersonRegistryApplication() {
     }
 
     public static void main(final String[] args) {
+        ApplicationContext context = Application.run(PACKAGE_NAME, new HashMap<>());
+        log.debug("Context initialized : {}", context);
         commandLineRunner();
         Locale.setDefault(Locale.US);
         ConsoleMenu consoleMenu = new ConsoleMenu(new OperationProvider()); //TODO instantiate by custom framework
