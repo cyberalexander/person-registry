@@ -26,7 +26,6 @@ import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.factory.DaoFactory;
 import by.academy.it.menu.ConsoleMenu;
-import by.academy.it.menu.OperationProvider;
 import by.academy.it.util.Try;
 import com.leonovich.winter.io.Application;
 import com.leonovich.winter.io.configuration.ApplicationContext;
@@ -54,7 +53,7 @@ public final class PersonRegistryApplication {
         log.debug("Context initialized : {}", context);
         commandLineRunner();
         Locale.setDefault(Locale.US);
-        ConsoleMenu consoleMenu = new ConsoleMenu(new OperationProvider()); //TODO instantiate by custom framework
+        ConsoleMenu consoleMenu = context.getObject(ConsoleMenu.class);
         consoleMenu.menu();
     }
 

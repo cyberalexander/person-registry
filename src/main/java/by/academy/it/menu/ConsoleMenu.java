@@ -23,6 +23,8 @@
 package by.academy.it.menu;
 
 import by.academy.it.util.ConsoleScanner;
+import com.leonovich.winter.io.annotation.InjectByType;
+import com.leonovich.winter.io.annotation.Singleton;
 
 import java.util.Scanner;
 
@@ -33,12 +35,11 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 13.05.15.
  * Class for load menu in console and for execute operations with entities
  */
+@Singleton
 public class ConsoleMenu {
-    private final OperationProvider provider;
 
-    public ConsoleMenu(final OperationProvider p) {
-        this.provider = p;
-    }
+    @InjectByType
+    private OperationProvider provider;
 
     @SuppressWarnings("all")
     public void menu() {
