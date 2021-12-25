@@ -33,8 +33,8 @@ import java.util.List;
  */
 public class AddressDao extends BaseDao<Address> {
 
-    public AddressDao(final HibernateUtil util) {
-        super(util);
+    public AddressDao() {
+        super(HibernateUtil.getHibernateUtil());
     }
 
     @Override

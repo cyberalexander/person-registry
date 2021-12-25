@@ -28,6 +28,8 @@ import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
+import com.leonovich.winter.io.annotation.InjectByType;
+import com.leonovich.winter.io.annotation.Singleton;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,12 +41,11 @@ import static java.lang.System.out;
  * Created by alexanderleonovich on 18.05.15.
  */
 @Log4j2
+@Singleton
 public final class AddressService implements CrudConsoleService<Address> {
-    private final IDao<Address> addressDao;
 
-    public AddressService(final IDao<Address> dao) {
-        this.addressDao = dao;
-    }
+    @InjectByType
+    private IDao<Address> addressDao;
 
     @Override
     public IDao<Address> dao() {
