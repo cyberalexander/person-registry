@@ -24,7 +24,6 @@ package by.academy.it;
 
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
-import by.academy.it.factory.DaoFactory;
 import by.academy.it.menu.ConsoleMenu;
 import by.academy.it.util.Try;
 import com.leonovich.winter.io.Application;
@@ -49,21 +48,25 @@ public final class PersonRegistryApplication {
     }
 
     public static void main(final String[] args) {
+        Locale.setDefault(Locale.US);
+
         ApplicationContext context = Application.run(PACKAGE_NAME, new HashMap<>());
         log.debug("Context initialized : {}", context);
-        commandLineRunner();
-        Locale.setDefault(Locale.US);
-        ConsoleMenu consoleMenu = context.getObject(ConsoleMenu.class);
-        consoleMenu.menu();
+
+        commandLineRunner(context);
+
+        context.getObject(ConsoleMenu.class).menu();
     }
 
     /**
      * Analog of Spring boot command line runner.
      * Method doing some work before application starts.
+     *
+     * @param context ApplicationContext instance
      */
-    public static void commandLineRunner() {
+    public static void commandLineRunner(final ApplicationContext context) {
         final int testDataCount = 20;
-        PersonDao personDao = DaoFactory.getInstance().getPersonDao();
+        PersonDao personDao = context.getObject(PersonDao.class);
         Set<Try<Serializable>> result = Stream.generate(Person::init)
             .limit(testDataCount)
             .map(person -> Try.of(() -> personDao.save(person)))
