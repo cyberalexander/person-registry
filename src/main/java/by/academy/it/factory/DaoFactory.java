@@ -25,7 +25,6 @@ package by.academy.it.factory;
 import by.academy.it.database.AddressDao;
 import by.academy.it.database.DepartmentDao;
 import by.academy.it.database.PersonDao;
-import by.academy.it.util.HibernateUtil;
 
 /**
  * Created by alexanderleonovich on 18.05.15.
@@ -33,14 +32,12 @@ import by.academy.it.util.HibernateUtil;
  */
 public final class DaoFactory {
     private static DaoFactory instance;
-    private final HibernateUtil util;
 
     private PersonDao personDao;
     private DepartmentDao departmentDao;
     private AddressDao addressDao;
 
     private DaoFactory() {
-        util = HibernateUtil.getHibernateUtil();
     }
 
     public static synchronized DaoFactory getInstance() {
@@ -52,21 +49,21 @@ public final class DaoFactory {
 
     public PersonDao getPersonDao() {
         if (personDao == null) {
-            personDao = new PersonDao(util);
+            personDao = new PersonDao();
         }
         return personDao;
     }
 
     public DepartmentDao getDepartmentDao() {
         if (departmentDao == null) {
-            departmentDao = new DepartmentDao(util);
+            departmentDao = new DepartmentDao();
         }
         return departmentDao;
     }
 
     public AddressDao getAddressDao() {
         if (addressDao == null) {
-            addressDao = new AddressDao(util);
+            addressDao = new AddressDao();
         }
         return addressDao;
     }

@@ -33,8 +33,8 @@ import java.util.List;
  */
 public class DepartmentDao extends BaseDao<Department> {
 
-    public DepartmentDao(final HibernateUtil util) {
-        super(util);
+    public DepartmentDao() {
+        super(HibernateUtil.getHibernateUtil());
     }
 
     @Override
