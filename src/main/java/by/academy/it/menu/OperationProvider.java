@@ -23,14 +23,12 @@
 package by.academy.it.menu;
 
 import by.academy.it.domain.Address;
-import by.academy.it.factory.DaoFactory;
-import by.academy.it.service.AddressService;
 import by.academy.it.service.CrudConsoleService;
 import by.academy.it.service.DepartmentService;
-import by.academy.it.service.DepartmentServiceImpl;
 import by.academy.it.service.PersonService;
-import by.academy.it.service.PersonServiceImpl;
 import by.academy.it.util.ConsoleScanner;
+import com.leonovich.winter.io.annotation.InjectByType;
+import com.leonovich.winter.io.annotation.Singleton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,33 +43,33 @@ import java.util.function.Consumer;
  * @author alexanderleonovich
  * @version 1.0
  */
+@Singleton
 public class OperationProvider {
     private final Map<Integer, Consumer<ConsoleScanner>> operations = new HashMap<>(17);
-    private final PersonService personService;
-    private final CrudConsoleService<Address> addressService;
-    private final DepartmentService departmentService;
+    @InjectByType
+    private PersonService personService;
+    @InjectByType
+    private CrudConsoleService<Address> addressService;
+    @InjectByType
+    private DepartmentService departmentService;
 
     public OperationProvider() {
-        this.departmentService = new DepartmentServiceImpl(DaoFactory.getInstance().getDepartmentDao());
-        this.personService = new PersonServiceImpl(DaoFactory.getInstance().getPersonDao(), this.departmentService);
-        this.addressService = new AddressService(DaoFactory.getInstance().getAddressDao());
-
         operations.put(0, scanner -> System.exit(0));
-        operations.put(1, personService::create);
-        operations.put(2, personService::find);
-        operations.put(3, personService::load);
-        operations.put(4, scanner -> personService.readAll());
-        operations.put(5, personService::update);
-        operations.put(6, addressService::update);
-        operations.put(7, personService::delete);
-        operations.put(8, addressService::delete);
-        operations.put(9, addressService::find);
-        operations.put(10, this.departmentService::create);
-        operations.put(11, this.departmentService::find);
-        operations.put(12, this.departmentService::load);
+        operations.put(1, scanner -> this.personService.create(scanner));
+        operations.put(2, scanner -> this.personService.find(scanner));
+        operations.put(3, scanner -> this.personService.load(scanner));
+        operations.put(4, scanner -> this.personService.readAll());
+        operations.put(5, scanner -> this.personService.update(scanner));
+        operations.put(6, scanner -> this.addressService.update(scanner));
+        operations.put(7, scanner -> this.personService.delete(scanner));
+        operations.put(8, scanner -> this.addressService.delete(scanner));
+        operations.put(9, scanner -> this.addressService.find(scanner));
+        operations.put(10, scanner -> this.departmentService.create(scanner));
+        operations.put(11, scanner -> this.departmentService.find(scanner));
+        operations.put(12, scanner -> this.departmentService.load(scanner));
         operations.put(13, scanner -> this.departmentService.readAll());
-        operations.put(14, this.departmentService::update);
-        operations.put(15, this.departmentService::delete);
+        operations.put(14, scanner -> this.departmentService.update(scanner));
+        operations.put(15, scanner -> this.departmentService.delete(scanner));
         operations.put(16, scanner -> personService.flushDemo());
     }
 

@@ -25,6 +25,7 @@ package by.academy.it.database;
 import by.academy.it.domain.Person;
 import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
+import com.leonovich.winter.io.annotation.Singleton;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -37,10 +38,11 @@ import java.util.List;
  * Created by alexanderleonovich on 13.05.15.
  */
 @Log4j2
+@Singleton
 public class PersonDao extends BaseDao<Person> {
 
-    public PersonDao(final HibernateUtil util) {
-        super(util);
+    public PersonDao() {
+        super(HibernateUtil.getHibernateUtil());
     }
 
     public void flushDemo(final Person detached) throws DaoException {
