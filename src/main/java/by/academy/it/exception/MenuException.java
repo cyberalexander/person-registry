@@ -22,6 +22,8 @@
  */
 package by.academy.it.exception;
 
+import java.io.Serial;
+
 /**
  * Project exception for handling failures in application menu.
  * <p>
@@ -33,6 +35,8 @@ package by.academy.it.exception;
  * @version 1.0
  */
 public class MenuException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 2531558943435244706L;
 
     public MenuException(final Exception e) {
         super(e);

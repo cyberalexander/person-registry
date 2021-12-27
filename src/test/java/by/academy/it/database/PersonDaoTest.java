@@ -24,7 +24,6 @@ package by.academy.it.database;
 
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
-import by.academy.it.factory.DaoFactory;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,8 +32,8 @@ import org.junit.jupiter.api.Test;
  * Created by alexanderleonovich on 16.05.15.
  */
 class PersonDaoTest implements BaseDaoTest<Person> {
-    private final PersonDao personDao = DaoFactory.getInstance().getPersonDao();
-    private final DepartmentDao departmentDao = DaoFactory.getInstance().getDepartmentDao();
+    private final PersonDao personDao = new PersonDao();
+    private final DepartmentDao departmentDao = new DepartmentDao();
 
     @Test
     @SneakyThrows

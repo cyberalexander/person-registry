@@ -24,7 +24,6 @@ package by.academy.it.database;
 
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
-import by.academy.it.factory.DaoFactory;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,8 +43,8 @@ import java.util.stream.Stream;
  * @version 1.0
  */
 class DepartmentDaoTest implements BaseDaoTest<Department> {
-    private final DepartmentDao departmentDao = DaoFactory.getInstance().getDepartmentDao();
-    private final PersonDao personDao = DaoFactory.getInstance().getPersonDao();
+    private final DepartmentDao departmentDao = new DepartmentDao();
+    private final PersonDao personDao = new PersonDao();
 
     /**
      * cascade="all-delete-orphan" - when deleting Department, all related Persons should be deleted by hibernate as well.
