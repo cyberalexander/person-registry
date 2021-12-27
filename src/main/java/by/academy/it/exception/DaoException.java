@@ -22,12 +22,16 @@
  */
 package by.academy.it.exception;
 
+import java.io.Serial;
+
 /**
  * Custom project exception for DAO layer errors handling.
  * <p>
  * Created by alexanderleonovich on 13.05.15.
  */
 public class DaoException extends Exception {
+    @Serial
+    private static final long serialVersionUID = 3945009310118115058L;
 
     public DaoException(final Exception exception) {
         super(exception);

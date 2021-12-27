@@ -28,8 +28,11 @@ import by.academy.it.database.PersonDao;
 
 /**
  * Created by alexanderleonovich on 18.05.15.
- * Factory for building dao-objects for do operations with entities
+ * Factory for building dao-objects for do operations with entities.
+ * @deprecated This class is not user anymore after winter-io framework injected.
+ * @link https://github.com/cyberalexander/winter-io
  */
+@Deprecated
 public final class DaoFactory {
     private static DaoFactory instance;
 
