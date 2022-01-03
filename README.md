@@ -26,4 +26,5 @@ $ java -jar target/person-registry.jar
 - JUnit 5
 - Lombok
 - PMD, CheckStyle
+- JaCoCo
 - [winter-io](https://github.com/cyberalexander/winter-io) custom framework
