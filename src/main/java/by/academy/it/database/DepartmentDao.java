@@ -29,7 +29,11 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
+ * Data Access Object (DAO) pattern implementation, which provides an API
+ * to operate with {@link Department} business entity.
+ *
  * Created by alexanderleonovich on 15.05.15.
+ * @since 1.0
  */
 public class DepartmentDao extends BaseDao<Department> {
 

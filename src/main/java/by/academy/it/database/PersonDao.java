@@ -35,7 +35,11 @@ import java.util.List;
 
 
 /**
+ * Data Access Object (DAO) pattern implementation, which provides an API
+ * to operate with {@link Person} business entity.
+ *
  * Created by alexanderleonovich on 13.05.15.
+ * @since 1.0
  */
 @Log4j2
 @Singleton

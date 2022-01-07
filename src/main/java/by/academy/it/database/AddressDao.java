@@ -29,7 +29,11 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
+ * Data Access Object (DAO) pattern implementation, which provides an API
+ * to operate with {@link Address} business entity.
+ *
  * Created by alexanderleonovich on 18.05.15.
+ * @since 1.0
  */
 public class AddressDao extends BaseDao<Address> {
 
