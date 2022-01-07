@@ -24,6 +24,8 @@ package by.academy.it.database;
 
 import by.academy.it.domain.Address;
 import by.academy.it.util.HibernateUtil;
+import com.leonovich.winter.io.annotation.Singleton;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -35,6 +37,8 @@ import java.util.List;
  * Created by alexanderleonovich on 18.05.15.
  * @since 1.0
  */
+@Log4j2
+@Singleton
 public class AddressDao extends BaseDao<Address> {
 
     public AddressDao() {
