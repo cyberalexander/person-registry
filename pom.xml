@@ -73,7 +73,7 @@
         <winter.version>2022.01.03-SNAPSHOT</winter.version>
         <hibernate.version>5.6.3.Final</hibernate.version>
         <mysql.connector.version>8.0.25</mysql.connector.version>
-        <log4j.version>2.17.0</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
         <lombok.version>1.18.22</lombok.version>
         <apache.commons.lang.version>3.12.0</apache.commons.lang.version>
         <checkstyle.version>9.0</checkstyle.version>
