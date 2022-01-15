@@ -26,6 +26,7 @@ package by.academy.it.service;
 import by.academy.it.database.BaseDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Address;
+import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.util.ConsoleScanner;
 import lombok.SneakyThrows;
@@ -39,6 +40,7 @@ import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Created : 01/12/2021 09:33
@@ -57,6 +59,8 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     private PersonDao daoMock;
     @Mock
     private ConsoleScanner scannerMock;
+    @Mock
+    private DepartmentService departmentServiceMock;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -80,6 +84,19 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
         Assertions.assertEquals(expected, actual, String.format("%s is not equal to %s", expected, actual));
         Mockito.verify(scannerMock(), new Times(3)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
+    }
+
+    @Test
+    @Override
+    @SneakyThrows
+    void testCreate() {
+        Mockito.when(departmentServiceMock.readAll()).thenReturn(Stream.of(Department.init(), Department.init()));
+
+        service().create(scannerMock());
+
+        Mockito.verify(scannerMock(), new Times(6)).nextLine();
+        Mockito.verify(scannerMock(), new Times(2)).nextInt();
+        Mockito.verify(daoMock()).save(Mockito.any());
     }
 
     @Test

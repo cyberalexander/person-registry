@@ -51,6 +51,7 @@ abstract class CrudConsoleServiceTest<T extends Automated> {
     abstract ConsoleScanner scannerMock();
     abstract BaseDao<T> daoMock();
 
+    abstract void testCreate();
     abstract void testUpdate();
 
     @Test
