@@ -23,6 +23,8 @@
 
 package by.academy.it.util;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.Scanner;
 
 /**
@@ -39,6 +41,7 @@ import java.util.Scanner;
  * @author alexanderleonovich
  * @version 1.0
  */
+@Log4j2
 public class ConsoleScanner implements AutoCloseable {
 
     private final Scanner scanner;
@@ -57,6 +60,9 @@ public class ConsoleScanner implements AutoCloseable {
 
     @Override
     public void close() {
+        if (log.isWarnEnabled()) {
+            log.warn("{} closed!", this.scanner.getClass());
+        }
         this.scanner.close();
     }
 }
