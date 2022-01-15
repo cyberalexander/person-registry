@@ -27,6 +27,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class Department implements Serializable, Automated {
     private static final long serialVersionUID = 251807806583275242L;
     private Integer id;
     private String departmentName;
-    private Set<Person> persons; /* one-to-many relation */
+    private Set<Person> persons = new HashSet<>(); /* one-to-many relation */
 
     @Override
     public Integer getId() {
@@ -48,11 +49,7 @@ public class Department implements Serializable, Automated {
     }
 
     public void addPersons(final Set<Person> newPersons) {
-        if (this.persons.isEmpty()) {
-            this.setPersons(newPersons);
-        } else {
-            this.persons.addAll(newPersons);
-        }
+        this.persons.addAll(newPersons);
     }
 
     @Override
