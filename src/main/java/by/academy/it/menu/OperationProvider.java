@@ -54,7 +54,10 @@ public class OperationProvider {
     private DepartmentService departmentService;
 
     public OperationProvider() {
-        operations.put(0, scanner -> System.exit(0));
+        operations.put(0, scanner -> {
+            scanner.close();
+            System.exit(0);
+        });
         operations.put(1, scanner -> this.personService.create(scanner));
         operations.put(2, scanner -> this.personService.find(scanner));
         operations.put(3, scanner -> this.personService.load(scanner));
