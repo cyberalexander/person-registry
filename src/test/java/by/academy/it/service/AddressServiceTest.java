@@ -26,10 +26,14 @@ package by.academy.it.service;
 import by.academy.it.database.BaseDao;
 import by.academy.it.domain.Address;
 import by.academy.it.util.ConsoleScanner;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.verification.Times;
 
 import java.util.Optional;
 
@@ -57,6 +61,27 @@ class AddressServiceTest extends CrudConsoleServiceTest<Address> {
         Mockito.lenient().when(daoMock().get(Mockito.any())).thenReturn(Optional.of(mockedResponse));
     }
 
+    @Test
+    @Override
+    void testCreate() {
+        UnsupportedOperationException thrown = Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> service().create(scannerMock())
+        );
+
+        Assertions.assertEquals("Standalone create address operation is not supported here.", thrown.getMessage());
+    }
+
+    @Test
+    @Override
+    @SneakyThrows
+    void testUpdate() {
+        service().update(scannerMock());
+        Mockito.verify(scannerMock(), new Times(3)).nextLine();
+        Mockito.verify(scannerMock(), new Times(2)).nextInt();
+        Mockito.verify(daoMock()).update(Mockito.any());
+    }
+
     @Override
     CrudConsoleService<Address> service() {
         return this.addressService;
@@ -71,17 +96,4 @@ class AddressServiceTest extends CrudConsoleServiceTest<Address> {
     BaseDao<Address> daoMock() {
         return this.daoMock;
     }
-
-    @Override
-    void testUpdate() {
-
-    }
-/*
-    @Test
-    void create() {
-    }
-
-    @Test
-    void update() {
-    }*/
 }
