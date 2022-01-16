@@ -63,20 +63,22 @@ class DepartmentServiceImplTest extends CrudConsoleServiceTest<Department> {
     @Test
     @Override
     @SneakyThrows
+    void testCreate() {
+        service().create(scannerMock());
+
+        Mockito.verify(scannerMock(), new Times(2)).nextLine();
+        Mockito.verify(daoMock()).save(Mockito.any());
+    }
+
+    @Test
+    @Override
+    @SneakyThrows
     void testUpdate() {
         service().update(scannerMock());
         Mockito.verify(scannerMock(), new Times(2)).nextLine();
         Mockito.verify(scannerMock()).nextInt();
         Mockito.verify(daoMock()).get(Mockito.any());
         Mockito.verify(daoMock()).saveOrUpdate(Mockito.any());
-    }
-
-    @Test
-    void create() {
-    }
-
-    @Test
-    void update() {
     }
 
     @Override

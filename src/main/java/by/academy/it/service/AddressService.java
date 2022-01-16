@@ -54,7 +54,7 @@ public final class AddressService implements CrudConsoleService<Address> {
 
     @Override
     public Serializable create(final ConsoleScanner scanner) {
-        throw new UnsupportedOperationException("Standalone create address operation is not supported here");
+        throw new UnsupportedOperationException("Standalone create address operation is not supported here.");
     }
 
     @Override
