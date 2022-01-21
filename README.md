@@ -17,7 +17,7 @@ build:
 $ mvn -U clean install
 $ java -jar target/person-registry.jar
 ```
-![img.png](static/menu_v2.0.3.png)
+![img.png](static/menu_v2.0.3.jpg)
 
 ### Tech stack:
 - Java 17
