@@ -22,6 +22,7 @@
  */
 package by.academy.it.database;
 
+import by.academy.it.database.sql.Query;
 import by.academy.it.domain.Address;
 import by.academy.it.util.HibernateUtil;
 import com.leonovich.winter.io.annotation.Singleton;
@@ -48,6 +49,6 @@ public class AddressDao extends BaseDao<Address> {
     @Override
     @SuppressWarnings("unchecked")
     public List<Address> parseResultForGetAll(final Session session) {
-        return session.createSQLQuery("SELECT * FROM T_ADDRESS").addEntity(Address.class).list();
+        return session.createSQLQuery(Query.SELECT_ALL_FROM_ADDRESS.getQuery()).addEntity(Address.class).list();
     }
 }
