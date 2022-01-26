@@ -25,12 +25,16 @@ package by.academy.it.database;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 /**
  * Created by alexanderleonovich on 16.05.15.
  */
+@Log4j2
 class PersonDaoTest implements BaseDaoTest<Person> {
     private final PersonDao personDao = new PersonDao();
     private final DepartmentDao departmentDao = new DepartmentDao();
@@ -39,9 +43,9 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     @SneakyThrows
     void testDeletePersonNotDepartment() {
         Person person = Person.init();
-        personDao.save(person);
+        dao().save(person);
         Integer departmentId = person.getDepartment().getId();
-        personDao.delete(person);
+        dao().delete(person);
         Department queried = departmentDao.get(departmentId).get();
         Assertions.assertNotNull(
             queried,
@@ -49,8 +53,29 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         );
     }
 
+    @Test
+    @SneakyThrows
+    void testGetPersonsByName() {
+        String personName = "ALEX";
+        Person person = Person.init();
+        person.setName(personName);
+        dao().save(person);
+
+        List<Person> personsByName = dao().getPersonsByName(personName);
+        log.debug("Queried by name persons: {}", personsByName);
+
+        Assertions.assertFalse(personsByName.isEmpty());
+        Assertions.assertEquals(1, personsByName.size());
+        String actual = personsByName.iterator().next().getName();
+        Assertions.assertEquals(
+            personName,
+            actual,
+            String.format("%s should be equal to %s but it's not.", personName, actual)
+        );
+    }
+
     @Override
-    public BaseDao<Person> dao() {
+    public PersonDao dao() {
         return this.personDao;
     }
 }

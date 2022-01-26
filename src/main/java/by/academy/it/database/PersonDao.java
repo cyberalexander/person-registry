@@ -43,17 +43,16 @@ import java.util.List;
  */
 @Log4j2
 @Singleton
-public class PersonDao extends BaseDao<Person> {
+public class PersonDao extends BaseDao<Person> implements IPersonDao {
 
     public PersonDao() {
         super(HibernateUtil.getHibernateUtil());
     }
 
     public void flushDemo(final Person detached) throws DaoException {
-        Transaction t;
         try {
             Session session = super.hibernate().getSession();
-            t = session.beginTransaction();
+            Transaction t = session.beginTransaction();
 
             if (log.isDebugEnabled()) {
                 log.debug("isDirty={}, contains detached object? : {}", session.isDirty(), session.contains(detached));
@@ -91,5 +90,24 @@ public class PersonDao extends BaseDao<Person> {
     @SuppressWarnings("unchecked")
     public List<Person> parseResultForGetAll(final Session session) {
         return session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> getPersonsByName(final String personName) throws DaoException {
+        try {
+            Session session = super.hibernate().getSession();
+            Transaction t = session.beginTransaction();
+
+            List<Person> response = session.createSQLQuery("SELECT * FROM T_PERSON WHERE F_NAME = ?")
+                .setParameter(1, personName)
+                .addEntity(Person.class)
+                .list();
+
+            t.commit();
+            return response;
+        } catch (HibernateException e) {
+            throw new DaoException(e);
+        }
     }
 }
