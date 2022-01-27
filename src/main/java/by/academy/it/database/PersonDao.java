@@ -110,4 +110,45 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> getPersonsBySurName(final String personSurName) throws DaoException {
+        try {
+            Session session = super.hibernate().getSession();
+            Transaction t = session.beginTransaction();
+
+            List<Person> response = session.createSQLQuery("SELECT * FROM T_PERSON WHERE F_SURNAME = ?")
+                .setParameter(1, personSurName)
+                .addEntity(Person.class)
+                .list();
+
+            t.commit();
+            return response;
+        } catch (HibernateException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> getPersonsByDepartment(final String department) throws DaoException {
+        try {
+            Session session = super.hibernate().getSession();
+            Transaction t = session.beginTransaction();
+
+            List<Person> response = session.createSQLQuery(
+                "SELECT P.* FROM T_PERSON P, T_DEPARTMENT D "
+                    + "WHERE D.F_DEPARTMENT_NAME = ? AND D.F_ID = P.F_DEPARTMENT_ID"
+                )
+                .setParameter(1, department)
+                .addEntity(Person.class)
+                .list();
+
+            t.commit();
+            return response;
+        } catch (HibernateException e) {
+            throw new DaoException(e);
+        }
+    }
 }

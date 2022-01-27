@@ -30,6 +30,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by alexanderleonovich on 16.05.15.
@@ -56,7 +58,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     @Test
     @SneakyThrows
     void testGetPersonsByName() {
-        String personName = "ALEX";
+        String personName = "TEST_NAME";
         Person person = Person.init();
         person.setName(personName);
         dao().save(person);
@@ -71,6 +73,58 @@ class PersonDaoTest implements BaseDaoTest<Person> {
             personName,
             actual,
             String.format("%s should be equal to %s but it's not.", personName, actual)
+        );
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetPersonsBySurName() {
+        String personSurName = "TEST_SURNAME";
+        Person person = Person.init();
+        person.setSurname(personSurName);
+        dao().save(person);
+
+        List<Person> personsBySurName = dao().getPersonsBySurName(personSurName);
+        log.debug("Queried by surname persons: {}", personsBySurName);
+
+        Assertions.assertFalse(personsBySurName.isEmpty());
+        Assertions.assertEquals(1, personsBySurName.size());
+        String actual = personsBySurName.iterator().next().getSurname();
+        Assertions.assertEquals(
+            personSurName,
+            actual,
+            String.format("%s should be equal to %s but it's not.", personSurName, actual)
+        );
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetPersonsByDepartment() {
+        String departmentName = "TEST_DEPARTMENT";
+        Department department = Department.init();
+        department.setDepartmentName(departmentName);
+
+        List<Person> persons = Stream.generate(Person::init).limit(3)
+            .map(person -> {
+                person.setDepartment(department);
+                return person;
+            })
+            .collect(Collectors.toList());
+
+        for (Person p : persons) {
+            dao().save(p);
+        }
+
+        List<Person> personsByDepartment = dao().getPersonsByDepartment(departmentName);
+        log.debug("Queried by department name persons: {}", personsByDepartment);
+
+        Assertions.assertFalse(personsByDepartment.isEmpty());
+        Assertions.assertEquals(3, personsByDepartment.size());
+        String actual = personsByDepartment.iterator().next().getDepartment().getDepartmentName();
+        Assertions.assertEquals(
+            departmentName,
+            actual,
+            String.format("%s should be equal to %s but it's not.", departmentName, actual)
         );
     }
 
