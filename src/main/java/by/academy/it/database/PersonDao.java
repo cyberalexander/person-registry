@@ -22,6 +22,7 @@
  */
 package by.academy.it.database;
 
+import by.academy.it.database.sql.Query;
 import by.academy.it.domain.Person;
 import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
@@ -99,7 +100,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             Session session = super.hibernate().getSession();
             Transaction t = session.beginTransaction();
 
-            List<Person> response = session.createSQLQuery("SELECT * FROM T_PERSON WHERE F_NAME = ?")
+            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_NAME.getQuery())
                 .setParameter(1, personName)
                 .addEntity(Person.class)
                 .list();
@@ -118,7 +119,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             Session session = super.hibernate().getSession();
             Transaction t = session.beginTransaction();
 
-            List<Person> response = session.createSQLQuery("SELECT * FROM T_PERSON WHERE F_SURNAME = ?")
+            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_SURNAME.getQuery())
                 .setParameter(1, personSurName)
                 .addEntity(Person.class)
                 .list();
@@ -137,10 +138,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             Session session = super.hibernate().getSession();
             Transaction t = session.beginTransaction();
 
-            List<Person> response = session.createSQLQuery(
-                "SELECT P.* FROM T_PERSON P, T_DEPARTMENT D "
-                    + "WHERE D.F_DEPARTMENT_NAME = ? AND D.F_ID = P.F_DEPARTMENT_ID"
-                )
+            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_DEPARTMENT.getQuery())
                 .setParameter(1, department)
                 .addEntity(Person.class)
                 .list();
@@ -153,6 +151,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Person> getPersonsUnderAge(final Integer maxAge) throws DaoException {
         try {
             Session session = super.hibernate().getSession();

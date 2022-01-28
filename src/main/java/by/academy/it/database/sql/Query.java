@@ -47,6 +47,20 @@ public enum Query {
                     FROM
                         T_DEPARTMENT
                     """
+    ),
+    SELECT_PERSONS_BY_NAME("SELECT * FROM T_PERSON WHERE F_NAME = ?"),
+    SELECT_PERSONS_BY_SURNAME("SELECT * FROM T_PERSON WHERE F_SURNAME = ?"),
+    SELECT_PERSONS_BY_DEPARTMENT(
+            """
+                    SELECT
+                        P.*
+                    FROM
+                        T_PERSON P,
+                        T_DEPARTMENT D
+                    WHERE
+                        D.F_DEPARTMENT_NAME = ?
+                        AND D.F_ID = P.F_DEPARTMENT_ID
+                    """
     );
 
     private final String queryContent;
