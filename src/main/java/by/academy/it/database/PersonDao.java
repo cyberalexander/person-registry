@@ -151,4 +151,24 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public List<Person> getPersonsUnderAge(final Integer maxAge) throws DaoException {
+        try {
+            Session session = super.hibernate().getSession();
+            Transaction t = session.beginTransaction();
+
+            List<Person> response = session.createSQLQuery(
+                    "SELECT * FROM T_PERSON WHERE F_AGE <= ?"
+                )
+                .setParameter(1, maxAge)
+                .addEntity(Person.class)
+                .list();
+
+            t.commit();
+            return response;
+        } catch (HibernateException e) {
+            throw new DaoException(e);
+        }
+    }
 }

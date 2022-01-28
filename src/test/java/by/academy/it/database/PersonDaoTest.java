@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -126,6 +127,36 @@ class PersonDaoTest implements BaseDaoTest<Person> {
             actual,
             String.format("%s should be equal to %s but it's not.", departmentName, actual)
         );
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetPersonsUnderAge() {
+        Integer age = 3;
+        AtomicInteger ageInc = new AtomicInteger(0);
+        List<Person> persons = Stream.generate(Person::init).limit(5)
+            .map(person -> {
+                person.setAge(ageInc.incrementAndGet());
+                return person;
+            })
+            .collect(Collectors.toList());
+
+        for (Person p : persons) {
+            dao().save(p);
+        }
+
+        List<Person> personsUnderAge = dao().getPersonsUnderAge(age);
+        log.debug("Persons younger than {} years : {}", age, personsUnderAge);
+
+        Assertions.assertFalse(personsUnderAge.isEmpty());
+        Assertions.assertEquals(age, personsUnderAge.size());
+        personsUnderAge.forEach(person -> {
+            Assertions.assertTrue(
+                person.getAge() <= age,
+                String.format("%s should be under %s years but he(she) %s years old.", person, 3, person.getAge())
+            );
+        });
+
     }
 
     @Override
