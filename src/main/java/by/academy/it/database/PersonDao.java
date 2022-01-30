@@ -38,8 +38,9 @@ import java.util.List;
 /**
  * Data Access Object (DAO) pattern implementation, which provides an API
  * to operate with {@link Person} business entity.
- *
+ * <p>
  * Created by alexanderleonovich on 13.05.15.
+ *
  * @since 1.0
  */
 @Log4j2
@@ -94,80 +95,22 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Person> getPersonsByName(final String personName) throws DaoException {
-        try {
-            Session session = super.hibernate().getSession();
-            Transaction t = session.beginTransaction();
-
-            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_NAME.getQuery())
-                .setParameter(1, personName)
-                .addEntity(Person.class)
-                .list();
-
-            t.commit();
-            return response;
-        } catch (HibernateException e) {
-            throw new DaoException(e);
-        }
+    public List<Person> getByName(final String personName) throws DaoException {
+        return doInContext(Query.SELECT_PERSONS_BY_NAME, personName);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Person> getPersonsBySurName(final String personSurName) throws DaoException {
-        try {
-            Session session = super.hibernate().getSession();
-            Transaction t = session.beginTransaction();
-
-            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_SURNAME.getQuery())
-                .setParameter(1, personSurName)
-                .addEntity(Person.class)
-                .list();
-
-            t.commit();
-            return response;
-        } catch (HibernateException e) {
-            throw new DaoException(e);
-        }
+    public List<Person> getBySurName(final String personSurName) throws DaoException {
+        return doInContext(Query.SELECT_PERSONS_BY_SURNAME, personSurName);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Person> getPersonsByDepartment(final String department) throws DaoException {
-        try {
-            Session session = super.hibernate().getSession();
-            Transaction t = session.beginTransaction();
-
-            List<Person> response = session.createSQLQuery(Query.SELECT_PERSONS_BY_DEPARTMENT.getQuery())
-                .setParameter(1, department)
-                .addEntity(Person.class)
-                .list();
-
-            t.commit();
-            return response;
-        } catch (HibernateException e) {
-            throw new DaoException(e);
-        }
+    public List<Person> getByDepartment(final String department) throws DaoException {
+        return doInContext(Query.SELECT_PERSONS_BY_DEPARTMENT, department);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Person> getPersonsUnderAge(final Integer maxAge) throws DaoException {
-        try {
-            Session session = super.hibernate().getSession();
-            Transaction t = session.beginTransaction();
-
-            List<Person> response = session.createSQLQuery(
-                    "SELECT * FROM T_PERSON WHERE F_AGE <= ?"
-                )
-                .setParameter(1, maxAge)
-                .addEntity(Person.class)
-                .list();
-
-            t.commit();
-            return response;
-        } catch (HibernateException e) {
-            throw new DaoException(e);
-        }
+    public List<Person> getUnderAge(final Integer maxAge) throws DaoException {
+        return doInContext(Query.SELECT_PERSONS_UNDER_AGE, maxAge);
     }
 }

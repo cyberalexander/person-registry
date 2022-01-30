@@ -22,6 +22,7 @@
  */
 package by.academy.it.database;
 
+import by.academy.it.database.sql.Query;
 import by.academy.it.exception.DaoException;
 import by.academy.it.util.HibernateUtil;
 import lombok.extern.log4j.Log4j2;
@@ -29,6 +30,7 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityTransaction;
 import java.io.Serializable;
@@ -122,7 +124,7 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
         Session session = null;
         Transaction transaction = null;
         try {
-            session = util.getSession();
+            session = hibernate().getSession();
             transaction = session.beginTransaction();
             R response = function.apply(session);
             transaction.commit();
@@ -140,6 +142,19 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
                 log.debug("Session {} closed!", session);
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected List<T> doInContext(final Query query, final Object... parameters) throws DaoException {
+        return doInContext(session -> {
+            NativeQuery<T> sqlQuery = session.createSQLQuery(query.getQuery()).addEntity(getPersistentClass());
+            int queryParameterIndex = 0;
+            for (Object param : parameters) {
+                sqlQuery.setParameter(++queryParameterIndex, param);
+            }
+            return sqlQuery.list();
+        });
+
     }
 
     @Override

@@ -61,7 +61,8 @@ public enum Query {
                         D.F_DEPARTMENT_NAME = ?
                         AND D.F_ID = P.F_DEPARTMENT_ID
                     """
-    );
+    ),
+    SELECT_PERSONS_UNDER_AGE("SELECT * FROM T_PERSON WHERE F_AGE <= ?");
 
     private final String queryContent;
 

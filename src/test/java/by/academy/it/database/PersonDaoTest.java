@@ -64,7 +64,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         person.setName(personName);
         dao().save(person);
 
-        List<Person> personsByName = dao().getPersonsByName(personName);
+        List<Person> personsByName = dao().getByName(personName);
         log.debug("Queried by name persons: {}", personsByName);
 
         Assertions.assertFalse(personsByName.isEmpty());
@@ -85,7 +85,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         person.setSurname(personSurName);
         dao().save(person);
 
-        List<Person> personsBySurName = dao().getPersonsBySurName(personSurName);
+        List<Person> personsBySurName = dao().getBySurName(personSurName);
         log.debug("Queried by surname persons: {}", personsBySurName);
 
         Assertions.assertFalse(personsBySurName.isEmpty());
@@ -116,7 +116,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
             dao().save(p);
         }
 
-        List<Person> personsByDepartment = dao().getPersonsByDepartment(departmentName);
+        List<Person> personsByDepartment = dao().getByDepartment(departmentName);
         log.debug("Queried by department name persons: {}", personsByDepartment);
 
         Assertions.assertFalse(personsByDepartment.isEmpty());
@@ -145,7 +145,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
             dao().save(p);
         }
 
-        List<Person> personsUnderAge = dao().getPersonsUnderAge(age);
+        List<Person> personsUnderAge = dao().getUnderAge(age);
         log.debug("Persons younger than {} years : {}", age, personsUnderAge);
 
         Assertions.assertFalse(personsUnderAge.isEmpty());
