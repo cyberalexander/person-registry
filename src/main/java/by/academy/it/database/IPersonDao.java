@@ -38,8 +38,8 @@ import java.util.List;
  */
 public interface IPersonDao {
 
-    List<Person> getPersonsByName(String personName) throws DaoException;
-    List<Person> getPersonsBySurName(String personSurName) throws DaoException;
-    List<Person> getPersonsByDepartment(String department) throws DaoException;
-    List<Person> getPersonsUnderAge(Integer maxAge) throws DaoException;
+    List<Person> getByName(String personName) throws DaoException;
+    List<Person> getBySurName(String personSurName) throws DaoException;
+    List<Person> getByDepartment(String department) throws DaoException;
+    List<Person> getUnderAge(Integer maxAge) throws DaoException;
 }
