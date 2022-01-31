@@ -30,4 +30,5 @@
     In order to keep original formatting there even if it's exceeds allowed custom max line length.
     -->
     <suppress files="ConsoleMenu" checks="LineLength"/>
+    <suppress files="Constants" checks="LineLength"/>
 </suppressions>

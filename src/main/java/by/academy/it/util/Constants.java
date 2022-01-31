@@ -53,12 +53,16 @@ public final class Constants {
         private ErrorMessage() {
         }
 
-        public static final String LOAD_ERROR =     "PR-0001: Exception occurred while to loading entity by ID. %s";
-        public static final String GET_ALL_ERROR =  "PR-0002: Exception occurred while getting entities. %s";
-        public static final String FIND_ERROR =     "PR-0003: Exception occurred while finding entity by ID. %s";
-        public static final String DELETE_ERROR =   "PR-0004: Exception occurred while deleting entity. %s";
-        public static final String UPDATE_ERROR =   "PR-0005: Exception occurred while updating %s";
-        public static final String SAVE_ERROR =     "PR-0006: Exception occurred while saving %s";
-        public static final String FLUSH_ERROR =    "PR-0007: Exception occurred during flush demo execution. %s";
+        public static final String LOAD_ERROR =                 "PR-0001: Exception occurred while to loading entity by ID. %s";
+        public static final String GET_ALL_ERROR =              "PR-0002: Exception occurred while getting entities. %s";
+        public static final String FIND_ERROR =                 "PR-0003: Exception occurred while finding entity by ID. %s";
+        public static final String DELETE_ERROR =               "PR-0004: Exception occurred while deleting entity. %s";
+        public static final String UPDATE_ERROR =               "PR-0005: Exception occurred while updating %s";
+        public static final String SAVE_ERROR =                 "PR-0006: Exception occurred while saving %s";
+        public static final String FLUSH_ERROR =                "PR-0007: Exception occurred during flush demo execution. %s";
+        public static final String GET_BY_NAME_ERROR =          "PR-0008: Exception occurred while getting Persons by '%s' name.";
+        public static final String GET_BY_SURNAME_ERROR =       "PR-0009: Exception occurred while getting Persons by '%s' surname.";
+        public static final String GET_BY_DEPARTMENT_ERROR =    "PR-0010: Exception occurred while getting Persons by '%s' department.";
+        public static final String GET_UNDER_AGE_ERROR =        "PR-0011: Exception occurred while getting Persons under '%s' age.";
     }
 }
