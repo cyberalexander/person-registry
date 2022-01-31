@@ -59,7 +59,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     @Test
     @SneakyThrows
     void testGetPersonsByName() {
-        String personName = "TEST_NAME";
+        String personName = "test_name";
         Person person = Person.init();
         person.setName(personName);
         dao().save(person);
@@ -80,7 +80,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     @Test
     @SneakyThrows
     void testGetPersonsBySurName() {
-        String personSurName = "TEST_SURNAME";
+        String personSurName = "test_surname";
         Person person = Person.init();
         person.setSurname(personSurName);
         dao().save(person);
@@ -101,15 +101,12 @@ class PersonDaoTest implements BaseDaoTest<Person> {
     @Test
     @SneakyThrows
     void testGetPersonsByDepartment() {
-        String departmentName = "TEST_DEPARTMENT";
+        String departmentName = "test_department";
         Department department = Department.init();
         department.setDepartmentName(departmentName);
 
         List<Person> persons = Stream.generate(Person::init).limit(3)
-            .map(person -> {
-                person.setDepartment(department);
-                return person;
-            })
+            .peek(person -> person.setDepartment(department))
             .collect(Collectors.toList());
 
         for (Person p : persons) {
@@ -117,7 +114,7 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         }
 
         List<Person> personsByDepartment = dao().getByDepartment(departmentName);
-        log.debug("Queried by department name persons: {}", personsByDepartment);
+        log.debug("Persons, queried by department name : {}", personsByDepartment);
 
         Assertions.assertFalse(personsByDepartment.isEmpty());
         Assertions.assertEquals(3, personsByDepartment.size());
@@ -135,26 +132,31 @@ class PersonDaoTest implements BaseDaoTest<Person> {
         Integer age = 3;
         AtomicInteger ageInc = new AtomicInteger(0);
         List<Person> persons = Stream.generate(Person::init).limit(5)
-            .map(person -> {
-                person.setAge(ageInc.incrementAndGet());
-                return person;
-            })
+            .peek(person -> person.setAge(ageInc.incrementAndGet()))
             .collect(Collectors.toList());
 
         for (Person p : persons) {
             dao().save(p);
         }
 
+        List<Person> actual = dao().getAll().stream().filter(p -> p.getAge() <= age).collect(Collectors.toList());
+
         List<Person> personsUnderAge = dao().getUnderAge(age);
         log.debug("Persons younger than {} years : {}", age, personsUnderAge);
 
         Assertions.assertFalse(personsUnderAge.isEmpty());
-        Assertions.assertEquals(age, personsUnderAge.size());
         personsUnderAge.forEach(person -> {
+
             Assertions.assertTrue(
                 person.getAge() <= age,
                 String.format("%s should be under %s years but he(she) %s years old.", person, 3, person.getAge())
             );
+
+            Assertions.assertTrue(
+                actual.contains(person),
+                String.format("%s should be present in 'actual' but it's not.", person)
+            );
+
         });
 
     }
