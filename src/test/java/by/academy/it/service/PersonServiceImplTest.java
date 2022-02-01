@@ -23,7 +23,6 @@
 
 package by.academy.it.service;
 
-import by.academy.it.database.BaseDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
@@ -110,8 +109,41 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
         Mockito.verify(daoMock()).update(Mockito.any());
     }
 
+    @Test
+    @SneakyThrows
+    void testGetByName() {
+        service().getByName(scannerMock());
+        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(daoMock()).getByName(Mockito.any());
+
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetBySurName() {
+        service().getBySurName(scannerMock());
+        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(daoMock()).getBySurName(Mockito.any());
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetByDepartment() {
+        service().getByDepartment(scannerMock());
+        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(daoMock()).getByDepartment(Mockito.any());
+    }
+
+    @Test
+    @SneakyThrows
+    void testGetUnderAge() {
+        service().getUnderAge(scannerMock());
+        Mockito.verify(scannerMock()).nextInt();
+        Mockito.verify(daoMock()).getUnderAge(Mockito.any());
+    }
+
     @Override
-    public CrudConsoleService<Person> service() {
+    public PersonService service() {
         return this.personService;
     }
 
@@ -121,7 +153,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     }
 
     @Override
-    public BaseDao<Person> daoMock() {
+    public PersonDao daoMock() {
         return this.daoMock;
     }
 }
