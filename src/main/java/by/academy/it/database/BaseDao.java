@@ -152,7 +152,9 @@ public abstract class BaseDao<T> implements IDao<T>, ISessionManager<T> {
             for (Object param : parameters) {
                 sqlQuery.setParameter(++queryParameterIndex, param);
             }
-            return sqlQuery.list();
+            List<T> result = sqlQuery.list();
+            log.trace("Result : {}", result);
+            return result;
         });
 
     }

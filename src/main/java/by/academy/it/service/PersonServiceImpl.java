@@ -22,7 +22,6 @@
  */
 package by.academy.it.service;
 
-import by.academy.it.database.IDao;
 import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
@@ -56,7 +55,7 @@ public final class PersonServiceImpl implements PersonService {
     private DepartmentService departmentService;
 
     @Override
-    public IDao<Person> dao() {
+    public PersonDao dao() {
         return this.personDao;
     }
 
@@ -141,6 +140,50 @@ public final class PersonServiceImpl implements PersonService {
                 }
             }
         );
+    }
+
+    @Override
+    public List<Person> getByName(final ConsoleScanner scanner) {
+        out.print(Constants.Other.WRITE_NAME);
+        String name = scanner.nextLine();
+        try {
+            return dao().getByName(name);
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_NAME_ERROR, name), e);
+        }
+    }
+
+    @Override
+    public List<Person> getBySurName(final ConsoleScanner scanner) {
+        out.print(Constants.Other.WRITE_SURNAME);
+        String surName = scanner.nextLine();
+        try {
+            return dao().getBySurName(surName);
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_SURNAME_ERROR, surName), e);
+        }
+    }
+
+    @Override
+    public List<Person> getByDepartment(final ConsoleScanner scanner) {
+        out.print(Constants.Other.WRITE_DEPARTMENT_NAME);
+        String department = scanner.nextLine();
+        try {
+            return dao().getByDepartment(department);
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_DEPARTMENT_ERROR, department), e);
+        }
+    }
+
+    @Override
+    public List<Person> getUnderAge(final ConsoleScanner scanner) {
+        out.print(Constants.Other.WRITE_AGE);
+        Integer age = scanner.nextInt();
+        try {
+            return dao().getUnderAge(age);
+        } catch (DaoException e) {
+            throw new MenuException(String.format(Constants.ErrorMessage.GET_UNDER_AGE_ERROR, age), e);
+        }
     }
 
     @Override

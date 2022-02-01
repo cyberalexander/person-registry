@@ -24,6 +24,9 @@
 package by.academy.it.service;
 
 import by.academy.it.domain.Person;
+import by.academy.it.util.ConsoleScanner;
+
+import java.util.List;
 
 /**
  * Created : 30/11/2021 10:58
@@ -35,5 +38,9 @@ import by.academy.it.domain.Person;
  */
 public interface PersonService extends CrudConsoleService<Person> {
 
+    List<Person> getByName(ConsoleScanner scanner);
+    List<Person> getBySurName(ConsoleScanner scanner);
+    List<Person> getByDepartment(ConsoleScanner scanner);
+    List<Person> getUnderAge(ConsoleScanner scanner);
     void flushDemo();
 }
