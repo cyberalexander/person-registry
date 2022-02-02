@@ -30,6 +30,7 @@ import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
+import by.academy.it.util.Printer;
 import com.leonovich.winter.io.annotation.InjectByType;
 import com.leonovich.winter.io.annotation.Singleton;
 import lombok.extern.log4j.Log4j2;
@@ -53,10 +54,17 @@ public final class PersonServiceImpl implements PersonService {
     private PersonDao personDao;
     @InjectByType
     private DepartmentService departmentService;
+    @InjectByType
+    private Printer printer;
 
     @Override
     public PersonDao dao() {
         return this.personDao;
+    }
+
+    @Override
+    public Printer printer() {
+        return this.printer;
     }
 
     /**
@@ -144,10 +152,12 @@ public final class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> getByName(final ConsoleScanner scanner) {
-        out.print(Constants.Other.WRITE_NAME);
+        out.print(Constants.Other.WRITE_NAME + scanner.nextLine());
         String name = scanner.nextLine();
         try {
-            return dao().getByName(name);
+            List<Person> persons = dao().getByName(name);
+            printer.print(persons);
+            return persons;
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_NAME_ERROR, name), e);
         }
@@ -155,10 +165,12 @@ public final class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> getBySurName(final ConsoleScanner scanner) {
-        out.print(Constants.Other.WRITE_SURNAME);
+        out.print(Constants.Other.WRITE_SURNAME + scanner.nextLine());
         String surName = scanner.nextLine();
         try {
-            return dao().getBySurName(surName);
+            List<Person> persons = dao().getBySurName(surName);
+            printer.print(persons);
+            return persons;
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_SURNAME_ERROR, surName), e);
         }
@@ -166,10 +178,12 @@ public final class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> getByDepartment(final ConsoleScanner scanner) {
-        out.print(Constants.Other.WRITE_DEPARTMENT_NAME);
+        out.print(Constants.Other.WRITE_DEPARTMENT_NAME + scanner.nextLine());
         String department = scanner.nextLine();
         try {
-            return dao().getByDepartment(department);
+            List<Person> persons = dao().getByDepartment(department);
+            printer.print(persons);
+            return persons;
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.GET_BY_DEPARTMENT_ERROR, department), e);
         }
@@ -180,7 +194,9 @@ public final class PersonServiceImpl implements PersonService {
         out.print(Constants.Other.WRITE_AGE);
         Integer age = scanner.nextInt();
         try {
-            return dao().getUnderAge(age);
+            List<Person> persons = dao().getUnderAge(age);
+            printer.print(persons);
+            return persons;
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.GET_UNDER_AGE_ERROR, age), e);
         }

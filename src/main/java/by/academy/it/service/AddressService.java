@@ -28,6 +28,7 @@ import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
+import by.academy.it.util.Printer;
 import com.leonovich.winter.io.annotation.InjectByType;
 import com.leonovich.winter.io.annotation.Singleton;
 import lombok.extern.log4j.Log4j2;
@@ -46,10 +47,17 @@ public final class AddressService implements CrudConsoleService<Address> {
 
     @InjectByType
     private IDao<Address> addressDao;
+    @InjectByType
+    private Printer printer;
 
     @Override
     public IDao<Address> dao() {
         return this.addressDao;
+    }
+
+    @Override
+    public Printer printer() {
+        return this.printer;
     }
 
     @Override

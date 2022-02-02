@@ -29,6 +29,7 @@ import by.academy.it.exception.DaoException;
 import by.academy.it.exception.MenuException;
 import by.academy.it.util.ConsoleScanner;
 import by.academy.it.util.Constants;
+import by.academy.it.util.Printer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -51,8 +52,10 @@ import static java.lang.System.out;
 public interface CrudConsoleService<T extends Automated> {
 
     IDao<T> dao();
+    Printer printer();
 
     Serializable create(ConsoleScanner scanner);
+    void update(ConsoleScanner scanner);
 
     /**
      * Method for getting Entity object from database or from session-cash
@@ -83,7 +86,7 @@ public interface CrudConsoleService<T extends Automated> {
         out.print(Constants.Other.WRITE_ID);
         try {
             T entity = dao().load(scanner.nextInt());
-            out.print(entity);
+            printer().print(entity);
             return entity;
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.LOAD_ERROR, e.getMessage()), e);
@@ -92,17 +95,13 @@ public interface CrudConsoleService<T extends Automated> {
 
     default Stream<T> readAll() {
         try {
-            List<T> list = dao().getAll();
-            for (T element : list) {
-                out.println(element.toString());
-            }
-            return list.stream();
+            List<T> result = dao().getAll();
+            printer().print(result);
+            return result.stream();
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.GET_ALL_ERROR, e.getMessage()), e);
         }
     }
-
-    void update(ConsoleScanner scanner);
 
     default void delete(ConsoleScanner scanner) {
         find(scanner).ifPresent(department -> {
