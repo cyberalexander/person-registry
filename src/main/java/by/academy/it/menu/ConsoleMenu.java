@@ -55,14 +55,19 @@ public class ConsoleMenu {
     }
 
     private void printMenu() {
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|                      Hello, " + System.getProperty("user.name") + "! You are in the application menu. Please, make your choice:                   |");
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|       0. Exit          |   1. Create Person   |    2. Get Person        |     3. Load Person       |  4. Get All Persons   |  5. Update Person    |");
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|6. Update Person Address|  7. Delete Person    |    8. Delete address    |     9. Find Address      | 10. Create department |  11. Get Department  |");
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
-        out.println("|   12. Load Department  | 13. Get all Departs  |  14. Update Department  |   15. Delete Department  | 16. Flush Session Demo| 17. N/A              |");
-        out.println("+---------------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("Hello, " + System.getProperty("user.name") + "!");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("|                                  You are in the application menu. Please, make your choice:                                                  |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("| 0. Exit                    | 1. Create Person         | 2. Get Person           | 3. Load Person             | 4. Get All Persons            |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("| 5. Update Person           | 6. Update Person Address | 7. Delete Person        | 8. Delete address          | 9. Find Address               |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("| 10. Create department      | 11. Get Department       | 12. Load Department     | 13. Get all Departs        | 14. Update Department         |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("| 15. Delete Department      | 16. Flush Session Demo   | 17. Get Persons by name | 18. Get Persons by surname | 19. Get Persons by department |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
+        out.println("| 20. Get Persons under age  | 21. N/A                  | 22. N/A                 | 23. N/A                    | 24. N/A                       |");
+        out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
     }
 }
