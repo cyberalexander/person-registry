@@ -74,6 +74,10 @@ public class OperationProvider {
         operations.put(14, scanner -> this.departmentService.update(scanner));
         operations.put(15, scanner -> this.departmentService.delete(scanner));
         operations.put(16, scanner -> personService.flushDemo());
+        operations.put(17, scanner -> personService.getByName(scanner));
+        operations.put(18, scanner -> personService.getBySurName(scanner));
+        operations.put(19, scanner -> personService.getByDepartment(scanner));
+        operations.put(20, scanner -> personService.getUnderAge(scanner));
     }
 
     public Optional<Consumer<ConsoleScanner>> operation(final Integer operationId) {
