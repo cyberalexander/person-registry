@@ -26,6 +26,7 @@ package by.academy.it.service;
 import by.academy.it.database.BaseDao;
 import by.academy.it.domain.Address;
 import by.academy.it.util.ConsoleScanner;
+import by.academy.it.util.Printer;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,8 @@ class AddressServiceTest extends CrudConsoleServiceTest<Address> {
     private BaseDao<Address> daoMock;
     @Mock
     private ConsoleScanner scannerMock;
+    @Mock
+    protected Printer printerMock;
 
     @BeforeEach
     void setUp() throws Exception {

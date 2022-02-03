@@ -28,6 +28,7 @@ import by.academy.it.domain.Address;
 import by.academy.it.domain.Department;
 import by.academy.it.domain.Person;
 import by.academy.it.util.ConsoleScanner;
+import by.academy.it.util.Printer;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
@@ -60,6 +61,8 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     private ConsoleScanner scannerMock;
     @Mock
     private DepartmentService departmentServiceMock;
+    @Mock
+    protected Printer printerMock;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -113,7 +116,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     @SneakyThrows
     void testGetByName() {
         service().getByName(scannerMock());
-        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(scannerMock(), new Times(2)).nextLine();
         Mockito.verify(daoMock()).getByName(Mockito.any());
 
     }
@@ -122,7 +125,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     @SneakyThrows
     void testGetBySurName() {
         service().getBySurName(scannerMock());
-        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(scannerMock(), new Times(2)).nextLine();
         Mockito.verify(daoMock()).getBySurName(Mockito.any());
     }
 
@@ -130,7 +133,7 @@ class PersonServiceImplTest extends CrudConsoleServiceTest<Person> {
     @SneakyThrows
     void testGetByDepartment() {
         service().getByDepartment(scannerMock());
-        Mockito.verify(scannerMock()).nextLine();
+        Mockito.verify(scannerMock(), new Times(2)).nextLine();
         Mockito.verify(daoMock()).getByDepartment(Mockito.any());
     }
 

@@ -26,6 +26,7 @@ package by.academy.it.service;
 import by.academy.it.database.BaseDao;
 import by.academy.it.domain.Department;
 import by.academy.it.util.ConsoleScanner;
+import by.academy.it.util.Printer;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,8 @@ class DepartmentServiceImplTest extends CrudConsoleServiceTest<Department> {
     private BaseDao<Department> daoMock;
     @Mock
     private ConsoleScanner scannerMock;
+    @Mock
+    protected Printer printerMock;
 
     @BeforeEach
     void setUp() throws Exception {
