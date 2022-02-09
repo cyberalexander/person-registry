@@ -32,7 +32,7 @@ jobs:
       id: build-chain
       uses: kiegroup/github-action-build-chain@v2.6.11
       with:
-        definition-file: https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yml
+        definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         
