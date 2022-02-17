@@ -4,6 +4,7 @@
 .DS_Store
 /target/
 /.idea/
+.logs
 /.tmp/
 *.class
 *.log

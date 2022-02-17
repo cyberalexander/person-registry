@@ -27,7 +27,7 @@
                xsi:schemaLocation="http://logging.apache.org/log4j/2.0/config
                https://raw.githubusercontent.com/apache/logging-log4j2/master/log4j-core/src/main/resources/Log4j-config.xsd">
     <Properties>
-        <Property name="fileName">_logs/application.log</Property>
+        <Property name="fileName">.logs/application.log</Property>
     </Properties>
     <Appenders>
         <Appender type="File" name="File" fileName="${fileName}">
