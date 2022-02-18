@@ -13,7 +13,7 @@ System name: **person-registry**
 1. To run the application, first we need to checkout [winter-io](https://github.com/cyberalexander/winter-io) framework and successfully compile it on our local machine.
 It's important, as this application based on [winter-io](https://github.com/cyberalexander/winter-io) framework.
 2. Then we need to set up the database. As application using MySql database, we need it to be installed on our local machine. 
-3. To create the production and test databases, we need to execute the [create_schema.sql](_schema/create_schema.sql) and [create_schema.sql](_schema/create_test_schema.sql) scripts.
+3. To create the production and test databases, we need to execute the [create_schema.sql](.schema/create_schema.sql) and [create_schema.sql](_schema/create_test_schema.sql) scripts.
 4. Now need to update `hibernate.connection.username` and `hibernate.connection.password` values with the local mysql `user` and `password`.
 
 #### Build:
