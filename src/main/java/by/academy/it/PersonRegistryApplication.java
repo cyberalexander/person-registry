@@ -26,7 +26,7 @@ import by.academy.it.database.PersonDao;
 import by.academy.it.domain.Person;
 import by.academy.it.menu.ConsoleMenu;
 import by.academy.it.util.Try;
-import com.leonovich.winter.io.Application;
+import com.leonovich.winter.io.WinterIo;
 import com.leonovich.winter.io.configuration.ApplicationContext;
 import lombok.extern.log4j.Log4j2;
 
@@ -50,7 +50,7 @@ public final class PersonRegistryApplication {
     public static void main(final String[] args) {
         Locale.setDefault(Locale.US);
 
-        ApplicationContext context = Application.run(PACKAGE_NAME, new HashMap<>());
+        ApplicationContext context = WinterIo.run(PACKAGE_NAME, new HashMap<>());
         log.debug("Context initialized : {}", context);
 
         commandLineRunner(context);
