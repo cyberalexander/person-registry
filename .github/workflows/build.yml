@@ -33,15 +33,14 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
-    - name: Build Chain
+    - name: Build Chain ${{ matrix.java-version }}
       id: build-chain
-      uses: kiegroup/github-action-build-chain@v2.6.15
+      uses: ginxo/github-action-build-chain@BXMSPROD-1025
       with:
         definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         archive-artifacts-path: ./*.jar
-        debug: true
 
     - name: Build with Maven
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
