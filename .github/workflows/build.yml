@@ -28,15 +28,17 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
+    - name: Build Chain
+      id: build-chain
+      uses: kiegroup/github-action-build-chain@v2.6.11
+      with:
+        archive-artifacts-path: ./*.jar
+        definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+    - name: Build with Maven
+      run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+
 #TODO rework it later. Implement build chain: first build winter-io and then current repo.
 #TODO possible solution: https://github.com/marketplace/actions/github-action-build-chain-cross-repo-builds
-   # - name: Build Chain
-   #   id: build-chain
-   #   uses: kiegroup/github-action-build-chain@v2.6.11
-   #   with:
-   #     definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
-   #   env:
-   #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-   #
-   # - name: Build with Maven
-   #   run: mvn -Dmaven.test.skip=true -B package --file pom.xml
