@@ -30,7 +30,7 @@ jobs:
 
     - name: Build Chain
       id: build-chain
-      uses: kiegroup/github-action-build-chain@v2.6.11
+      uses: kiegroup/github-action-build-chain@latest
       with:
         archive-artifacts-path: ./*.jar
         definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
