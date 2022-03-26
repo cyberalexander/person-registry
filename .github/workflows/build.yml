@@ -37,10 +37,10 @@ jobs:
       id: build-chain
       uses: kiegroup/github-action-build-chain@v2.6.15
       with:
-        archive-artifacts-path: ./*.jar
         definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        archive-artifacts-path: ./*.jar
 
     - name: Build with Maven
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
