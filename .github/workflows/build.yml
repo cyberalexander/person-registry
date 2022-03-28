@@ -33,7 +33,7 @@ jobs:
         uses: kiegroup/github-action-build-chain@v2.6.21
         with:
           definition-file: >-
-            https://raw.githubusercontent.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
+            https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yml
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           archive-artifacts-path: ./*.jar
