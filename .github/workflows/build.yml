@@ -1,49 +1,44 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Java CI with Maven
-
-on:
+name: person-registry java CI with maven
+'on':
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
-
+    branches:
+      - master
 jobs:
   build:
-
-    runs-on: ${{matrix.os}}
+    runs-on: '${{matrix.os}}'
     strategy:
       matrix:
-          os: [macOS-latest]
-
+        os:
+          - macOS-latest
     steps:
-    - name: checkout sources
-      uses: actions/checkout@v2
-
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - run: npm install
-
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'adopt'
-        cache: maven
-
-    - name: Build Chain ${{ matrix.java-version }}
-      id: build-chain
-      uses: kiegroup/github-action-build-chain@v2.6.21
-      with:
-        definition-file: https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        archive-artifacts-path: ./*.jar
-
-    - name: Build with Maven
-      run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+      - name: checkout sources
+        uses: actions/checkout@v2
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: '14'
+#      - run: npm install
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: adopt
+          cache: maven
+#      - name: 'Build Chain ${{ matrix.java-version }}'
+#        id: build-chain
+#        uses: kiegroup/github-action-build-chain@v2.6.21
+#        with:
+#          definition-file: >-
+#            https://github.com/cyberalexander/winter-io/blob/master/.github/workflows/build.yml
+#        env:
+#          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#          archive-artifacts-path: ./*.jar
+#      - name: Build with Maven
+#        run: mvn -Dmaven.test.skip=true -B package --file pom.xml
 
 #TODO rework it later. Implement build chain: first build winter-io and then current repo.
 #TODO possible solution: https://github.com/marketplace/actions/github-action-build-chain-cross-repo-builds
