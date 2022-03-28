@@ -34,6 +34,7 @@ jobs:
         with:
           definition-file: >-
             https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yml
+          logger-level: debug
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           archive-artifacts-path: ./*.jar
