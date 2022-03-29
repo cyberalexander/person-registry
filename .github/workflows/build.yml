@@ -24,20 +24,19 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-      - name: Set up JDK 17
+      - name: 'Set up JDK ${{ matrix.java-version }}'
         uses: actions/setup-java@v2
         with:
           java-version: '${{ matrix.java-version }}'
           distribution: adopt
           cache: maven
-      - name: 'Build Chain ${{ matrix.java-version }}'
+      - name: 'Build Chain on Java ${{ matrix.java-version }}'
         id: build-chain
         uses: kiegroup/github-action-build-chain@v2.6.21
         with:
-          definition-file: >-
-            https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yml
+          definition-file: 'https://raw.githubusercontent.com/cyberalexander/person-registry/master/.github/workflows/definition-file.yml'
+          #definition-file: 'https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yml'
           logger-level: debug
-          version: 2.1
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           archive-artifacts-path: ./*.jar
