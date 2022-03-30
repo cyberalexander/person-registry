@@ -20,26 +20,28 @@ jobs:
     steps:
       - name: checkout sources
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm install
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: '14'
+#      - run: npm install
       - name: 'Set up JDK ${{ matrix.java-version }}'
         uses: actions/setup-java@v2
         with:
           java-version: '${{ matrix.java-version }}'
           distribution: adopt
           cache: maven
-      - name: 'Build Chain on Java ${{ matrix.java-version }}'
-        id: build-chain
-        uses: kiegroup/github-action-build-chain@v2.6.21
-        with:
-          definition-file: 'https://raw.githubusercontent.com/cyberalexander/person-registry/master/.github/workflows/definition-file.yaml'
-          #definition-file: 'https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yaml'
-          logger-level: debug
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          archive-artifacts-path: ./*.jar
+#      - name: 'Build Chain on Java ${{ matrix.java-version }}'
+#        id: build-chain
+#        uses: kiegroup/github-action-build-chain@v2.6.21
+#        with:
+#          definition-file: 'https://raw.githubusercontent.com/cyberalexander/person-registry/master/.github/workflows/definition-file.yaml'
+#          #definition-file: 'https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yaml'
+#          logger-level: debug
+#        env:
+#          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#          archive-artifacts-path: ./*.jar
+      - name: Validate with Maven
+        run: mvn validate
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
 

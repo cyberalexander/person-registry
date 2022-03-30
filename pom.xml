@@ -65,6 +65,7 @@
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
+        <install.plugin.version>3.0.0-M1</install.plugin.version>
         <pmd.plugin.verion>3.15.0</pmd.plugin.verion>
         <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
         <jacoco.version>0.8.7</jacoco.version>
@@ -305,6 +306,28 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${install.plugin.version}</version>
+                <configuration>
+                    <groupId>com.leonovich.winter.io</groupId>
+                    <artifactId>winter-io</artifactId>
+                    <version>${winter.version}</version>
+                    <packaging>jar</packaging>
+                    <file>${basedir}/dependencies/winter-io-${winter.version}.jar</file>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install-jar-lib</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>clean</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -313,6 +336,8 @@
             <groupId>com.leonovich.winter.io</groupId>
             <artifactId>winter-io</artifactId>
             <version>${winter.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/dependencies/winter-io-${winter.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
