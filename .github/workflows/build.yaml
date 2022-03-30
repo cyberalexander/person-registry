@@ -1,6 +1,6 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-name: person-registry java CI with maven
+name: CI with maven
 'on':
   push:
     branches:
@@ -10,7 +10,7 @@ name: person-registry java CI with maven
       - master
 jobs:
   build:
-    runs-on: '${{matrix.os}}'
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os:
@@ -20,30 +20,13 @@ jobs:
     steps:
       - name: checkout sources
         uses: actions/checkout@v2
-#      - uses: actions/setup-node@v2
-#        with:
-#          node-version: '14'
-#      - run: npm install
-      - name: 'Set up JDK ${{ matrix.java-version }}'
+      - name: set up JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v2
         with:
-          java-version: '${{ matrix.java-version }}'
+          java-version: ${{ matrix.java-version }}
           distribution: adopt
           cache: maven
-#      - name: 'Build Chain on Java ${{ matrix.java-version }}'
-#        id: build-chain
-#        uses: kiegroup/github-action-build-chain@v2.6.21
-#        with:
-#          definition-file: 'https://raw.githubusercontent.com/cyberalexander/person-registry/master/.github/workflows/definition-file.yaml'
-#          #definition-file: 'https://raw.githubusercontent.com/cyberalexander/winter-io/master/.github/workflows/build.yaml'
-#          logger-level: debug
-#        env:
-#          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-#          archive-artifacts-path: ./*.jar
-      - name: Validate with Maven
+      - name: validate with maven
         run: mvn validate
-      - name: Build with Maven
+      - name: build with maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
-
-#TODO rework it later. Implement build chain: first build winter-io and then current repo.
-#TODO possible solution: https://github.com/marketplace/actions/github-action-build-chain-cross-repo-builds

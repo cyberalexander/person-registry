@@ -1,6 +1,0 @@
-version: "2.1"
-dependencies:
-  - project: cyberalexander/winter-io
-
-  - project: cyberalexander/person-registry
-    dependencies: cyberalexander/winter-io
