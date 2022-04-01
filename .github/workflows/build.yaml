@@ -30,3 +30,4 @@ jobs:
         run: mvn validate
       - name: build with maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+#TODO remove -Dmaven.test.skip=true when install database during CI
