@@ -34,35 +34,35 @@ package by.academy.it.database.sql;
 public enum Query {
     SELECT_ALL_FROM_ADDRESS(
             """
-                    SELECT
+                    select
                         *
-                    FROM
-                        T_ADDRESS
+                    from
+                        t_address
                     """
     ),
     SELECT_ALL_FROM_DEPARTMENT(
             """
-                    SELECT
+                    select
                         *
-                    FROM
-                        T_DEPARTMENT
+                    from
+                        t_department
                     """
     ),
-    SELECT_PERSONS_BY_NAME("SELECT * FROM T_PERSON WHERE F_NAME = ?"),
-    SELECT_PERSONS_BY_SURNAME("SELECT * FROM T_PERSON WHERE F_SURNAME = ?"),
+    SELECT_PERSONS_BY_NAME("select * from t_person where f_name = ?"),
+    SELECT_PERSONS_BY_SURNAME("select * from t_person where f_surname = ?"),
     SELECT_PERSONS_BY_DEPARTMENT(
             """
-                    SELECT
-                        P.*
-                    FROM
-                        T_PERSON P,
-                        T_DEPARTMENT D
-                    WHERE
-                        D.F_DEPARTMENT_NAME = ?
-                        AND D.F_ID = P.F_DEPARTMENT_ID
+                    select
+                        p.*
+                    from
+                        t_person p,
+                        t_department d
+                    where
+                        d.f_department_name = ?
+                        and d.f_id = p.f_department_id
                     """
     ),
-    SELECT_PERSONS_UNDER_AGE("SELECT * FROM T_PERSON WHERE F_AGE <= ?");
+    SELECT_PERSONS_UNDER_AGE("select * from t_person where f_age <= ?");
 
     private final String queryContent;
 

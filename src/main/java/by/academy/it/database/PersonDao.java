@@ -91,7 +91,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Person> parseResultForGetAll(final Session session) {
-        return session.createSQLQuery("SELECT * FROM T_PERSON").addEntity(Person.class).list();
+        return session.createSQLQuery("select * from t_person").addEntity(Person.class).list();
     }
 
     @Override
