@@ -57,7 +57,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
         <license>MIT License</license>
-        <license.url>https://github.com/cyberalexander/person-registry/blob/master/LICENSE</license.url>
+        <license.url>https://raw.githubusercontent.com/cyberalexander/person-registry/master/LICENSE</license.url>
 
         <!-- ========= Plugins versions ========= -->
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
