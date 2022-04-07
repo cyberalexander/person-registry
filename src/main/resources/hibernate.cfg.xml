@@ -26,7 +26,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:6603/sandbox_schema</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sandbox_schema</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
 
