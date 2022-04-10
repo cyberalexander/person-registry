@@ -20,20 +20,26 @@ jobs:
     steps:
       - name: checkout sources
         uses: actions/checkout@v2
+
       - name: set up JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
           distribution: adopt
           cache: maven
-      - name: setup MySQL database #https://github.com/marketplace/actions/setup-mysql
+
+      - name: setup database #https://github.com/marketplace/actions/setup-mysql
         uses: mirromutth/mysql-action@v1.1
         with:
-          mysql database: 'test_sandbox_schema'
+          mysql database: test_sandbox_schema
           mysql root password: root
           mysql user: root
-      - name: validate with maven
+
+      - name: validate
         run: mvn validate
-      - name: build with maven
+
+      - name: build
         run: mvn -B package --file pom.xml
-#TODO remove -Dmaven.test.skip=true when install database during CI
+
+      - name: shutdown database
+        run: sudo service mysql stop
