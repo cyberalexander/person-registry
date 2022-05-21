@@ -1,0 +1,10 @@
+<!--
+Source: https://scans.gradle.com/?_ga=2.175080418.1322129468.1652963878-284916759.1650697484#maven
+-->
+<extensions>
+    <extension>
+        <groupId>com.gradle</groupId>
+        <artifactId>gradle-enterprise-maven-extension</artifactId>
+        <version>1.14.1</version>
+    </extension>
+</extensions>
