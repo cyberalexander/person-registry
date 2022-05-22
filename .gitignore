@@ -16,3 +16,7 @@
 .settings
 bin
 out
+
+### Gradle ###
+/.gradle/
+/build/

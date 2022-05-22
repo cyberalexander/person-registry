@@ -315,7 +315,7 @@
                     <artifactId>winter-io</artifactId>
                     <version>${winter.version}</version>
                     <packaging>jar</packaging>
-                    <file>${basedir}/dependencies/winter-io-${winter.version}.jar</file>
+                    <file>libs/winter-io-${winter.version}.jar</file>
                     <generatePom>true</generatePom>
                 </configuration>
                 <executions>
@@ -337,7 +337,7 @@
             <artifactId>winter-io</artifactId>
             <version>${winter.version}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/dependencies/winter-io-${winter.version}.jar</systemPath>
+            <systemPath>libs/winter-io-${winter.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
