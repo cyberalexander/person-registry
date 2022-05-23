@@ -209,19 +209,7 @@
                         </goals>
                         <configuration>
                             <failOnViolation>true</failOnViolation>
-                            <suppressionsLocation>src/main/resources/quality/checkstyle_suppressions.xml</suppressionsLocation>
-                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>check-custom-checks</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <configLocation>src/main/resources/quality/custom_checkstyle.xml</configLocation>
-                            <suppressionsLocation>src/main/resources/quality/custom_checkstyle_suppressions.xml</suppressionsLocation>
+                            <configLocation>src/main/resources/quality/checkstyle.xml</configLocation>
                         </configuration>
                     </execution>
                 </executions>
@@ -315,7 +303,7 @@
                     <artifactId>winter-io</artifactId>
                     <version>${winter.version}</version>
                     <packaging>jar</packaging>
-                    <file>${basedir}/libs/winter-io-${winter.version}.jar</file>
+                    <file>${basedir}/dependencies/winter-io-${winter.version}.jar</file>
                     <generatePom>true</generatePom>
                 </configuration>
                 <executions>
@@ -337,7 +325,7 @@
             <artifactId>winter-io</artifactId>
             <version>${winter.version}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/libs/winter-io-${winter.version}.jar</systemPath>
+            <systemPath>${basedir}/dependencies/winter-io-${winter.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

@@ -22,11 +22,10 @@
  ~ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 <!DOCTYPE module PUBLIC
-        "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-        "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
-
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <!-- OOB checkstyle rules can be customized here -->
-<module name="Checker">
+<module name="com.puppycrawl.tools.checkstyle.Checker">
     <property name="charset" value="UTF-8"/>
 
     <module name="SuppressWarningsFilter"/>
@@ -36,7 +35,8 @@
         <property name="severity" value="error"/>
     </module>
 
-    <module name="TreeWalker">
-
+    <module name="SuppressionFilter">
+        <!--TODO replace src/main/resources/quality/ with ${config_loc} when migration to gradle completed-->
+        <property name="file" value="src/main/resources/quality/suppressions.xml"/>
     </module>
 </module>
