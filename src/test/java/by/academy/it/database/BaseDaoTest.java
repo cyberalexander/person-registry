@@ -92,7 +92,8 @@ public interface BaseDaoTest<T extends Automated> {
         Assertions.assertEquals(
             entity,
             queried,
-            String.format("Modified %s should be equal to queried %s after update() operation executed.", entity, queried)
+            String.format("Modified %s should be equal to queried %s after update() operation executed.",
+                    entity, queried)
         );
     }
 
@@ -106,7 +107,8 @@ public interface BaseDaoTest<T extends Automated> {
         Assertions.assertEquals(
             entity,
             queried,
-            String.format("Modified %s should be equal to queried %s after saveOrUpdate() operation executed.", entity, queried)
+            String.format("Modified %s should be equal to queried %s after saveOrUpdate() operation executed.",
+                    entity, queried)
         );
     }
 

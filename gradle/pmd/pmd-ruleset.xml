@@ -21,22 +21,28 @@
  ~ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  ~ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<!DOCTYPE module PUBLIC
-        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
-        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
-<!-- OOB checkstyle rules can be customized here -->
-<module name="com.puppycrawl.tools.checkstyle.Checker">
-    <property name="charset" value="UTF-8"/>
+<ruleset name="Custom set of PMD rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
-    <module name="SuppressWarningsFilter"/>
+    <description>Customization of default PMD rule sets</description>
 
-    <module name="LineLength">
-        <property name="max" value="120"/>
-        <property name="severity" value="error"/>
-    </module>
-
-    <module name="SuppressionFilter">
-        <!--TODO replace src/main/resources/quality/ with ${config_loc} when migration to gradle completed-->
-        <property name="file" value="src/main/resources/quality/suppressions.xml"/>
-    </module>
-</module>
+    <!-- A rule set, that comes bundled with PMD -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <exclude name="UseTryWithResources"/>
+    </rule>
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="AvoidCatchingThrowable"/>
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="DoNotTerminateVM"/>
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="CloseResource"/>
+        <exclude name="MissingSerialVersionUID"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+        <exclude name="DetachedTestCase"/>
+    </rule>
+</ruleset>

@@ -47,7 +47,8 @@ class DepartmentDaoTest implements BaseDaoTest<Department> {
     private final PersonDao personDao = new PersonDao();
 
     /**
-     * cascade="all-delete-orphan" - when deleting Department, all related Persons should be deleted by hibernate as well.
+     * cascade="all-delete-orphan" - when deleting Department,
+     * all related Persons should be deleted by hibernate as well.
      */
     @Test
     @SneakyThrows

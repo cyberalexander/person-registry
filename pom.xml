@@ -66,8 +66,6 @@
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
         <install.plugin.version>3.0.0-M1</install.plugin.version>
-        <pmd.plugin.verion>3.15.0</pmd.plugin.verion>
-        <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
         <jacoco.version>0.8.7</jacoco.version>
 
         <!-- ========= Dependencies versions ========= -->
@@ -161,58 +159,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe.plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.plugin.verion}</version>
-                <configuration>
-                    <rulesets>
-                        <ruleset>src/main/resources/quality/pmd-ruleset.xml</ruleset>
-                    </rulesets>
-                    <targetJdk>${java.version}</targetJdk>
-                    <includeTests>true</includeTests>
-                    <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
-                    <linkXRef>false</linkXRef>
-                    <printFailingErrors>true</printFailingErrors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.plugin.version}</version>
-                <configuration>
-                    <consoleOutput>true</consoleOutput>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>${checkstyle.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>oob-checks</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <failOnViolation>true</failOnViolation>
-                            <configLocation>src/main/resources/quality/checkstyle.xml</configLocation>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
