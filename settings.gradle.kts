@@ -1,4 +1,4 @@
-println("Processing 'settings.gradle.kts' during the initialization phase.")
+println(">>> Initialization phase:\nProcessing 'settings.gradle.kts'")
 
 pluginManagement {
     repositories {

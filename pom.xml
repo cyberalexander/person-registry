@@ -31,23 +31,6 @@
     <version>${revision}</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>Person entity managing console application.</description>
-    <url>https://github.com/cyberalexander/person-registry</url>
-    <licenses>
-        <license>
-            <name>${project.licence}</name>
-            <url>${project.licence.url}</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>Aliaksandr Leanovich</name>
-            <email>taurum13@gmail.com</email>
-            <organization>by.academy.it</organization>
-            <organizationUrl>https://github.com/cyberalexander/person-registry</organizationUrl>
-        </developer>
-    </developers>
 
     <properties>
         <!-- ========= Project properties ========= -->
@@ -56,8 +39,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
-        <license>MIT License</license>
-        <license.url>https://raw.githubusercontent.com/cyberalexander/person-registry/master/LICENSE</license.url>
 
         <!-- ========= Plugins versions ========= -->
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
