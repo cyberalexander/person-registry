@@ -136,7 +136,19 @@ tasks {
         options.encoding = "UTF-8"
     }
 
-    test {
+    withType<Test> {
+        useJUnitPlatform()
+
+        val events = project.findProperty("testLoggingEvents") as String? ?: "PASSED,FAILED,SKIPPED"
+        val testLoggingEvents = events.split(",")
+            .map { org.gradle.api.tasks.testing.logging.TestLogEvent.valueOf(it) }
+            .toTypedArray()
+
+        testLogging {
+            events(*testLoggingEvents)
+            showStandardStreams = false
+        }
+
         finalizedBy(jacocoTestReport) // report is always generated after tests run
     }
 
