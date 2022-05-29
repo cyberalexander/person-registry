@@ -1,4 +1,5 @@
 import org.gradle.model.internal.core.ModelNodes.withType
+import org.jetbrains.kotlin.gradle.targets.js.npm.includedRange
 import org.jetbrains.kotlin.utils.alwaysTrue
 
 /*
@@ -154,10 +155,23 @@ tasks {
 
     jacocoTestReport {
         dependsOn(test) // tests are required to run before generating the report
+
+        // exclusions from jacoco analysis
+        classDirectories.setFrom(
+            files(classDirectories.files.map {
+                fileTree(it) {
+                    exclude(
+                        "$buildDir/resources",
+                        "*.jar"
+                    )
+                }
+            })
+        )
+
         reports {
             xml.required.set(false)
             csv.required.set(false)
-            html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+            html.outputLocation.set(layout.buildDirectory.dir("jacoco/html"))
         }
     }
 
