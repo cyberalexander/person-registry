@@ -137,6 +137,12 @@ tasks {
         options.encoding = "UTF-8"
     }
 
+    register<Copy>("copyDependencies") {
+        println(">>> Execute Copy task")
+        from(configurations.compileClasspath)
+        into("$buildDir/libraries")
+    }
+
     withType<Test> {
         useJUnitPlatform()
 
