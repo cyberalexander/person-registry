@@ -138,12 +138,16 @@ tasks {
     }
 
     register<Copy>("copyDependencies") {
-        println(">>> Execute Copy task")
+        println(">>> Register copyDependencies task")
         from(configurations.compileClasspath)
         into("$buildDir/libraries")
+        doLast {
+            println(">>> Execute copyDependencies task")
+        }
     }
 
     withType<Test> {
+        dependsOn(withType<Copy>())
         useJUnitPlatform()
 
         val events = project.findProperty("testLoggingEvents") as String? ?: "PASSED,FAILED,SKIPPED"
