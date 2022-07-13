@@ -1,6 +1,4 @@
-import org.gradle.model.internal.core.ModelNodes.withType
-import org.jetbrains.kotlin.gradle.targets.js.npm.includedRange
-import org.jetbrains.kotlin.utils.alwaysTrue
+import org.jetbrains.kotlin.backend.common.serialization.mangle.collectForMangler
 
 /*
  * MIT License
@@ -133,17 +131,28 @@ publishing {
 }
 
 tasks {
-    withType<JavaCompile>() {
+    withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
 
     register<Copy>("copyDependencies") {
         println(">>> Register copyDependencies task")
         from(configurations.compileClasspath)
-        into("$buildDir/libraries")
+        into("$buildDir/libs/libraries")
         doLast {
             println(">>> Execute copyDependencies task")
         }
+    }
+
+    withType<Jar> {
+        println(">>> Execute Jar task")
+        dependsOn("copyDependencies")
+        manifest {
+            attributes["Manifest-Version"] = "1.0"
+            attributes["Main-Class"] = "by.academy.it.PersonRegistryApplication"
+            attributes["Class-Path"] = configurations.compileClasspath.get().files.joinToString(separator = " ") { it.name }
+        }
+        println(configurations.compileClasspath.get().files.joinToString(separator = " ") { it.name })
     }
 
     withType<Test> {
