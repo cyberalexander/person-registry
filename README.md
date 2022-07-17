@@ -16,10 +16,16 @@ It's important, as this application based on [winter-io](https://github.com/cybe
 3. To create the production and test databases, we need to execute the [create_schema.sql](.schema/create_schema.sql) and [create_schema.sql](_schema/create_test_schema.sql) scripts.
 4. Now need to update `hibernate.connection.username` and `hibernate.connection.password` values with the local mysql `user` and `password`.
 
-#### Build:
+#### Build
+##### Maven
 ```bash
 $ mvn -U clean install
 $ java -jar target/person-registry.jar
+```
+##### Gradle
+```bash
+$ gradle build
+$ java -jar build/libs/person-registry-3.0.1.jar
 ```
 
 #### The application menu view:
