@@ -24,7 +24,7 @@ import org.jetbrains.kotlin.backend.common.serialization.mangle.collectForMangle
  */
 description = "Person entity managing console application."
 group = "by.academy.it"
-version = "3.0.0"
+version = "3.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val licenseName: String by project
