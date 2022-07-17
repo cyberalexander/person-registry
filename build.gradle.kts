@@ -121,7 +121,7 @@ dependencies {
     //local dependencies
     compileOnly(fileTree("$rootDir/dependencies") { include("*.jar") })
     runtimeOnly(fileTree("$rootDir/dependencies") { include("*.jar") })
-    implementation(files("$rootDir/dependencies/winter-io:2022.03.27-SNAPSHOT.jar"))
+    implementation(files("$rootDir/dependencies/winter-io-2022.04.01-SNAPSHOT-jar-with-dependencies.jar"))
 }
 
 publishing {
@@ -131,6 +131,10 @@ publishing {
 }
 
 tasks {
+    build {
+        dependsOn(withType<Jar>())
+    }
+
     withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
@@ -146,13 +150,14 @@ tasks {
 
     withType<Jar> {
         println(">>> Execute Jar task")
-        dependsOn("copyDependencies")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         manifest {
             attributes["Manifest-Version"] = "1.0"
             attributes["Main-Class"] = "by.academy.it.PersonRegistryApplication"
-            attributes["Class-Path"] = configurations.compileClasspath.get().files.joinToString(separator = " ") { it.name }
         }
-        println(configurations.compileClasspath.get().files.joinToString(separator = " ") { it.name })
+        configurations["compileClasspath"].forEach { file: File ->
+            from(zipTree(file.absoluteFile))
+        }
     }
 
     withType<Test> {
