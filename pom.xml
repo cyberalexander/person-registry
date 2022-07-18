@@ -31,14 +31,34 @@
     <version>${revision}</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
+    <description>Person entity managing console application.</description>
+    <url>https://github.com/cyberalexander/person-registry</url>
+    <licenses>
+        <license>
+            <name>${project.licence}</name>
+            <url>${project.licence.url}</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Aliaksandr Leanovich</name>
+            <email>taurum13@gmail.com</email>
+            <organization>by.academy.it</organization>
+            <organizationUrl>https://github.com/cyberalexander/person-registry</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
+        <config_loc>${basedir}/gradle/checkstyle</config_loc>
         <!-- ========= Project properties ========= -->
         <revision>3.0.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
+        <license>MIT License</license>
+        <license.url>https://raw.githubusercontent.com/cyberalexander/person-registry/master/LICENSE</license.url>
 
         <!-- ========= Plugins versions ========= -->
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
@@ -47,6 +67,8 @@
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
         <install.plugin.version>3.0.0-M1</install.plugin.version>
+        <pmd.plugin.verion>3.15.0</pmd.plugin.verion>
+        <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
         <jacoco.version>0.8.7</jacoco.version>
 
         <!-- ========= Dependencies versions ========= -->
@@ -140,6 +162,59 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.plugin.verion}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>gradle/pmd/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                    <targetJdk>${java.version}</targetJdk>
+                    <includeTests>true</includeTests>
+                    <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+                    <linkXRef>false</linkXRef>
+                    <printFailingErrors>true</printFailingErrors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <configLocation>${basedir}/gradle/checkstyle/checkstyle.xml</configLocation>
+                            <propertiesLocation>${basedir}/gradle/checkstyle/checkstyle_maven.properties</propertiesLocation>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
