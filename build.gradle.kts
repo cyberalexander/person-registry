@@ -53,7 +53,7 @@ plugins {
     java
     pmd
     checkstyle
-    jacoco //TODO continue configuring Jacoco
+    jacoco
     kotlin("jvm") version "1.6.21"
     `maven-publish`
 }
@@ -83,18 +83,17 @@ checkstyle {
 }
 
 /**
- * //TODO continue configuring Jacoco
  * JaCoCo plugin extension configuration.
- * https://docs.gradle.org/current/userguide/jacoco_plugin.html
+ * <a href="https://docs.gradle.org/current/userguide/jacoco_plugin.html">Jacoco Plugin</a>
  */
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "0.8.8"
     //reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir")) use default: $buildDir/reports/jacoco
 }
 
 repositories {
     flatDir {
-        dir("$rootDir/dependencies")
+        dir("$rootDir/libs/libraries")
     }
     mavenLocal()
     maven {
@@ -107,16 +106,16 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:2.17.1")
     implementation("org.hibernate:hibernate-core:5.6.7.Final")
     implementation("org.hibernate:hibernate-entitymanager:5.6.7.Final")
-    implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("mysql:mysql-connector-java:8.0.29")
     implementation("org.apache.commons:commons-lang3:3.12.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.3.1")
-    testImplementation("org.mockito:mockito-core:4.3.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
+    testImplementation("org.mockito:mockito-core:4.6.1")
 
-    compileOnly("org.projectlombok:lombok:1.18.22")
-    testCompileOnly("org.projectlombok:lombok:1.18.22")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
-    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    compileOnly("org.projectlombok:lombok:1.18.24")
+    testCompileOnly("org.projectlombok:lombok:1.18.24")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
 
     //local dependencies
     compileOnly(fileTree("$rootDir/dependencies") { include("*.jar") })
@@ -174,6 +173,10 @@ tasks {
             showStandardStreams = false
         }
 
+        configure<JacocoTaskExtension> {
+            //TODO configure
+        }
+
         finalizedBy(jacocoTestReport) // report is always generated after tests run
     }
 
@@ -203,10 +206,12 @@ tasks {
         violationRules {
             rule {
                 limit {
-                    minimum = "0.5".toBigDecimal()
+                    minimum = "0.7".toBigDecimal()
                 }
+                excludes = listOf("by.academy.it.menu")
             }
 
+            // TODO configure
             rule {
                 isEnabled = true
                 element = "CLASS"
