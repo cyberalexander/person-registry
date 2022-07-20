@@ -26,6 +26,7 @@ import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -85,6 +86,6 @@ public class CustomPhysicalNamingStrategy extends PhysicalNamingStrategyStandard
     private String convertValue(final String name) {
         final String regex = "([a-z])([A-Z])";
         final String replacement = "$1_$2";
-        return name.replaceAll(regex, replacement).toLowerCase();
+        return name.replaceAll(regex, replacement).toLowerCase(Locale.getDefault());
     }
 }

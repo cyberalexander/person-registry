@@ -42,7 +42,5 @@
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="CloseResource"/>
         <exclude name="MissingSerialVersionUID"/>
-        <exclude name="UseLocaleWithCaseConversions"/>
-        <exclude name="DetachedTestCase"/>
     </rule>
 </ruleset>

@@ -27,7 +27,7 @@
 <suppressions>
     <suppress files="ConsoleMenu" checks="LineLength"/>
     <suppress files="Constants" checks="LineLength"/>
-    <suppress files="OperationProvider.java" checks="MagicNumber"/>
+    <suppress files="OperationProvider" checks="MagicNumber"/>
 
     <suppress files="." checks="JavadocVariable"/>
     <!--TODO candidates to be fixed. -->

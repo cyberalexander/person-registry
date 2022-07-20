@@ -45,6 +45,7 @@ import java.util.Optional;
  */
 @Log4j2
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("PMD.DetachedTestCase")
 abstract class CrudConsoleServiceTest<T extends Automated> {
 
     abstract CrudConsoleService<T> service();
