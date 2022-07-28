@@ -37,9 +37,9 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import static java.lang.System.out;
 
@@ -50,6 +50,8 @@ import static java.lang.System.out;
 @Log4j2
 @Singleton
 public final class PersonServiceImpl implements PersonService {
+    private static final SecureRandom RANDOM = new SecureRandom();
+
     @InjectByType
     private PersonDao personDao;
     @InjectByType
@@ -99,7 +101,7 @@ public final class PersonServiceImpl implements PersonService {
             dep.setPersons(Collections.singleton(person));
             person.setDepartment(dep);
         } else {
-            int randomDepartmentId = new Random().nextInt(departments.size() - 1) + 1;
+            int randomDepartmentId = RANDOM.nextInt(departments.size() - 1) + 1;
             Department randomDepartment = departments.get(randomDepartmentId);
             randomDepartment.addPersons(Collections.singleton(person));
             person.setDepartment(randomDepartment);
@@ -206,7 +208,7 @@ public final class PersonServiceImpl implements PersonService {
     public void flushDemo() {
         try {
             List<Person> persons = personDao.getAll();
-            Person randomPerson = persons.get(new Random().nextInt(persons.size() - 1) + 1);
+            Person randomPerson = persons.get(RANDOM.nextInt(persons.size() - 1) + 1);
             personDao.flushDemo(randomPerson);
         } catch (DaoException e) {
             throw new MenuException(String.format(Constants.ErrorMessage.FLUSH_ERROR, e.getMessage()), e);
