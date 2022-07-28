@@ -22,6 +22,8 @@
  */
 package by.academy.it.domain;
 
+import java.security.SecureRandom;
+
 /**
  * Created : 09/10/2021 10:44
  * Project : person-registry
@@ -31,6 +33,8 @@ package by.academy.it.domain;
  * @version 1.0
  */
 public interface Automated {
+
+    SecureRandom RANDOM = new SecureRandom();
 
     Integer ONE_HUNDRED = 100;
 

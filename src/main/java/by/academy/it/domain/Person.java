@@ -90,7 +90,7 @@ public class Person implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setName("modified_name_" + now);
         this.setSurname("modified_surname_" + now);
-        this.setAge(new Random().nextInt(Automated.ONE_HUNDRED - 1) + 1);
+        this.setAge(RANDOM.nextInt(Automated.ONE_HUNDRED - 1) + 1);
         this.getAddress().setStreet("modified_street_" + now);
         return this;
     }
@@ -100,7 +100,7 @@ public class Person implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setName("name_" + now);
         this.setSurname("surname_" + now);
-        this.setAge(new Random().nextInt(Automated.ONE_HUNDRED - 1) + 1);
+        this.setAge(RANDOM.nextInt(Automated.ONE_HUNDRED - 1) + 1);
 
         Address addr = Address.init();
         this.setAddress(addr);
