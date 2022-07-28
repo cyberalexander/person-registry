@@ -82,7 +82,7 @@ public class Address implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setCity("city_" + now);
         this.setStreet("street_" + now);
-        this.setBuilding(new Random().nextInt());
+        this.setBuilding(RANDOM.nextInt());
         return this;
     }
 
@@ -91,7 +91,7 @@ public class Address implements Serializable, Automated {
         LocalDateTime now = LocalDateTime.now();
         this.setCity("city_" + now);
         this.setStreet("street_" + now);
-        this.setBuilding(new Random().nextInt());
+        this.setBuilding(RANDOM.nextInt());
         return this;
     }
 
