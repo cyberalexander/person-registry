@@ -50,7 +50,6 @@
     </developers>
 
     <properties>
-        <config_loc>${basedir}/gradle/checkstyle</config_loc>
         <!-- ========= Project properties ========= -->
         <revision>3.0.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -211,8 +210,8 @@
                         </goals>
                         <configuration>
                             <failOnViolation>true</failOnViolation>
-                            <configLocation>${basedir}/gradle/checkstyle/checkstyle.xml</configLocation>
-                            <propertiesLocation>${basedir}/gradle/checkstyle/checkstyle_maven.properties</propertiesLocation>
+                            <configLocation>${basedir}/quality/checkstyle/checkstyle.xml</configLocation>
+                            <propertiesLocation>${basedir}/quality/checkstyle/checkstyle_maven.properties</propertiesLocation>
                         </configuration>
                     </execution>
                 </executions>
@@ -330,8 +329,8 @@
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
                     <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs</spotbugsXmlOutputDirectory>
-                    <includeFilterFile>${basedir}/quality/spotbugs-security-include.xml</includeFilterFile>
-                    <excludeFilterFile>${basedir}/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <includeFilterFile>${basedir}/quality/spotbugs/spotbugs-security-include.xml</includeFilterFile>
+                    <excludeFilterFile>${basedir}/quality/spotbugs/spotbugs-security-exclude.xml</excludeFilterFile>
                     <plugins>
                         <plugin>
                             <groupId>com.h3xstream.findsecbugs</groupId>

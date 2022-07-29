@@ -76,8 +76,8 @@ pmd {
  */
 checkstyle {
     toolVersion = "10.2"
-    config = resources.text.fromFile("$rootDir/gradle/checkstyle/checkstyle.xml", "UTF-8")
-    configDirectory.set(file("$rootDir/gradle/checkstyle"))
+    config = resources.text.fromFile("$rootDir/quality/checkstyle/checkstyle.xml", "UTF-8")
+    configDirectory.set(file("$rootDir/quality/checkstyle"))
     isShowViolations = true
     isIgnoreFailures = false
 }
