@@ -51,7 +51,6 @@
 
     <properties>
         <!-- ========= Project properties ========= -->
-        <config_loc>${basedir}/quality/checkstyle</config_loc>
         <revision>3.0.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
