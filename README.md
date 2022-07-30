@@ -12,7 +12,16 @@ System name: **person-registry**
 #### Getting Started
 1. To run the application, first we need to checkout [winter-io](https://github.com/cyberalexander/winter-io) framework and successfully compile it on our local machine.
 It's important, as this application based on [winter-io](https://github.com/cyberalexander/winter-io) framework.
-2. Then we need to set up the database. As application using MySql database, we need it to be installed on our local machine. 
+2. Then we need to set up the database. As application using MySql database, we need it to being installed on our local machine. Here is useful article how to set up and run MySql as a docker container: [MySQL Docker Container Tutorial: How to Set Up & Configure](https://phoenixnap.com/kb/mysql-docker-container)
+```bash
+docker run \
+--detach \
+--name=[container_name] \
+--env="MYSQL_ROOT_PASSWORD=[my_password]" \
+--publish 6603:3306 \
+--volume=/root/docker/[container_name]/conf.d:/etc/mysql/conf.d \
+mysql
+```
 3. To create the production and test databases, we need to execute the [create_schema.sql](.schema/create_schema.sql) and [create_schema.sql](_schema/create_test_schema.sql) scripts.
 4. Now need to update `hibernate.connection.username` and `hibernate.connection.password` values with the local mysql `user` and `password`.
 
