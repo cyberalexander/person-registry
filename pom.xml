@@ -169,7 +169,7 @@
                 <version>${pmd.plugin.verion}</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>gradle/pmd/pmd-ruleset.xml</ruleset>
+                        <ruleset>quality/pmd/pmd-ruleset.xml</ruleset>
                     </rulesets>
                     <targetJdk>${java.version}</targetJdk>
                     <includeTests>true</includeTests>
