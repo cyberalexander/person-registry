@@ -88,7 +88,7 @@ checkstyle {
  */
 jacoco {
     toolVersion = "0.8.8"
-    //reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir")) use default: $buildDir/reports/jacoco
+    reportsDirectory.set(layout.buildDirectory.dir("reports/jacoco"))
 }
 
 repositories {
@@ -198,20 +198,22 @@ tasks {
         reports {
             xml.required.set(false)
             csv.required.set(false)
-            html.outputLocation.set(layout.buildDirectory.dir("jacoco/html"))
+            html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/html"))
         }
+        finalizedBy(jacocoTestCoverageVerification)
     }
 
     jacocoTestCoverageVerification {
+        dependsOn(jacocoTestReport)
         violationRules {
             rule {
                 limit {
-                    minimum = "0.7".toBigDecimal()
+                    minimum = "0.5".toBigDecimal()
                 }
                 excludes = listOf("by.academy.it.menu")
             }
 
-            // TODO configure
+            // TODO configure https://rhamedy.medium.com/how-to-setup-jacoco-code-coverage-with-maven-gradle-76e0b2fca9fb
             rule {
                 isEnabled = true
                 element = "CLASS"
@@ -262,3 +264,28 @@ tasks {
         }
     }
 }
+
+/*
+Jacoco rules can be applied to the following element types with a list of limits:
+ BUNDLE - all classes in the module combined will be checked against the rule.
+ PACKAGE - each java package.
+ CLASS - each Class file will be checked against the rule.
+ SOURCEFILE - each Java file will be checked against the rule. 1 java file can contain multiple classes.
+ METHOD
+
+The limits apply to the following counters
+ INSTRUCTION
+ LINE
+ BRANCH
+ COMPLEXITY
+ METHOD
+ CLASS
+
+A minimum or maximum for the following can be defined
+ TOTALCOUNT
+ COVEREDCOUNT
+ MISSEDCOUNT
+ COVEREDRATIO
+ MISSEDRATIO
+
+ */
