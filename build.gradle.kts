@@ -102,13 +102,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.logging.log4j:log4j-api:2.17.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.17.1")
-    implementation("org.hibernate:hibernate-core:5.6.7.Final")
-    implementation("org.hibernate:hibernate-entitymanager:5.6.7.Final")
+    implementation("org.apache.logging.log4j:log4j-api:2.17.2")
+    implementation("org.apache.logging.log4j:log4j-core:2.17.2")
+    implementation("org.hibernate:hibernate-core:5.6.8.Final")
+    implementation("org.hibernate:hibernate-entitymanager:5.6.8.Final")
     implementation("mysql:mysql-connector-java:8.0.29")
     implementation("org.apache.commons:commons-lang3:3.12.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
     testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
     testImplementation("org.mockito:mockito-core:4.6.1")
 
