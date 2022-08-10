@@ -183,18 +183,6 @@ tasks {
     jacocoTestReport {
         dependsOn(test) // tests are required to run before generating the report
 
-        // exclusions from jacoco analysis
-        classDirectories.setFrom(
-            files(classDirectories.files.map {
-                fileTree(it) {
-                    exclude(
-                        "$buildDir/resources",
-                        "*.jar"
-                    )
-                }
-            })
-        )
-
         reports {
             xml.required.set(false)
             csv.required.set(false)
@@ -203,32 +191,74 @@ tasks {
         finalizedBy(jacocoTestCoverageVerification)
     }
 
+    /**
+     * Jacoco rules can be applied to the following element types with a list of limits:
+     * BUNDLE - all classes in the module combined will be checked against the rule.
+     * PACKAGE - each java package.
+     * CLASS - each Class file will be checked against the rule.
+     * SOURCEFILE - each Java file will be checked against the rule. 1 java file can contain multiple classes.
+     * METHOD
+     *
+     * The limits apply to the following counters
+     * INSTRUCTION
+     * LINE
+     * BRANCH
+     * COMPLEXITY
+     * METHOD
+     * CLASS
+     *
+     * A minimum or maximum for the following can be defined
+     * TOTALCOUNT
+     * COVEREDCOUNT
+     * MISSEDCOUNT
+     * COVEREDRATIO
+     * MISSEDRATIO
+     *
+     * Sources:
+     * 1) <a href="https://rhamedy.medium.com/how-to-setup-jacoco-code-coverage-with-maven-gradle-76e0b2fca9fb">source 1</a>
+     */
     jacocoTestCoverageVerification {
         dependsOn(jacocoTestReport)
+
+        // exclusions from jacoco analysis
+        classDirectories.setFrom(
+            files(classDirectories.files.map {
+                fileTree(it) {
+                    exclude(
+                        "by/academy/it/*PersonRegistryApplication.*",
+                        "by/academy/it/exception/**",
+                        "by/academy/it/domain/**",
+                        "by/academy/it/menu/**",
+                        "by/academy/it/util/**",
+                        "$buildDir/resources",
+                        "*.jar"
+                    )
+                }
+            })
+        )
+
         violationRules {
             rule {
                 limit {
-                    minimum = "0.5".toBigDecimal()
+                    minimum = "0.55".toBigDecimal()
                 }
-                excludes = listOf("by.academy.it.menu")
+
+                limit {
+                    counter = "CLASS"
+                    value = "MISSEDCOUNT"
+                    maximum = "2".toBigDecimal()
+                }
             }
 
-            // TODO configure https://rhamedy.medium.com/how-to-setup-jacoco-code-coverage-with-maven-gradle-76e0b2fca9fb
             rule {
                 isEnabled = true
                 element = "CLASS"
                 includes = listOf("org.gradle.*")
 
                 limit {
-                    counter = "CLASS"
-                    value = "MISSEDCOUNT"
-                    maximum = "8".toBigDecimal()
-                }
-
-                limit {
                     counter = "LINE"
                     value = "TOTALCOUNT"
-                    maximum = "0.3".toBigDecimal()
+                    maximum = "0.5".toBigDecimal()
                 }
 
                 limit {
@@ -264,28 +294,3 @@ tasks {
         }
     }
 }
-
-/*
-Jacoco rules can be applied to the following element types with a list of limits:
- BUNDLE - all classes in the module combined will be checked against the rule.
- PACKAGE - each java package.
- CLASS - each Class file will be checked against the rule.
- SOURCEFILE - each Java file will be checked against the rule. 1 java file can contain multiple classes.
- METHOD
-
-The limits apply to the following counters
- INSTRUCTION
- LINE
- BRANCH
- COMPLEXITY
- METHOD
- CLASS
-
-A minimum or maximum for the following can be defined
- TOTALCOUNT
- COVEREDCOUNT
- MISSEDCOUNT
- COVEREDRATIO
- MISSEDRATIO
-
- */
