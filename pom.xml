@@ -83,7 +83,7 @@
         <mockito.version>4.6.1</mockito.version>
 
         <!-- ============= Code quality ============== -->
-        <code.cvrg.classes-without-tests>7</code.cvrg.classes-without-tests>
+        <code.cvrg.classes-without-tests>2</code.cvrg.classes-without-tests>
         <code.cvrg.instructions>0.5</code.cvrg.instructions>
         <code.cvrg.complexity>0.53</code.cvrg.complexity>
         <code.cvrg.methods>0.6</code.cvrg.methods>
@@ -225,7 +225,8 @@
                     <output>file</output>
                     <excludes>
                         <exclude>by/academy/it/*PersonRegistryApplication.*</exclude>
-                        <exclude>by/academy/it/exception/**/*</exclude>
+                        <exclude>by/academy/it/exception/**</exclude>
+                        <exclude>by/academy/it/domain/**</exclude>
                         <exclude>by/academy/it/menu/**/*</exclude>
                         <exclude>by/academy/it/util/**/*</exclude>
                     </excludes>
@@ -248,11 +249,6 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <excludes>
-                                <exclude>by/academy/it/domain/**</exclude>
-                                <exclude>by/academy/it/menu/**</exclude>
-                                <exclude>by/academy/it/**</exclude>
-                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
