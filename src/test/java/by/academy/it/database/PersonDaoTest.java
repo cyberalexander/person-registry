@@ -161,6 +161,16 @@ class PersonDaoTest implements BaseDaoTest<Person> {
 
     }
 
+    @Test
+    @SneakyThrows
+    void testFlushDemo() {
+        Person person = Person.init();
+        dao().save(person);
+
+        Person actual = dao().flushDemo(person);
+        Assertions.assertNotEquals(person.getName(), actual.getName());
+    }
+
     @Override
     public PersonDao dao() {
         return this.personDao;

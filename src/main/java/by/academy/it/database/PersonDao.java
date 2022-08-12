@@ -51,7 +51,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
         super(HibernateUtil.getHibernateUtil());
     }
 
-    public void flushDemo(final Person detached) throws DaoException {
+    public Person flushDemo(final Person detached) throws DaoException {
         try {
             Session session = super.hibernate().getSession();
             Transaction t = session.beginTransaction();
@@ -83,6 +83,7 @@ public class PersonDao extends BaseDao<Person> implements IPersonDao {
             if (log.isDebugEnabled()) {
                 log.debug("Name in database equal to newName? : {}", queried.getName().equals(newName));
             }
+            return queried;
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
